@@ -7,8 +7,6 @@ exports.gameApi = exports.backendApi = exports.apiclient = void 0;
 
 var _vue = _interopRequireDefault(require("vue"));
 
-var _vueMaterial = _interopRequireDefault(require("vue-material"));
-
 var _App = _interopRequireDefault(require("./App.vue"));
 
 require("./registerServiceWorker");
@@ -16,6 +14,8 @@ require("./registerServiceWorker");
 var _router = _interopRequireDefault(require("./router"));
 
 var _store = _interopRequireDefault(require("./store"));
+
+var _vueMaterial = _interopRequireDefault(require("vue-material"));
 
 require("vue-material/dist/vue-material.min.css");
 

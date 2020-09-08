@@ -38,6 +38,11 @@
             <md-icon>open_in_browser</md-icon>
             <span class="md-list-item-text"> Session</span>
           </md-list-item>
+
+          <md-list-item to="/itemtest">
+            <md-icon>warning</md-icon>
+            <span class="md-list-item-text"> Test View</span>
+          </md-list-item>
         </md-list>
       </md-app-drawer>
 
@@ -71,7 +76,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
