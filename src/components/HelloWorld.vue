@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 <template>
   <div class="hello">
     Hello there {{ username }} -> {{ token }}
@@ -22,10 +21,9 @@
 </template>
 
 <script>
-import ApiClient from "../libs/src/ApiClient";
-import ApiApi from "../libs/src/api/ApiApi";
+import Register from "@/libs/src/model/Register";
 
-import Register from "../libs/src/model/Register";
+import { backendApi, apiclient } from "../main";
 
 export default {
   name: "HelloWorld",
@@ -40,15 +38,14 @@ export default {
   },
   methods: {
     register() {
+      apiclient.defaultHeaders = {};
       let userRegistrationData = new Register(
         this.username,
         this.email,
         this.password,
         this.password
       );
-      let apiclient = new ApiClient();
-      let api = new ApiApi(apiclient);
-      api.apiRestAuthRegistrationCreate(
+      backendApi.apiRestAuthRegistrationCreate(
         userRegistrationData,
         (error, data, response) => {
           if (error) {
@@ -57,11 +54,33 @@ export default {
             console.log("API called successfully. Returned data: ");
             this.token = JSON.parse(response.text).key;
             this.$store.commit("update_api_token", this.token);
+            apiclient.defaultHeaders = {
+              Authorization: `Token ${this.token}`
+            };
           }
         }
       );
     },
-    login() {}
+    login() {
+      let data = {
+        username: this.username,
+        email: "user@example.com",
+        password: this.password
+      };
+
+      backendApi.apiRestAuthLoginCreate(data, (error, data, response) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("API called successfully. Returned data: ");
+          this.token = JSON.parse(response.text).key;
+          this.$store.commit("update_api_token", this.token);
+          apiclient.defaultHeaders = {
+            Authorization: `Token ${this.token}`
+          };
+        }
+      });
+    }
   },
   mounted() {
     this.token = this.$store.state.api_token;
