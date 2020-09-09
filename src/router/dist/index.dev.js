@@ -52,6 +52,14 @@ var routes = [{
       return _interopRequireWildcard(require("../views/ItemTestView.vue"));
     });
   }
+}, {
+  path: "/gameroom",
+  name: "Game Room",
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require("../views/PlayRoom.vue"));
+    });
+  }
 }];
 var router = new _vueRouter["default"]({
   routes: routes

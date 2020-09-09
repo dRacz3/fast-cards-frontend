@@ -4,14 +4,14 @@
     <md-button @click="getCards()">Fetch</md-button>
     <ul>
       <div v-for="(entry, index) of cards" :key="index">
-        <black-card-view :data="entry"> </black-card-view>
+        <black-card-view :card_data="entry"> </black-card-view>
       </div>
     </ul>
 
     <md-button @click="getWhiteCards()">Fetch (WHITE)</md-button>
     <ul>
       <div v-for="(entry, index) of white_cards" :key="index">
-        <white-card-view :data="entry"> </white-card-view>
+        <white-card-view :card_data="entry"> </white-card-view>
       </div>
     </ul>
   </div>

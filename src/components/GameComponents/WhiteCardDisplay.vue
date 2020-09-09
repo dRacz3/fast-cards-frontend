@@ -8,7 +8,7 @@
       <div class="md-title">{{ displayedText }}</div>
 
       <div class="md-subhead evenly-spaced">
-        <span>{{ data.icon }} </span><span>{{ data.deck }}</span>
+        <span>{{ card_data.icon }} </span><span>{{ card_data.deck }}</span>
       </div>
     </md-card>
   </div></template
@@ -26,13 +26,13 @@ export default {
     }
   },
   props: {
-    data: {
+    card_data: {
       required: true
     }
   },
   computed: {
     displayedText() {
-      return this.data.text.replace("_", "_____");
+      return this.card_data.text.replace("_", "_____");
     }
   }
 };

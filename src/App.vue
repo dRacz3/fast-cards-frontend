@@ -43,6 +43,10 @@
             <md-icon>warning</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item>
+          <md-list-item to="/gameroom">
+            <md-icon>face</md-icon>
+            <span class="md-list-item-text"> Game</span>
+          </md-list-item>
         </md-list>
       </md-app-drawer>
 
