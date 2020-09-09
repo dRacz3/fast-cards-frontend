@@ -2,22 +2,34 @@
   <div>
     <h1>Test View</h1>
     <md-button @click="getCards()">Fetch</md-button>
-    <div v-for="(entry, index) of cards" :key="index">
-      <black-card-view :data="entry"> </black-card-view>
-    </div>
+    <ul>
+      <div v-for="(entry, index) of cards" :key="index">
+        <black-card-view :data="entry"> </black-card-view>
+      </div>
+    </ul>
+
+    <md-button @click="getWhiteCards()">Fetch (WHITE)</md-button>
+    <ul>
+      <div v-for="(entry, index) of white_cards" :key="index">
+        <white-card-view :data="entry"> </white-card-view>
+      </div>
+    </ul>
   </div>
 </template>
 
 <script>
 import { backendApi } from "../main";
 import BlackCardDisplay from "../components/GameComponents/BlackCardDisplay";
+import WhiteCardDisplay from "../components/GameComponents/WhiteCardDisplay";
 
 export default {
   data: () => ({
-    cards: null
+    cards: null,
+    white_cards: null
   }),
   components: {
-    "black-card-view": BlackCardDisplay
+    "black-card-view": BlackCardDisplay,
+    "white-card-view": WhiteCardDisplay
   },
   methods: {
     getCards() {
@@ -34,9 +46,33 @@ export default {
           this.cards = cards;
         }
       });
+    },
+    getWhiteCards() {
+      let opts = {
+        search: "", // String | A search term.
+        page: 1 // Number | A page number within the paginated result set.
+      };
+
+      backendApi.apiWhiteCardsList(opts, (error, data, response) => {
+        if (error) {
+          console.error(error);
+        } else {
+          let cards = JSON.parse(response.text).results;
+          this.white_cards = cards;
+        }
+      });
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+ul {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 10px;
+  width: 100%;
+}
+</style>

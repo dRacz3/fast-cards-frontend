@@ -1,13 +1,14 @@
 <template>
-  <div class="disable_selection">
-    <md-card md-with-hover class="black-card">
+  <div class="disable_selection" @click="toggleSelect">
+    <md-card
+      md-with-hover
+      class="white-card"
+      v-bind:class="{ selected: isSelected }"
+    >
       <div class="md-title">{{ displayedText }}</div>
 
       <div class="md-subhead evenly-spaced">
         <span>{{ data.icon }} </span><span>{{ data.deck }}</span>
-        <div>
-          PICK <span class="dot pick-counter"> {{ data.pick }}</span>
-        </div>
       </div>
     </md-card>
   </div></template
@@ -15,8 +16,15 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    isSelected: false
+  }),
   components: {},
+  methods: {
+    toggleSelect() {
+      this.isSelected = !this.isSelected;
+    }
+  },
   props: {
     data: {
       required: true
@@ -41,9 +49,9 @@ export default {
   user-select: none;
 }
 
-.black-card {
-  background: black;
-  color: white;
+.white-card {
+  background: white;
+  color: black;
   height: 15em;
   width: 25em;
   margin: 40px 10px 10px 0px;
@@ -53,6 +61,7 @@ export default {
   flex: 1;
   justify-content: space-between;
   border-radius: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.308);
   overflow-wrap: break-word;
 }
 
@@ -68,5 +77,9 @@ export default {
   border-radius: 50px;
   background: #626262ca;
   padding: 15px;
+}
+
+.selected {
+  background: rgba(184, 184, 184, 0.219);
 }
 </style>
