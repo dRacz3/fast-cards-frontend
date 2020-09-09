@@ -11,7 +11,6 @@
 <script>
 import { backendApi } from "../main";
 import BlackCardDisplay from "../components/GameComponents/BlackCardDisplay";
-// import SessionDisplay from "@/components/GameComponents/SessionDisplay.vue";
 
 export default {
   data: () => ({
@@ -22,7 +21,6 @@ export default {
   },
   methods: {
     getCards() {
-      console.log("CALLED!");
       let opts = {
         search: "", // String | A search term.
         page: 1 // Number | A page number within the paginated result set.
@@ -32,11 +30,7 @@ export default {
         if (error) {
           console.error(error);
         } else {
-          console.log(
-            "apiBlackCardsList API called successfully. Returned data: "
-          );
           let cards = JSON.parse(response.text).results;
-          console.log();
           this.cards = cards;
         }
       });
