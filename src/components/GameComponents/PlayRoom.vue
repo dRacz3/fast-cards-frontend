@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import { gameApi } from "../main";
-import BlackCardDisplay from "../components/GameComponents/BlackCardDisplay";
-import PlayerDisplay from "../components/GameComponents/PlayerDisplay";
+import { gameApi } from "../../main";
+import BlackCardDisplay from "./BlackCardDisplay";
+import PlayerDisplay from "./PlayerDisplay";
 
 export default {
   data: () => ({

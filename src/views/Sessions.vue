@@ -19,7 +19,7 @@
 <script>
 import { gameApi } from "../main";
 import SessionDisplay from "@/components/GameComponents/SessionDisplay.vue";
-import PlayRoom from "../views/PlayRoom";
+import PlayRoom from "@/components/GameComponents/PlayRoom.vue";
 
 export default {
   name: "Home",
