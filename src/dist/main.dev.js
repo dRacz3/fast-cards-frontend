@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.gameApi = exports.backendApi = exports.apiclient = void 0;
+exports.gameApi = exports.backendApi = exports.apiclient = exports.backendSocket = void 0;
 
 var _vue = _interopRequireDefault(require("vue"));
 
@@ -14,6 +14,8 @@ require("./registerServiceWorker");
 var _router = _interopRequireDefault(require("./router"));
 
 var _store = _interopRequireDefault(require("./store"));
+
+var _vueNativeWebsocket = _interopRequireDefault(require("vue-native-websocket"));
 
 var _vueMaterial = _interopRequireDefault(require("vue-material"));
 
@@ -33,9 +35,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 //import io from "socket.io-client";
 _vue["default"].use(_vueMaterial["default"]);
 
-_vue["default"].config.productionTip = false; //const socket = io("http://127.0.0.1:8000");
-//Vue.use(VueSocketIOExt, socket);
+_vue["default"].config.productionTip = false;
+console.log();
 
+_vue["default"].use(_vueNativeWebsocket["default"], "ws://localhost:8000/ws/chat/myUser/szoba1/", {
+  store: _store["default"],
+  // format: "json",
+  reconnection: true,
+  reconnectionDelay: 3000,
+  connectManually: true
+});
+
+var backendSocket = new _vue["default"]();
+exports.backendSocket = backendSocket;
 var apiclient = new _ApiClient["default"]();
 exports.apiclient = apiclient;
 var backendApi = new _ApiApi["default"](apiclient);

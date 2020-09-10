@@ -25,7 +25,8 @@ import WhiteCardDisplay from "../components/GameComponents/WhiteCardDisplay";
 export default {
   data: () => ({
     cards: null,
-    white_cards: null
+    white_cards: null,
+    chatSocket: null
   }),
   components: {
     "black-card-view": BlackCardDisplay,

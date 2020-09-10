@@ -6,6 +6,8 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+import VueNativeSock from "vue-native-websocket";
+
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
@@ -13,8 +15,16 @@ import "vue-material/dist/theme/default.css";
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
-//const socket = io("http://127.0.0.1:8000");
-//Vue.use(VueSocketIOExt, socket);
+console.log();
+Vue.use(VueNativeSock, "ws://localhost:8000/ws/chat/myUser/szoba1/", {
+  store: store,
+  // format: "json",
+  reconnection: true,
+  reconnectionDelay: 3000,
+  connectManually: true
+});
+
+export const backendSocket = new Vue();
 
 import ApiClient from "./libs/src/ApiClient";
 import ApiApi from "./libs/src/api/ApiApi";

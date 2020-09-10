@@ -2,7 +2,7 @@
   <div>
     <md-app class="md-accent" v-if="session_data">
       <md-app-toolbar class="md-primary">
-        <span class="md-title">{{ session_data.session }}</span>
+        <span class="md-title">{{ session_data.session.session_id }}</span>
       </md-app-toolbar>
 
       <md-app-content>
@@ -13,6 +13,16 @@
         <black-card-display
           :card_data="session_data.active_black_card"
         ></black-card-display>
+
+        <div v-if="messages">
+          <ul>
+            <div v-for="(entry, index) of messages" :key="index">
+              {{ entry }}
+              <!-- <white-card-view :card_data="entry"> </white-card-view> -->
+            </div>
+          </ul>
+        </div>
+
         <!-- {{ profile_data }} -->
         <div v-if="profile_data">
           <ul>
@@ -27,11 +37,13 @@
     <div v-else></div>
 
     <md-button @click="update_session_info()"> Click</md-button>
+    <md-button @click="connect_to_socket()">Websocket</md-button>
+    <md-button @click="start_game()">Start Game</md-button>
   </div>
 </template>
 
 <script>
-import { gameApi } from "../../main";
+import { gameApi, backendSocket } from "../../main";
 import BlackCardDisplay from "./BlackCardDisplay";
 import PlayerDisplay from "./PlayerDisplay";
 
@@ -39,7 +51,9 @@ export default {
   data: () => ({
     display: "",
     session_data: null,
-    profile_data: null
+    profile_data: null,
+    socket: null,
+    messages: []
   }),
   components: {
     "black-card-display": BlackCardDisplay,
@@ -54,6 +68,31 @@ export default {
     this.update_session_info();
   },
   methods: {
+    connect_to_socket() {
+      backendSocket.$connect(
+        "ws://" +
+          "localhost:8000/ws/chat/" +
+          "user/" +
+          this.session_name +
+          "/" +
+          "?token=" +
+          this.$store.state.api_token
+      );
+      backendSocket.$options.onmessage = this.plswork;
+    },
+    plswork(data) {
+      console.log("plss" + data);
+    },
+
+    start_game() {
+      console.log(backendSocket);
+      backendSocket.$socket.send(
+        JSON.stringify({
+          message: "lofasz"
+        })
+      );
+    },
+
     update_session_info() {
       let sessionId = this.session_name;
       let opts = {};
@@ -87,6 +126,7 @@ export default {
             console.log("API called successfully. Returned data: " + response);
             this.profile_data = JSON.parse(response.text).results;
             console.log(this.session_data);
+            this.connect_to_socket();
           }
         }
       );
