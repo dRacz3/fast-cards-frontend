@@ -12,7 +12,7 @@
         </md-card-content>
 
         <md-card-actions>
-          <md-button>Join</md-button>
+          <md-button @click="join_session(data.session_id)">Join</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
@@ -25,6 +25,10 @@ export default {
   components: {},
   props: {
     data: {
+      required: true
+    },
+    join_session: {
+      type: Function,
       required: true
     }
   }
