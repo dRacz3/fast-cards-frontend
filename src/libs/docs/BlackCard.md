@@ -1,4 +1,4 @@
-# SnippetsApi.BlackCard
+# CardsAgainstHumanityDjangoApi.BlackCard
 
 ## Properties
 

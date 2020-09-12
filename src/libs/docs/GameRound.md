@@ -1,14 +1,14 @@
-# SnippetsApi.GameRound
+# CardsAgainstHumanityDjangoApi.GameRound
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** |  | [optional] [readonly] 
-**session** | **String** |  | [optional] [readonly] 
-**tzar** | **String** |  | [optional] [readonly] 
-**activeBlackCard** | **String** |  | [optional] [readonly] 
+**session** | [**GameSession**](GameSession.md) |  | [optional] 
+**tzar** | [**Profile**](Profile.md) |  | [optional] 
+**activeBlackCard** | [**BlackCard**](BlackCard.md) |  | [optional] 
 **roundNumber** | **Number** |  | 
-**winner** | **Number** |  | [optional] 
+**winner** | [**GameRoundWinner**](GameRoundWinner.md) |  | [optional] 
 
 

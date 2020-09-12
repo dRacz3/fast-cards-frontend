@@ -1,5 +1,5 @@
 /**
- * Snippets API
+ * CardsAgainstHumanity-Django API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import Profile from './Profile';
+import WhiteCard from './WhiteCard';
 
 /**
  * The GameRoundProfileData model module.
@@ -56,10 +58,10 @@ class GameRoundProfileData {
                 obj['round'] = ApiClient.convertToType(data['round'], 'String');
             }
             if (data.hasOwnProperty('user_profile')) {
-                obj['user_profile'] = ApiClient.convertToType(data['user_profile'], 'String');
+                obj['user_profile'] = Profile.constructFromObject(data['user_profile']);
             }
             if (data.hasOwnProperty('cards')) {
-                obj['cards'] = ApiClient.convertToType(data['cards'], ['String']);
+                obj['cards'] = ApiClient.convertToType(data['cards'], [WhiteCard]);
             }
             if (data.hasOwnProperty('current_points')) {
                 obj['current_points'] = ApiClient.convertToType(data['current_points'], 'Number');
@@ -82,12 +84,12 @@ GameRoundProfileData.prototype['id'] = undefined;
 GameRoundProfileData.prototype['round'] = undefined;
 
 /**
- * @member {String} user_profile
+ * @member {module:model/Profile} user_profile
  */
 GameRoundProfileData.prototype['user_profile'] = undefined;
 
 /**
- * @member {Array.<String>} cards
+ * @member {Array.<module:model/WhiteCard>} cards
  */
 GameRoundProfileData.prototype['cards'] = undefined;
 

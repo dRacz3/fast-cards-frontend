@@ -1,4 +1,4 @@
-# SnippetsApi.GameSession
+# CardsAgainstHumanityDjangoApi.GameSession
 
 ## Properties
 

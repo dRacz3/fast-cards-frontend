@@ -1,5 +1,5 @@
 /**
- * Snippets API
+ * CardsAgainstHumanity-Django API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -422,6 +422,46 @@ export default class GameEngineApiApi {
       let returnType = Profile;
       return this.apiClient.callApi(
         '/game_engine_api/profiles/{id}/', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the gameEngineApiSessionMycardsList operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionMycardsListCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} sessionId 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionMycardsListCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    gameEngineApiSessionMycardsList(sessionId, callback) {
+      let postBody = null;
+      // verify the required parameter 'sessionId' is set
+      if (sessionId === undefined || sessionId === null) {
+        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionMycardsList");
+      }
+
+      let pathParams = {
+        'session_id': sessionId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/{session_id}/mycards/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -1,4 +1,4 @@
-# SnippetsApi.PasswordChange
+# CardsAgainstHumanityDjangoApi.PasswordChange
 
 ## Properties
 

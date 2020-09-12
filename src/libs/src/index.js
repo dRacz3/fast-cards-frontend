@@ -1,5 +1,5 @@
 /**
- * Snippets API
+ * CardsAgainstHumanity-Django API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -17,6 +17,11 @@ import BlackCard from './model/BlackCard';
 import CardSubmission from './model/CardSubmission';
 import GameRound from './model/GameRound';
 import GameRoundProfileData from './model/GameRoundProfileData';
+import GameRoundWinner from './model/GameRoundWinner';
+import GameRoundWinnerUser from './model/GameRoundWinnerUser';
+import GameRoundWinnerUserContentType from './model/GameRoundWinnerUserContentType';
+import GameRoundWinnerUserGroups from './model/GameRoundWinnerUserGroups';
+import GameRoundWinnerUserPermissions from './model/GameRoundWinnerUserPermissions';
 import GameSession from './model/GameSession';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
@@ -44,9 +49,9 @@ import GameEngineApiApi from './api/GameEngineApiApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var SnippetsApi = require('index'); // See note below*.
-* var xxxSvc = new SnippetsApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new SnippetsApi.Yyy(); // Construct a model instance.
+* var CardsAgainstHumanityDjangoApi = require('index'); // See note below*.
+* var xxxSvc = new CardsAgainstHumanityDjangoApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new CardsAgainstHumanityDjangoApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -58,8 +63,8 @@ import GameEngineApiApi from './api/GameEngineApiApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new SnippetsApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new SnippetsApi.Yyy(); // Construct a model instance.
+* var xxxSvc = new CardsAgainstHumanityDjangoApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new CardsAgainstHumanityDjangoApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -99,6 +104,36 @@ export {
      * @property {module:model/GameRoundProfileData}
      */
     GameRoundProfileData,
+
+    /**
+     * The GameRoundWinner model constructor.
+     * @property {module:model/GameRoundWinner}
+     */
+    GameRoundWinner,
+
+    /**
+     * The GameRoundWinnerUser model constructor.
+     * @property {module:model/GameRoundWinnerUser}
+     */
+    GameRoundWinnerUser,
+
+    /**
+     * The GameRoundWinnerUserContentType model constructor.
+     * @property {module:model/GameRoundWinnerUserContentType}
+     */
+    GameRoundWinnerUserContentType,
+
+    /**
+     * The GameRoundWinnerUserGroups model constructor.
+     * @property {module:model/GameRoundWinnerUserGroups}
+     */
+    GameRoundWinnerUserGroups,
+
+    /**
+     * The GameRoundWinnerUserPermissions model constructor.
+     * @property {module:model/GameRoundWinnerUserPermissions}
+     */
+    GameRoundWinnerUserPermissions,
 
     /**
      * The GameSession model constructor.

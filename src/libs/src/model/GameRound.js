@@ -1,5 +1,5 @@
 /**
- * Snippets API
+ * CardsAgainstHumanity-Django API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -12,6 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
+import BlackCard from './BlackCard';
+import GameRoundWinner from './GameRoundWinner';
+import GameSession from './GameSession';
+import Profile from './Profile';
 
 /**
  * The GameRound model module.
@@ -53,19 +57,19 @@ class GameRound {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
             if (data.hasOwnProperty('session')) {
-                obj['session'] = ApiClient.convertToType(data['session'], 'String');
+                obj['session'] = GameSession.constructFromObject(data['session']);
             }
             if (data.hasOwnProperty('tzar')) {
-                obj['tzar'] = ApiClient.convertToType(data['tzar'], 'String');
+                obj['tzar'] = Profile.constructFromObject(data['tzar']);
             }
             if (data.hasOwnProperty('active_black_card')) {
-                obj['active_black_card'] = ApiClient.convertToType(data['active_black_card'], 'String');
+                obj['active_black_card'] = BlackCard.constructFromObject(data['active_black_card']);
             }
             if (data.hasOwnProperty('roundNumber')) {
                 obj['roundNumber'] = ApiClient.convertToType(data['roundNumber'], 'Number');
             }
             if (data.hasOwnProperty('winner')) {
-                obj['winner'] = ApiClient.convertToType(data['winner'], 'Number');
+                obj['winner'] = GameRoundWinner.constructFromObject(data['winner']);
             }
         }
         return obj;
@@ -80,17 +84,17 @@ class GameRound {
 GameRound.prototype['id'] = undefined;
 
 /**
- * @member {String} session
+ * @member {module:model/GameSession} session
  */
 GameRound.prototype['session'] = undefined;
 
 /**
- * @member {String} tzar
+ * @member {module:model/Profile} tzar
  */
 GameRound.prototype['tzar'] = undefined;
 
 /**
- * @member {String} active_black_card
+ * @member {module:model/BlackCard} active_black_card
  */
 GameRound.prototype['active_black_card'] = undefined;
 
@@ -100,7 +104,7 @@ GameRound.prototype['active_black_card'] = undefined;
 GameRound.prototype['roundNumber'] = undefined;
 
 /**
- * @member {Number} winner
+ * @member {module:model/GameRoundWinner} winner
  */
 GameRound.prototype['winner'] = undefined;
 

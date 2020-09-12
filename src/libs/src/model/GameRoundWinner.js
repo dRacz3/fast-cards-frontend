@@ -12,20 +12,21 @@
  */
 
 import ApiClient from '../ApiClient';
+import GameRoundWinnerUser from './GameRoundWinnerUser';
 
 /**
- * The Profile model module.
- * @module model/Profile
+ * The GameRoundWinner model module.
+ * @module model/GameRoundWinner
  * @version v1
  */
-class Profile {
+class GameRoundWinner {
     /**
-     * Constructs a new <code>Profile</code>.
-     * @alias module:model/Profile
+     * Constructs a new <code>GameRoundWinner</code>.
+     * @alias module:model/GameRoundWinner
      */
     constructor() { 
         
-        Profile.initialize(this);
+        GameRoundWinner.initialize(this);
     }
 
     /**
@@ -37,27 +38,27 @@ class Profile {
     }
 
     /**
-     * Constructs a <code>Profile</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>GameRoundWinner</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/Profile} obj Optional instance to populate.
-     * @return {module:model/Profile} The populated <code>Profile</code> instance.
+     * @param {module:model/GameRoundWinner} obj Optional instance to populate.
+     * @return {module:model/GameRoundWinner} The populated <code>GameRoundWinner</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new Profile();
+            obj = obj || new GameRoundWinner();
 
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
-            if (data.hasOwnProperty('user')) {
-                obj['user'] = ApiClient.convertToType(data['user'], 'String');
+            if (data.hasOwnProperty('bio')) {
+                obj['bio'] = ApiClient.convertToType(data['bio'], 'String');
             }
             if (data.hasOwnProperty('avatar')) {
                 obj['avatar'] = ApiClient.convertToType(data['avatar'], 'String');
             }
-            if (data.hasOwnProperty('bio')) {
-                obj['bio'] = ApiClient.convertToType(data['bio'], 'String');
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = GameRoundWinnerUser.constructFromObject(data['user']);
             }
         }
         return obj;
@@ -69,27 +70,27 @@ class Profile {
 /**
  * @member {Number} id
  */
-Profile.prototype['id'] = undefined;
-
-/**
- * @member {String} user
- */
-Profile.prototype['user'] = undefined;
-
-/**
- * @member {String} avatar
- */
-Profile.prototype['avatar'] = undefined;
+GameRoundWinner.prototype['id'] = undefined;
 
 /**
  * @member {String} bio
  */
-Profile.prototype['bio'] = undefined;
+GameRoundWinner.prototype['bio'] = undefined;
+
+/**
+ * @member {String} avatar
+ */
+GameRoundWinner.prototype['avatar'] = undefined;
+
+/**
+ * @member {module:model/GameRoundWinnerUser} user
+ */
+GameRoundWinner.prototype['user'] = undefined;
 
 
 
 
 
 
-export default Profile;
+export default GameRoundWinner;
 

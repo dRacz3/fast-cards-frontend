@@ -1,4 +1,4 @@
-# SnippetsApi.GameEngineApiApi
+# CardsAgainstHumanityDjangoApi.GameEngineApiApi
 
 All URIs are relative to *http://localhost:8000*
 
@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**gameEngineApiProfilesPartialUpdate**](GameEngineApiApi.md#gameEngineApiProfilesPartialUpdate) | **PATCH** /game_engine_api/profiles/{id}/ | 
 [**gameEngineApiProfilesRead**](GameEngineApiApi.md#gameEngineApiProfilesRead) | **GET** /game_engine_api/profiles/{id}/ | 
 [**gameEngineApiProfilesUpdate**](GameEngineApiApi.md#gameEngineApiProfilesUpdate) | **PUT** /game_engine_api/profiles/{id}/ | 
+[**gameEngineApiSessionMycardsList**](GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
 [**gameEngineApiSessionOpsDelete**](GameEngineApiApi.md#gameEngineApiSessionOpsDelete) | **DELETE** /game_engine_api/session/{session_id}/ops/ | 
 [**gameEngineApiSessionOpsList**](GameEngineApiApi.md#gameEngineApiSessionOpsList) | **GET** /game_engine_api/session/{session_id}/ops/ | 
 [**gameEngineApiSessionOpsUpdate**](GameEngineApiApi.md#gameEngineApiSessionOpsUpdate) | **PUT** /game_engine_api/session/{session_id}/ops/ | 
@@ -37,15 +38,15 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
-let data = new SnippetsApi.GameRoundProfileData(); // GameRoundProfileData | 
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let data = new CardsAgainstHumanityDjangoApi.GameRoundProfileData(); // GameRoundProfileData | 
 apiInstance.gameEngineApiGameroundprofiledataCreate(data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -85,14 +86,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let opts = {
   'page': 56 // Number | A page number within the paginated result set.
 };
@@ -135,16 +136,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this game round profile data.
-let data = new SnippetsApi.GameRoundProfileData(); // GameRoundProfileData | 
+let data = new CardsAgainstHumanityDjangoApi.GameRoundProfileData(); // GameRoundProfileData | 
 apiInstance.gameEngineApiGameroundprofiledataPartialUpdate(id, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -185,14 +186,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this game round profile data.
 apiInstance.gameEngineApiGameroundprofiledataRead(id, (error, data, response) => {
   if (error) {
@@ -233,16 +234,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this game round profile data.
-let data = new SnippetsApi.GameRoundProfileData(); // GameRoundProfileData | 
+let data = new CardsAgainstHumanityDjangoApi.GameRoundProfileData(); // GameRoundProfileData | 
 apiInstance.gameEngineApiGameroundprofiledataUpdate(id, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -283,14 +284,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let opts = {
   'search': "search_example", // String | A search term.
   'page': 56 // Number | A page number within the paginated result set.
@@ -335,16 +336,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this profile.
-let data = new SnippetsApi.Profile(); // Profile | 
+let data = new CardsAgainstHumanityDjangoApi.Profile(); // Profile | 
 apiInstance.gameEngineApiProfilesPartialUpdate(id, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -385,14 +386,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this profile.
 apiInstance.gameEngineApiProfilesRead(id, (error, data, response) => {
   if (error) {
@@ -433,16 +434,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let id = 56; // Number | A unique integer value identifying this profile.
-let data = new SnippetsApi.Profile(); // Profile | 
+let data = new CardsAgainstHumanityDjangoApi.Profile(); // Profile | 
 apiInstance.gameEngineApiProfilesUpdate(id, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -474,6 +475,54 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## gameEngineApiSessionMycardsList
+
+> gameEngineApiSessionMycardsList(sessionId)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let sessionId = "sessionId_example"; // String | 
+apiInstance.gameEngineApiSessionMycardsList(sessionId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sessionId** | **String**|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
 ## gameEngineApiSessionOpsDelete
 
 > gameEngineApiSessionOpsDelete(sessionId)
@@ -483,14 +532,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 apiInstance.gameEngineApiSessionOpsDelete(sessionId, (error, data, response) => {
   if (error) {
@@ -531,14 +580,14 @@ null (empty response body)
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 apiInstance.gameEngineApiSessionOpsList(sessionId, (error, data, response) => {
   if (error) {
@@ -579,14 +628,14 @@ null (empty response body)
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 apiInstance.gameEngineApiSessionOpsUpdate(sessionId, (error, data, response) => {
   if (error) {
@@ -627,14 +676,14 @@ null (empty response body)
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 let opts = {
   'page': 56 // Number | A page number within the paginated result set.
@@ -679,14 +728,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 let opts = {
   'page': 56 // Number | A page number within the paginated result set.
@@ -731,14 +780,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 let opts = {
   'page': 56 // Number | A page number within the paginated result set.
@@ -783,14 +832,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 apiInstance.gameEngineApiSessionViewList(sessionId, (error, data, response) => {
   if (error) {
@@ -831,15 +880,15 @@ null (empty response body)
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
-let data = new SnippetsApi.GameSession(); // GameSession | 
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let data = new CardsAgainstHumanityDjangoApi.GameSession(); // GameSession | 
 apiInstance.gameEngineApiSessionsCreate(data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -879,14 +928,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let opts = {
   'search': "search_example", // String | A search term.
   'page': 56 // Number | A page number within the paginated result set.
@@ -931,16 +980,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | A unique value identifying this game session.
-let data = new SnippetsApi.GameSession(); // GameSession | 
+let data = new CardsAgainstHumanityDjangoApi.GameSession(); // GameSession | 
 apiInstance.gameEngineApiSessionsPartialUpdate(sessionId, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -981,14 +1030,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | A unique value identifying this game session.
 apiInstance.gameEngineApiSessionsRead(sessionId, (error, data, response) => {
   if (error) {
@@ -1029,16 +1078,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import SnippetsApi from 'snippets_api';
-let defaultClient = SnippetsApi.ApiClient.instance;
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new SnippetsApi.GameEngineApiApi();
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | A unique value identifying this game session.
-let data = new SnippetsApi.GameSession(); // GameSession | 
+let data = new CardsAgainstHumanityDjangoApi.GameSession(); // GameSession | 
 apiInstance.gameEngineApiSessionsUpdate(sessionId, data, (error, data, response) => {
   if (error) {
     console.error(error);

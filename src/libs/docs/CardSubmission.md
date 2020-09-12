@@ -1,4 +1,4 @@
-# SnippetsApi.CardSubmission
+# CardsAgainstHumanityDjangoApi.CardSubmission
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# SnippetsApi.VerifyEmail
+# CardsAgainstHumanityDjangoApi.VerifyEmail
 
 ## Properties
 

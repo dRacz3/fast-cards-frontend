@@ -1,4 +1,4 @@
-# SnippetsApi.InlineResponse2001
+# CardsAgainstHumanityDjangoApi.InlineResponse2001
 
 ## Properties
 

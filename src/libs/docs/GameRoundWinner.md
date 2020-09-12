@@ -1,12 +1,12 @@
-# CardsAgainstHumanityDjangoApi.Profile
+# CardsAgainstHumanityDjangoApi.GameRoundWinner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** |  | [optional] [readonly] 
-**user** | **String** |  | [optional] [readonly] 
-**avatar** | **String** |  | [optional] [readonly] 
 **bio** | **String** |  | [optional] 
+**avatar** | **String** |  | [optional] [readonly] 
+**user** | [**GameRoundWinnerUser**](GameRoundWinnerUser.md) |  | [optional] 
 
 

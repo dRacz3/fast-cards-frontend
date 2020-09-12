@@ -1,4 +1,4 @@
-# SnippetsApi.Register
+# CardsAgainstHumanityDjangoApi.Register
 
 ## Properties
 
