@@ -48,6 +48,14 @@
 
       <md-app-content>
         <router-view />
+        <md-snackbar
+          :md-position="snackbar.position"
+          :md-duration="snackbar.duration"
+          :md-active.sync="snackbar.showSnackbar"
+          md-persistent
+        >
+          <span>{{ snackbar.message }}</span>
+        </md-snackbar>
       </md-app-content>
     </md-app>
   </div>
@@ -58,22 +66,35 @@ import { apiclient } from "./main";
 
 export default {
   data: () => ({
-    menuVisible: false
+    menuVisible: false,
+    snackbar: {
+      duration: 4000,
+      position: "center",
+      showSnackbar: false,
+      message: "",
+    },
   }),
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
-    }
+    },
+    snakcbar_event(event) {
+      this.snackbar.message = event;
+      this.snackbar.showSnackbar = false;
+      this.snackbar.showSnackbar = true;
+    },
   },
   mounted() {
     let token = this.$store.state.api_token;
     if (token) {
       console.log("Setting up authentication header");
       apiclient.defaultHeaders = {
-        Authorization: `Token ${this.$store.state.api_token}`
+        Authorization: `Token ${this.$store.state.api_token}`,
       };
+
+      this.$store.commit("register_event_callback", this.snakcbar_event);
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

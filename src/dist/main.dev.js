@@ -41,8 +41,8 @@ console.log();
 _vue["default"].use(_vueNativeWebsocket["default"], "ws://localhost:8000/ws/chat/myUser/szoba1/", {
   store: _store["default"],
   // format: "json",
-  reconnection: true,
-  reconnectionDelay: 3000,
+  // reconnection: true,
+  // reconnectionDelay: 3000,
   connectManually: true
 });
 

@@ -17,24 +17,33 @@
 <script>
 export default {
   data: () => ({
-    isSelected: false
+    isSelected: false,
   }),
   components: {},
   methods: {
     toggleSelect() {
       this.isSelected = !this.isSelected;
-    }
+      if (this.on_clicked_callback) {
+        let allowed = this.on_clicked_callback(this.card_data, this.isSelected);
+        if (this.isSelected && !allowed) {
+          this.isSelected = false;
+        }
+      }
+    },
   },
   props: {
     card_data: {
-      required: true
-    }
+      required: true,
+    },
+    on_clicked_callback: {
+      default: null,
+    },
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    }
-  }
+    },
+  },
 };
 </script>
 

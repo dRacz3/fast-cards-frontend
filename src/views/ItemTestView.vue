@@ -26,17 +26,17 @@ export default {
   data: () => ({
     cards: null,
     white_cards: null,
-    chatSocket: null
+    chatSocket: null,
   }),
   components: {
     "black-card-view": BlackCardDisplay,
-    "white-card-view": WhiteCardDisplay
+    "white-card-view": WhiteCardDisplay,
   },
   methods: {
     getCards() {
       let opts = {
         search: "", // String | A search term.
-        page: 1 // Number | A page number within the paginated result set.
+        page: 1, // Number | A page number within the paginated result set.
       };
 
       backendApi.apiBlackCardsList(opts, (error, data, response) => {
@@ -51,7 +51,7 @@ export default {
     getWhiteCards() {
       let opts = {
         search: "", // String | A search term.
-        page: 1 // Number | A page number within the paginated result set.
+        page: 1, // Number | A page number within the paginated result set.
       };
 
       backendApi.apiWhiteCardsList(opts, (error, data, response) => {
@@ -62,8 +62,8 @@ export default {
           this.white_cards = cards;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

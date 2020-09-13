@@ -19,9 +19,9 @@ console.log();
 Vue.use(VueNativeSock, "ws://localhost:8000/ws/chat/myUser/szoba1/", {
   store: store,
   // format: "json",
-  reconnection: true,
-  reconnectionDelay: 3000,
-  connectManually: true
+  // reconnection: true,
+  // reconnectionDelay: 3000,
+  connectManually: true,
 });
 
 export const backendSocket = new Vue();
@@ -38,8 +38,8 @@ export const gameApi = new GameEngineApiApi(apiclient);
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
   beforeCreate() {
     this.$store.commit("initialiseStore");
-  }
+  },
 }).$mount("#app");

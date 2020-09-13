@@ -25,13 +25,13 @@ export default {
   components: {},
   props: {
     data: {
-      required: true
+      required: true,
     },
     join_session: {
       type: Function,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
