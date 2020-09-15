@@ -19,14 +19,14 @@ export default {
   components: {},
   props: {
     card_data: {
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -44,10 +44,10 @@ export default {
 .black-card {
   background: black;
   color: white;
-  height: 15em;
+  // height: 15em;
   width: 25em;
   margin: 40px 10px 10px 0px;
-  padding: 30px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   flex: 1;

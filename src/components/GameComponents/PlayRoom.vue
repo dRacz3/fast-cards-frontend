@@ -8,16 +8,42 @@
       </md-app-toolbar>
 
       <md-app-content>
-        <player-display
-          :player_data="session_data.last_round.tzar"
-          is_tzar="true"
-        ></player-display>
+        <!-- {{ profile_data }} -->
+        <div v-if="profile_data">
+          <ul>
+            <div v-for="(entry, index) of profile_data" :key="index">
+              <player-display
+                :player_data="entry.user_profile"
+                :is_tzar="isTzar(entry.user_profile)"
+              />
+            </div>
+          </ul>
+        </div>
 
         <!-- Active black card along with the submitted cards -->
-        <div class="central-row-view">
-          <black-card-display
-            :card_data="session_data.last_round.active_black_card"
-          ></black-card-display>
+        <black-card-display
+          :card_data="session_data.last_round.active_black_card"
+        ></black-card-display>
+
+        <!-- Cards submitted so far in the round -->
+        <ul v-if="white_card_submissions_by_everyone.length > 0">
+          <md-list
+            v-for="(entry, index) of white_card_submissions_by_everyone"
+            :key="index"
+          >
+            <md-list-item>
+              <submission-display
+                class="md-list-item-text"
+                :submission_info="entry"
+                :black_card_data="session_data.last_round.active_black_card"
+              >
+              </submission-display>
+            </md-list-item>
+          </md-list>
+        </ul>
+
+        <!-- Pending submissions for the current player  -->
+        <div>
           <ul v-if="submissions.length > 0">
             <div v-for="(entry, index) of submissions" :key="index">
               <white-card-display
@@ -36,16 +62,9 @@
         >
           You have to select more cards before you can submit it!
         </div>
-        <md-button v-else class="md-raised">Submit Selected</md-button>
-
-        <!-- {{ profile_data }} -->
-        <div v-if="profile_data">
-          <ul>
-            <div v-for="(entry, index) of profile_data" :key="index">
-              <player-display :player_data="entry.user_profile" />
-            </div>
-          </ul>
-        </div>
+        <md-button v-else class="md-raised" @click="submit_cards()"
+          >Submit Selected</md-button
+        >
 
         <!-- Cards in the user's hand -->
         <div>
@@ -80,25 +99,27 @@ import { gameApi, backendSocket } from "../../main";
 import BlackCardDisplay from "./BlackCardDisplay";
 import WhiteCardDisplay from "./WhiteCardDisplay";
 import PlayerDisplay from "./PlayerDisplay";
+import SubmissionDisplay from "./SubmissionDisplay";
 
 export default {
   data: () => ({
     display: "",
     session_data: null,
     profile_data: null,
-    socket: null,
     submissions: [],
     cards_in_user_hand: [],
+    submissions_by_everyone: []
   }),
   components: {
     "black-card-display": BlackCardDisplay,
     "white-card-display": WhiteCardDisplay,
     "player-display": PlayerDisplay,
+    "submission-display": SubmissionDisplay
   },
   props: {
     session_name: {
-      required: true,
-    },
+      required: true
+    }
   },
   mounted() {
     this.update_session_info();
@@ -121,7 +142,7 @@ export default {
       console.log(backendSocket);
       backendSocket.$socket.send(
         JSON.stringify({
-          message: "step",
+          message: "step"
         })
       );
     },
@@ -146,6 +167,7 @@ export default {
             console.log("API called successfully. Returned data: " + response);
             this.session_data = response.body;
             this.submissions = this.session_data.submissions;
+            this.update_submissions_by_other_players();
             this.update_player_profiles_in_session();
           }
         }
@@ -211,12 +233,64 @@ export default {
         }
       );
     },
+
+    update_submissions_by_other_players() {
+      let sessionId = this.session_name;
+      let opts = {};
+      gameApi.gameEngineApiSessionSubmissionsList(
+        sessionId,
+        opts,
+        // eslint-disable-next-line no-unused-vars
+        (error, data, response) => {
+          console.log("Returned..");
+          if (error) {
+            console.error("gameEngineApiSessionSubmissionsList" + error);
+          } else {
+            console.log(
+              "gameEngineApiSessionSubmissionsList successfully returned data: " +
+                response
+            );
+            this.submissions_by_everyone = JSON.parse(response.text).results;
+          }
+        }
+      );
+    },
+
+    submit_cards() {
+      let submit_text = "__submit__|";
+      let selected_card_texts = this.submissions.map(e => e.text);
+
+      backendSocket.$socket.send(
+        JSON.stringify({
+          message: submit_text + selected_card_texts.join("|")
+        })
+      );
+    },
+    isTzar(player) {
+      if (player.user == this.session_data.last_round.tzar.user) {
+        return true;
+      }
+      return false;
+    }
   },
+
   destroyed() {
     console.log("PlayRoom destroyed");
     this.$store.commit("register_on_message_callback", null);
     backendSocket.$disconnect();
   },
+
+  computed: {
+    submit_command() {
+      let submit_text = "__submit__|";
+      let selected_card_texts = this.submissions.map(e => e.text);
+      return submit_text + selected_card_texts.join("|");
+    },
+
+    white_card_submissions_by_everyone() {
+      return this.submissions_by_everyone;
+    }
+  }
 };
 </script>
 

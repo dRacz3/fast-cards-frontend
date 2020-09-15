@@ -1,10 +1,6 @@
 <template>
   <div class="disable_selection" @click="toggleSelect">
-    <md-card
-      md-with-hover
-      class="white-card"
-      v-bind:class="{ selected: isSelected }"
-    >
+    <md-card md-with-hover class="white-card">
       <div class="md-title">{{ displayedText }}</div>
 
       <div class="md-subhead evenly-spaced">
@@ -16,18 +12,12 @@
 
 <script>
 export default {
-  data: () => ({
-    isSelected: false,
-  }),
+  data: () => ({}),
   components: {},
   methods: {
     toggleSelect() {
-      this.isSelected = !this.isSelected;
       if (this.on_clicked_callback) {
-        let allowed = this.on_clicked_callback(this.card_data, this.isSelected);
-        if (this.isSelected && !allowed) {
-          this.isSelected = false;
-        }
+        this.on_clicked_callback(this.card_data, true);
       }
     },
   },
@@ -61,10 +51,10 @@ export default {
 .white-card {
   background: white;
   color: black;
-  height: 15em;
+  // height: 15em;
   width: 25em;
-  margin: 40px 10px 10px 0px;
-  padding: 30px;
+  margin: 10px 5px 5px 0px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -86,9 +76,5 @@ export default {
   border-radius: 50px;
   background: #626262ca;
   padding: 15px;
-}
-
-.selected {
-  background: rgba(184, 184, 184, 0.219);
 }
 </style>
