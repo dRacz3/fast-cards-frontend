@@ -1,105 +1,50 @@
 <template>
   <div>
-    <md-app class="md-accent" v-if="session_data && session_data.has_started">
+    <md-app
+      v-if="
+        session_data !== null &&
+          session_data.last_round.session.session_id !== null
+      "
+    >
       <md-app-toolbar class="md-primary">
-        <span class="md-title">{{
-          session_data.last_round.session.session_id
-        }}</span>
+        <span class="md-title">
+          Room [{{ session_data.last_round.session.session_id }}], round : #{{
+            session_data.last_round.roundNumber
+          }}
+        </span>
       </md-app-toolbar>
 
       <md-app-content>
-        <!-- {{ profile_data }} -->
-        <div v-if="profile_data">
-          <ul>
-            <div v-for="(entry, index) of profile_data" :key="index">
-              <player-display
-                :player_data="entry.user_profile"
-                :is_tzar="isTzar(entry.user_profile)"
-              />
-            </div>
-          </ul>
-        </div>
-
-        <!-- Active black card along with the submitted cards -->
-        <black-card-display
-          :card_data="session_data.last_round.active_black_card"
-        ></black-card-display>
-
-        <!-- Cards submitted so far in the round -->
-        <ul v-if="white_card_submissions_by_everyone.length > 0">
-          <md-list
-            v-for="(entry, index) of white_card_submissions_by_everyone"
-            :key="index"
+        <div v-if="!session_data.has_started">
+          <waiting-for-start-view
+            :session_name="session_name"
+            :players_in_session="players"
+            :start_game="start_game"
           >
-            <md-list-item>
-              <submission-display
-                class="md-list-item-text"
-                :submission_info="entry"
-                :black_card_data="session_data.last_round.active_black_card"
-              >
-              </submission-display>
-            </md-list-item>
-          </md-list>
-        </ul>
-
-        <!-- Pending submissions for the current player  -->
-        <div>
-          <ul v-if="submissions.length > 0">
-            <div v-for="(entry, index) of submissions" :key="index">
-              <white-card-display
-                :card_data="entry"
-                :on_clicked_callback="remove_card_from_submission"
-              >
-              </white-card-display>
-            </div>
-          </ul>
+          </waiting-for-start-view>
         </div>
-
-        <div
-          v-if="
-            session_data.last_round.active_black_card.pick != submissions.length
-          "
-        >
-          You have to select more cards before you can submit it!
-        </div>
-        <md-button v-else class="md-raised" @click="submit_cards()"
-          >Submit Selected</md-button
-        >
-
-        <!-- Cards in the user's hand -->
-        <div>
-          <ul>
-            <div v-for="(entry, index) of cards_in_user_hand" :key="index">
-              <white-card-display
-                :card_data="entry"
-                :on_clicked_callback="on_white_card_clicked"
-              >
-              </white-card-display>
-            </div>
-          </ul>
+        <div v-else-if="session_data.has_started">
+          <!-- {{ session_data.players.profiles }} -->
+          <during-game-round-view
+            :active_round="session_data.last_round"
+            :profile_data="session_data.players.profiles"
+            :update_cards_in_hand="update_cards_in_user_hand"
+            :cards_in_hand="cards_in_user_hand"
+            :submit_cards="submit_cards"
+          ></during-game-round-view>
         </div>
       </md-app-content>
     </md-app>
 
-    <div v-else>
-      <md-app-toolbar class="md-primary">
-        <span class="md-title">Room [{{ session_name }}]</span>
-      </md-app-toolbar>
-      You are Game has not started yet.
-      <md-button @click="start_game()">Start Game</md-button>
-    </div>
-
-    <md-button @click="update_session_info()"> Click</md-button>
+    <md-button @click="session_data_update()"> Click</md-button>
     <md-button @click="connect_to_socket()">Websocket</md-button>
   </div>
 </template>
 
 <script>
 import { gameApi, backendSocket } from "../../main";
-import BlackCardDisplay from "./BlackCardDisplay";
-import WhiteCardDisplay from "./WhiteCardDisplay";
-import PlayerDisplay from "./PlayerDisplay";
-import SubmissionDisplay from "./SubmissionDisplay";
+import WaitingForStart from "../GameStateViews/WaitingForStart";
+import DuringGameRound from "../GameStateViews/DuringGameRound";
 
 export default {
   data: () => ({
@@ -111,10 +56,8 @@ export default {
     submissions_by_everyone: []
   }),
   components: {
-    "black-card-display": BlackCardDisplay,
-    "white-card-display": WhiteCardDisplay,
-    "player-display": PlayerDisplay,
-    "submission-display": SubmissionDisplay
+    "waiting-for-start-view": WaitingForStart,
+    "during-game-round-view": DuringGameRound
   },
   props: {
     session_name: {
@@ -122,8 +65,9 @@ export default {
     }
   },
   mounted() {
-    this.update_session_info();
+    this.session_data_update();
     this.$store.commit("register_on_message_callback", this.on_new_message);
+    this.connect_to_socket();
   },
   methods: {
     connect_to_socket() {
@@ -139,22 +83,25 @@ export default {
     },
 
     start_game() {
-      console.log(backendSocket);
       backendSocket.$socket.send(
         JSON.stringify({
           message: "step"
         })
       );
     },
+
     on_new_message(message) {
       if (message === "UPDATE") {
-        this.update_session_info();
+        this.session_data_update();
+      } else if (message === "REQUEST_PLAYER_DATA") {
+        this.update_cards_in_user_hand();
       } else {
         console.log("Unhandled message: " + message);
         console.log(message);
       }
     },
-    update_session_info() {
+
+    session_data_update() {
       let sessionId = this.session_name;
 
       gameApi.gameEngineApiSessionViewList(
@@ -167,40 +114,18 @@ export default {
             console.log("API called successfully. Returned data: " + response);
             this.session_data = response.body;
             this.submissions = this.session_data.submissions;
-            this.update_submissions_by_other_players();
-            this.update_player_profiles_in_session();
           }
         }
       );
     },
-    on_white_card_clicked(card, isSelected) {
-      if (isSelected) {
-        // Cant select more than that
-        if (
-          this.submissions.length + 1 >
-          this.session_data.last_round.active_black_card.pick
-        ) {
-          this.$store.commit(
-            "push_message_to_snackbar",
-            "You cannot submit more cards than the allowed pick count"
-          );
-          return false;
-        } else {
-          this.submissions.push(card);
-        }
-      } else {
-        // eslint-disable-next-line no-unused-vars
-        this.remove_card_from_submission(card);
-      }
-      return true;
-    },
+
     remove_card_from_submission(card /*isSelected*/) {
       // eslint-disable-next-line no-unused-vars
       this.submissions = this.submissions.filter(function(value, index, arr) {
         return value.text != card.text;
       });
     },
-    update_player_profiles_in_session() {
+    update_cards_in_user_hand() {
       let sessionId = this.session_name;
       let opts = {};
       gameApi.gameEngineApiSessionProfilesList(
@@ -213,8 +138,6 @@ export default {
           } else {
             console.log("API called successfully. Returned data: " + response);
             this.profile_data = JSON.parse(response.text).results;
-            console.log(this.session_data);
-            this.connect_to_socket();
             gameApi.gameEngineApiSessionMycardsList(
               sessionId,
               (error, data, response) => {
@@ -256,9 +179,9 @@ export default {
       );
     },
 
-    submit_cards() {
+    submit_cards(submissions) {
       let submit_text = "__submit__|";
-      let selected_card_texts = this.submissions.map(e => e.text);
+      let selected_card_texts = submissions.map(e => e.text);
 
       backendSocket.$socket.send(
         JSON.stringify({
@@ -289,6 +212,15 @@ export default {
 
     white_card_submissions_by_everyone() {
       return this.submissions_by_everyone;
+    },
+
+    players() {
+      if (this.session_data) {
+        console.log("Returnign profiles!");
+        console.warn(this.session_data.players.profiles);
+        return this.session_data.players.profiles;
+      }
+      return null;
     }
   }
 };
