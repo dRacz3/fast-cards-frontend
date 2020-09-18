@@ -15,8 +15,10 @@
             :submission_info="entry"
             :black_card_data="session_data.last_round.active_black_card"
           >
-            <div v-if="true && has_everyone_submitted">
-              <md-button>This is the best!</md-button>
+            <div v-if="current_player_data.isTzar && has_everyone_submitted">
+              <md-button @click="select_winner(entry.submission_id)"
+                >This is the best!</md-button
+              >
             </div>
           </submission-display>
         </md-list-item>
@@ -39,13 +41,20 @@ export default {
     session_data: {
       required: true
     },
-    profile_data: {
+    profile_data_all_players: {
       required: true
+    },
+    current_player_data: {
+      required: true
+    },
+    select_winner: {
+      required: true,
+      type: Function
     }
   },
   computed: {
     has_everyone_submitted() {
-      return this.submissions.length >= this.profile_data.length;
+      return this.submissions.length >= this.profile_data_all_players.length;
     }
   }
 };

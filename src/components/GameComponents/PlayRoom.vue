@@ -20,7 +20,7 @@
           <waiting-for-start-view
             :session_name="session_name"
             :players_in_session="players"
-            :start_game="start_game"
+            :step_game="step_game"
           >
           </waiting-for-start-view>
         </div>
@@ -38,7 +38,9 @@
           <submission-round-view
             :submissions="submissions_by_everyone"
             :session_data="session_data"
-            :profile_data="players"
+            :profile_data_all_players="players"
+            :current_player_data="current_player_data"
+            :select_winner="select_winner"
           ></submission-round-view>
         </div>
       </md-app-content>
@@ -92,7 +94,7 @@ export default {
       );
     },
 
-    start_game() {
+    step_game() {
       backendSocket.$socket.send(
         JSON.stringify({
           message: "step"
@@ -120,6 +122,9 @@ export default {
         // eslint-disable-next-line no-unused-vars
         (error, data, response) => {
           if (error) {
+            console.error(
+              "session_data_update-gameEngineApiSessionViewList returned with error"
+            );
             console.error(error);
           } else {
             console.log("API called successfully. Returned data: " + response);
@@ -139,7 +144,6 @@ export default {
       });
     },
     update_player_data() {
-      console.log("update_player_data() called");
       let sessionId = this.session_name;
       let opts = {};
       gameApi.gameEngineApiSessionProfilesList(
@@ -156,6 +160,9 @@ export default {
               sessionId,
               (error, data, response) => {
                 if (error) {
+                  console.error(
+                    "update_player_data - gameEngineApiSessionMycardsList returned with error "
+                  );
                   console.error(error);
                 } else {
                   console.log(
@@ -181,7 +188,8 @@ export default {
         (error, data, response) => {
           console.log("Returned..");
           if (error) {
-            console.error("gameEngineApiSessionSubmissionsList" + error);
+            console.error("gameEngineApiSessionSubmissionsList");
+            console.error(error);
           } else {
             console.log(
               "gameEngineApiSessionSubmissionsList successfully returned data: " +
@@ -199,7 +207,6 @@ export default {
         sessionId,
         (error, data, response) => {
           if (error) {
-            console.error("Didn't receive info if player has submitted");
             this.has_player_submitted = false;
           } else {
             console.log(response);
@@ -219,6 +226,18 @@ export default {
         })
       );
     },
+
+    select_winner(winning_submission_id) {
+      let submit_text = "__selectwinner__|" + winning_submission_id;
+
+      backendSocket.$socket.send(
+        JSON.stringify({
+          message: submit_text
+        })
+      );
+      this.step_game();
+    },
+
     isTzar(player) {
       if (player.user == this.session_data.last_round.tzar.user) {
         return true;

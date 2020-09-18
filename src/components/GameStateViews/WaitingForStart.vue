@@ -6,7 +6,7 @@
         {{ player_in_lobby }}
       </span>
       <br />
-      <md-button class="md-raised" @click="start_game()"
+      <md-button class="md-raised" @click="step_game()"
         >I have waited enough! Let's start</md-button
       >
     </div>
@@ -31,7 +31,7 @@ export default {
     // socket: {
     //   required: true
     // },
-    start_game: { required: true, type: Function }
+    step_game: { required: true, type: Function }
   },
   methods: {},
   computed: {
