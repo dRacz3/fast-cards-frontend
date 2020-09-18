@@ -11,6 +11,7 @@
           Room [{{ session_data.last_round.session.session_id }}], round : #{{
             session_data.last_round.roundNumber
           }}
+          with {{ number_of_players }} player
         </span>
       </md-app-toolbar>
 
@@ -23,15 +24,22 @@
           >
           </waiting-for-start-view>
         </div>
-        <div v-else-if="session_data.has_started">
+        <div v-else-if="session_data.has_started && !has_player_submitted">
           <!-- {{ session_data.players.profiles }} -->
           <during-game-round-view
             :active_round="session_data.last_round"
             :profile_data="session_data.players.profiles"
-            :update_cards_in_hand="update_cards_in_user_hand"
-            :cards_in_hand="cards_in_user_hand"
+            :update_player_data="update_player_data"
+            :current_player_data="current_player_data"
             :submit_cards="submit_cards"
           ></during-game-round-view>
+        </div>
+        <div v-else-if="session_data.has_started && has_player_submitted">
+          <submission-round-view
+            :submissions="submissions_by_everyone"
+            :session_data="session_data"
+            :profile_data="players"
+          ></submission-round-view>
         </div>
       </md-app-content>
     </md-app>
@@ -45,19 +53,21 @@
 import { gameApi, backendSocket } from "../../main";
 import WaitingForStart from "../GameStateViews/WaitingForStart";
 import DuringGameRound from "../GameStateViews/DuringGameRound";
+import PlaySubmissionView from "../GameStateViews/PlaySubmissionView";
 
 export default {
   data: () => ({
     display: "",
     session_data: null,
     profile_data: null,
-    submissions: [],
-    cards_in_user_hand: [],
-    submissions_by_everyone: []
+    current_player_data: null,
+    submissions_by_everyone: [],
+    has_player_submitted: false
   }),
   components: {
     "waiting-for-start-view": WaitingForStart,
-    "during-game-round-view": DuringGameRound
+    "during-game-round-view": DuringGameRound,
+    "submission-round-view": PlaySubmissionView
   },
   props: {
     session_name: {
@@ -73,7 +83,7 @@ export default {
     connect_to_socket() {
       backendSocket.$connect(
         "ws://" +
-          "localhost:8000/ws/chat/" +
+          "10.36.60.241:8000/ws/chat/" +
           "user/" +
           this.session_name +
           "/" +
@@ -88,13 +98,14 @@ export default {
           message: "step"
         })
       );
+      this.session_data_update();
     },
 
     on_new_message(message) {
       if (message === "UPDATE") {
         this.session_data_update();
       } else if (message === "REQUEST_PLAYER_DATA") {
-        this.update_cards_in_user_hand();
+        this.update_player_data();
       } else {
         console.log("Unhandled message: " + message);
         console.log(message);
@@ -114,6 +125,8 @@ export default {
             console.log("API called successfully. Returned data: " + response);
             this.session_data = response.body;
             this.submissions = this.session_data.submissions;
+            this.update_has_player_submitted();
+            this.update_submissions_by_other_players();
           }
         }
       );
@@ -125,7 +138,8 @@ export default {
         return value.text != card.text;
       });
     },
-    update_cards_in_user_hand() {
+    update_player_data() {
+      console.log("update_player_data() called");
       let sessionId = this.session_name;
       let opts = {};
       gameApi.gameEngineApiSessionProfilesList(
@@ -145,10 +159,10 @@ export default {
                   console.error(error);
                 } else {
                   console.log(
-                    "gameEngineApiSessionMycardsList called successfully. Returned data: " +
+                    "Fetching player data called successfully. Returned data: " +
                       response
                   );
-                  this.cards_in_user_hand = response.body;
+                  this.current_player_data = response.body;
                 }
               }
             );
@@ -174,6 +188,22 @@ export default {
                 response
             );
             this.submissions_by_everyone = JSON.parse(response.text).results;
+          }
+        }
+      );
+    },
+
+    update_has_player_submitted() {
+      let sessionId = this.session_name;
+      gameApi.gameEngineApiSessionHasPlayerSubmittedList(
+        sessionId,
+        (error, data, response) => {
+          if (error) {
+            console.error("Didn't receive info if player has submitted");
+            this.has_player_submitted = false;
+          } else {
+            console.log(response);
+            this.has_player_submitted = true;
           }
         }
       );
@@ -221,6 +251,9 @@ export default {
         return this.session_data.players.profiles;
       }
       return null;
+    },
+    number_of_players() {
+      return this.players.length;
     }
   }
 };

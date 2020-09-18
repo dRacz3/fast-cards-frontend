@@ -1,7 +1,9 @@
 <template>
   <div>
-    Round data: {{ active_round }} <br />
-    Profiles: {{ profile_data }} <br />
+    <div v-if="current_player_data == null">
+      loading..
+    </div>
+
     <div v-if="profile_data">
       <ul>
         <div v-for="(entry, index) of profile_data" :key="index">
@@ -65,7 +67,7 @@ export default {
       type: Array,
       required: true
     },
-    update_cards_in_hand: {
+    update_player_data: {
       required: true,
       type: Function
     },
@@ -73,8 +75,8 @@ export default {
       required: true,
       type: Function
     },
-    cards_in_hand: {
-      type: Array,
+    current_player_data: {
+      type: Object,
       required: true
     }
   },
@@ -91,11 +93,16 @@ export default {
 
     //! Display only cards that are not submitted
     cards_to_display() {
-      return this.cards_in_hand.filter(e => !this.submissions.includes(e));
+      if (this.current_player_data) {
+        return this.current_player_data.cards.filter(
+          e => !this.submissions.includes(e)
+        );
+      }
+      return [];
     }
   },
   mounted() {
-    this.update_cards_in_hand();
+    this.update_player_data();
   },
   methods: {
     //! Shortcut function to check if the given player is the Tzar

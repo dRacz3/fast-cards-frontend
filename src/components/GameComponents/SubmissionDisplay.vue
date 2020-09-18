@@ -1,31 +1,20 @@
 <template>
-  <div>
-    <md-card class="submitted-display">
-      <md-card-content>
-        {{ submitted_content }}
-        <md-divider></md-divider>
-        <md-card-actions>
-          <md-button class="md-primary">Like</md-button>
-          <md-button class="md-accent">Dislike</md-button>
-        </md-card-actions>
-      </md-card-content>
-    </md-card>
-    <!-- <ul>
-      <div
-        v-for="(entry, index) of submission_info.submitted_white_cards"
-        :key="index"
-      >
-        <white-card-display :card_data="entry"> </white-card-display>
-      </div> 
-    </ul>-->
+  <div class="submitted-display">
+    <md-content class="submission_content">
+      {{ submitted_content }}
+
+      <p>
+        Submitted by
+        {{ submission_info.connected_game_round_profile.user_profile.user }}
+      </p>
+
+      <slot></slot>
+    </md-content>
   </div>
 </template>
 
 <script>
-// import WhiteCardDisplay from "@/components/GameComponents/WhiteCardDisplay";
-
 export default {
-  // components: { "white-card-display": WhiteCardDisplay },
   props: {
     submission_info: {
       submitted_white_cards: {
@@ -75,9 +64,12 @@ export default {
 
 <style scoped>
 .submitted-display {
-  padding: 5px 5px 5px 5px;
-  margin: 3px;
-  display: inline-block;
-  vertical-align: top;
+  border: 1px black solid;
+  margin: 20px;
+  align-items: center;
+}
+
+.submission_content {
+  padding: 20px;
 }
 </style>
