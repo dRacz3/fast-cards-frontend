@@ -156,12 +156,11 @@ Class | Method | HTTP request | Description
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesPartialUpdate**](docs/GameEngineApiApi.md#gameEngineApiProfilesPartialUpdate) | **PATCH** /game_engine_api/profiles/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesRead**](docs/GameEngineApiApi.md#gameEngineApiProfilesRead) | **GET** /game_engine_api/profiles/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesUpdate**](docs/GameEngineApiApi.md#gameEngineApiProfilesUpdate) | **PUT** /game_engine_api/profiles/{id}/ | 
+*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionHasPlayerSubmittedList**](docs/GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionMycardsList**](docs/GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionOpsDelete**](docs/GameEngineApiApi.md#gameEngineApiSessionOpsDelete) | **DELETE** /game_engine_api/session/{session_id}/ops/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionOpsList**](docs/GameEngineApiApi.md#gameEngineApiSessionOpsList) | **GET** /game_engine_api/session/{session_id}/ops/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionOpsUpdate**](docs/GameEngineApiApi.md#gameEngineApiSessionOpsUpdate) | **PUT** /game_engine_api/session/{session_id}/ops/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionProfilesList**](docs/GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionRoundsList**](docs/GameEngineApiApi.md#gameEngineApiSessionRoundsList) | **GET** /game_engine_api/session/{session_id}/rounds | 
+*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionSubmissionsCreate**](docs/GameEngineApiApi.md#gameEngineApiSessionSubmissionsCreate) | **POST** /game_engine_api/session/{session_id}/submissions/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionSubmissionsList**](docs/GameEngineApiApi.md#gameEngineApiSessionSubmissionsList) | **GET** /game_engine_api/session/{session_id}/submissions/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionViewList**](docs/GameEngineApiApi.md#gameEngineApiSessionViewList) | **GET** /game_engine_api/session/{session_id}/view | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsCreate**](docs/GameEngineApiApi.md#gameEngineApiSessionsCreate) | **POST** /game_engine_api/sessions/ | 

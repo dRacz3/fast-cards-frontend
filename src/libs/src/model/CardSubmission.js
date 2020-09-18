@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import WhiteCard from './WhiteCard';
 
 /**
  * The CardSubmission model module.
@@ -22,10 +23,11 @@ class CardSubmission {
     /**
      * Constructs a new <code>CardSubmission</code>.
      * @alias module:model/CardSubmission
+     * @param submittedWhiteCards {Array.<module:model/WhiteCard>} 
      */
-    constructor() { 
+    constructor(submittedWhiteCards) { 
         
-        CardSubmission.initialize(this);
+        CardSubmission.initialize(this, submittedWhiteCards);
     }
 
     /**
@@ -33,7 +35,8 @@ class CardSubmission {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, submittedWhiteCards) { 
+        obj['submitted_white_cards'] = submittedWhiteCards;
     }
 
     /**
@@ -48,7 +51,7 @@ class CardSubmission {
             obj = obj || new CardSubmission();
 
             if (data.hasOwnProperty('submitted_white_cards')) {
-                obj['submitted_white_cards'] = ApiClient.convertToType(data['submitted_white_cards'], ['String']);
+                obj['submitted_white_cards'] = ApiClient.convertToType(data['submitted_white_cards'], [WhiteCard]);
             }
             if (data.hasOwnProperty('submission_id')) {
                 obj['submission_id'] = ApiClient.convertToType(data['submission_id'], 'Number');
@@ -61,7 +64,7 @@ class CardSubmission {
 }
 
 /**
- * @member {Array.<String>} submitted_white_cards
+ * @member {Array.<module:model/WhiteCard>} submitted_white_cards
  */
 CardSubmission.prototype['submitted_white_cards'] = undefined;
 

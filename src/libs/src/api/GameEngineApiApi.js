@@ -13,6 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
+import CardSubmission from '../model/CardSubmission';
 import GameRoundProfileData from '../model/GameRoundProfileData';
 import GameSession from '../model/GameSession';
 import InlineResponse2002 from '../model/InlineResponse2002';
@@ -428,6 +429,46 @@ export default class GameEngineApiApi {
     }
 
     /**
+     * Callback function to receive the result of the gameEngineApiSessionHasPlayerSubmittedList operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionHasPlayerSubmittedListCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} sessionId 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionHasPlayerSubmittedListCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    gameEngineApiSessionHasPlayerSubmittedList(sessionId, callback) {
+      let postBody = null;
+      // verify the required parameter 'sessionId' is set
+      if (sessionId === undefined || sessionId === null) {
+        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionHasPlayerSubmittedList");
+      }
+
+      let pathParams = {
+        'session_id': sessionId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/{session_id}/has_player_submitted/', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the gameEngineApiSessionMycardsList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionMycardsListCallback
      * @param {String} error Error message, if any.
@@ -462,126 +503,6 @@ export default class GameEngineApiApi {
       let returnType = null;
       return this.apiClient.callApi(
         '/game_engine_api/session/{session_id}/mycards/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiSessionOpsDelete operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiSessionOpsDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {String} sessionId 
-     * @param {module:api/GameEngineApiApi~gameEngineApiSessionOpsDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    gameEngineApiSessionOpsDelete(sessionId, callback) {
-      let postBody = null;
-      // verify the required parameter 'sessionId' is set
-      if (sessionId === undefined || sessionId === null) {
-        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionOpsDelete");
-      }
-
-      let pathParams = {
-        'session_id': sessionId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/game_engine_api/session/{session_id}/ops/', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiSessionOpsList operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiSessionOpsListCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {String} sessionId 
-     * @param {module:api/GameEngineApiApi~gameEngineApiSessionOpsListCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    gameEngineApiSessionOpsList(sessionId, callback) {
-      let postBody = null;
-      // verify the required parameter 'sessionId' is set
-      if (sessionId === undefined || sessionId === null) {
-        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionOpsList");
-      }
-
-      let pathParams = {
-        'session_id': sessionId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/game_engine_api/session/{session_id}/ops/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiSessionOpsUpdate operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiSessionOpsUpdateCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {String} sessionId 
-     * @param {module:api/GameEngineApiApi~gameEngineApiSessionOpsUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    gameEngineApiSessionOpsUpdate(sessionId, callback) {
-      let postBody = null;
-      // verify the required parameter 'sessionId' is set
-      if (sessionId === undefined || sessionId === null) {
-        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionOpsUpdate");
-      }
-
-      let pathParams = {
-        'session_id': sessionId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/game_engine_api/session/{session_id}/ops/', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -672,6 +593,52 @@ export default class GameEngineApiApi {
       let returnType = InlineResponse2004;
       return this.apiClient.callApi(
         '/game_engine_api/session/{session_id}/rounds', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the gameEngineApiSessionSubmissionsCreate operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionSubmissionsCreateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CardSubmission} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} sessionId 
+     * @param {module:model/CardSubmission} data 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionSubmissionsCreateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/CardSubmission}
+     */
+    gameEngineApiSessionSubmissionsCreate(sessionId, data, callback) {
+      let postBody = data;
+      // verify the required parameter 'sessionId' is set
+      if (sessionId === undefined || sessionId === null) {
+        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionSubmissionsCreate");
+      }
+      // verify the required parameter 'data' is set
+      if (data === undefined || data === null) {
+        throw new Error("Missing the required parameter 'data' when calling gameEngineApiSessionSubmissionsCreate");
+      }
+
+      let pathParams = {
+        'session_id': sessionId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = CardSubmission;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/{session_id}/submissions/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

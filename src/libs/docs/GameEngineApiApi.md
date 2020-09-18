@@ -13,12 +13,11 @@ Method | HTTP request | Description
 [**gameEngineApiProfilesPartialUpdate**](GameEngineApiApi.md#gameEngineApiProfilesPartialUpdate) | **PATCH** /game_engine_api/profiles/{id}/ | 
 [**gameEngineApiProfilesRead**](GameEngineApiApi.md#gameEngineApiProfilesRead) | **GET** /game_engine_api/profiles/{id}/ | 
 [**gameEngineApiProfilesUpdate**](GameEngineApiApi.md#gameEngineApiProfilesUpdate) | **PUT** /game_engine_api/profiles/{id}/ | 
+[**gameEngineApiSessionHasPlayerSubmittedList**](GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 [**gameEngineApiSessionMycardsList**](GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
-[**gameEngineApiSessionOpsDelete**](GameEngineApiApi.md#gameEngineApiSessionOpsDelete) | **DELETE** /game_engine_api/session/{session_id}/ops/ | 
-[**gameEngineApiSessionOpsList**](GameEngineApiApi.md#gameEngineApiSessionOpsList) | **GET** /game_engine_api/session/{session_id}/ops/ | 
-[**gameEngineApiSessionOpsUpdate**](GameEngineApiApi.md#gameEngineApiSessionOpsUpdate) | **PUT** /game_engine_api/session/{session_id}/ops/ | 
 [**gameEngineApiSessionProfilesList**](GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
 [**gameEngineApiSessionRoundsList**](GameEngineApiApi.md#gameEngineApiSessionRoundsList) | **GET** /game_engine_api/session/{session_id}/rounds | 
+[**gameEngineApiSessionSubmissionsCreate**](GameEngineApiApi.md#gameEngineApiSessionSubmissionsCreate) | **POST** /game_engine_api/session/{session_id}/submissions/ | 
 [**gameEngineApiSessionSubmissionsList**](GameEngineApiApi.md#gameEngineApiSessionSubmissionsList) | **GET** /game_engine_api/session/{session_id}/submissions/ | 
 [**gameEngineApiSessionViewList**](GameEngineApiApi.md#gameEngineApiSessionViewList) | **GET** /game_engine_api/session/{session_id}/view | 
 [**gameEngineApiSessionsCreate**](GameEngineApiApi.md#gameEngineApiSessionsCreate) | **POST** /game_engine_api/sessions/ | 
@@ -475,6 +474,54 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## gameEngineApiSessionHasPlayerSubmittedList
+
+> gameEngineApiSessionHasPlayerSubmittedList(sessionId)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let sessionId = "sessionId_example"; // String | 
+apiInstance.gameEngineApiSessionHasPlayerSubmittedList(sessionId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sessionId** | **String**|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
 ## gameEngineApiSessionMycardsList
 
 > gameEngineApiSessionMycardsList(sessionId)
@@ -494,150 +541,6 @@ Basic.password = 'YOUR PASSWORD';
 let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
 let sessionId = "sessionId_example"; // String | 
 apiInstance.gameEngineApiSessionMycardsList(sessionId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sessionId** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## gameEngineApiSessionOpsDelete
-
-> gameEngineApiSessionOpsDelete(sessionId)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let sessionId = "sessionId_example"; // String | 
-apiInstance.gameEngineApiSessionOpsDelete(sessionId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sessionId** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## gameEngineApiSessionOpsList
-
-> gameEngineApiSessionOpsList(sessionId)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let sessionId = "sessionId_example"; // String | 
-apiInstance.gameEngineApiSessionOpsList(sessionId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sessionId** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## gameEngineApiSessionOpsUpdate
-
-> gameEngineApiSessionOpsUpdate(sessionId)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let sessionId = "sessionId_example"; // String | 
-apiInstance.gameEngineApiSessionOpsUpdate(sessionId, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -768,6 +671,56 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## gameEngineApiSessionSubmissionsCreate
+
+> CardSubmission gameEngineApiSessionSubmissionsCreate(sessionId, data)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let sessionId = "sessionId_example"; // String | 
+let data = new CardsAgainstHumanityDjangoApi.CardSubmission(); // CardSubmission | 
+apiInstance.gameEngineApiSessionSubmissionsCreate(sessionId, data, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sessionId** | **String**|  | 
+ **data** | [**CardSubmission**](CardSubmission.md)|  | 
+
+### Return type
+
+[**CardSubmission**](CardSubmission.md)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
