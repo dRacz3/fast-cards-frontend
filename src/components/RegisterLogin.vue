@@ -134,6 +134,10 @@ export default {
       apiclient.defaultHeaders = {
         Authorization: ``
       };
+      // eslint-disable-next-line no-unused-vars
+      backendApi.apiRestAuthLogoutCreate((error, data, resposne) => {
+        console.log("Logged out...");
+      });
     }
   },
   mounted() {
