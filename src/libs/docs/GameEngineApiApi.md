@@ -9,10 +9,6 @@ Method | HTTP request | Description
 [**gameEngineApiGameroundprofiledataPartialUpdate**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataPartialUpdate) | **PATCH** /game_engine_api/gameroundprofiledata/{id}/ | 
 [**gameEngineApiGameroundprofiledataRead**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataRead) | **GET** /game_engine_api/gameroundprofiledata/{id}/ | 
 [**gameEngineApiGameroundprofiledataUpdate**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataUpdate) | **PUT** /game_engine_api/gameroundprofiledata/{id}/ | 
-[**gameEngineApiProfilesList**](GameEngineApiApi.md#gameEngineApiProfilesList) | **GET** /game_engine_api/profiles/ | 
-[**gameEngineApiProfilesPartialUpdate**](GameEngineApiApi.md#gameEngineApiProfilesPartialUpdate) | **PATCH** /game_engine_api/profiles/{id}/ | 
-[**gameEngineApiProfilesRead**](GameEngineApiApi.md#gameEngineApiProfilesRead) | **GET** /game_engine_api/profiles/{id}/ | 
-[**gameEngineApiProfilesUpdate**](GameEngineApiApi.md#gameEngineApiProfilesUpdate) | **PUT** /game_engine_api/profiles/{id}/ | 
 [**gameEngineApiSessionHasPlayerSubmittedList**](GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 [**gameEngineApiSessionMycardsList**](GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
 [**gameEngineApiSessionProfilesList**](GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
@@ -21,6 +17,7 @@ Method | HTTP request | Description
 [**gameEngineApiSessionSubmissionsList**](GameEngineApiApi.md#gameEngineApiSessionSubmissionsList) | **GET** /game_engine_api/session/{session_id}/submissions/ | 
 [**gameEngineApiSessionViewList**](GameEngineApiApi.md#gameEngineApiSessionViewList) | **GET** /game_engine_api/session/{session_id}/view | 
 [**gameEngineApiSessionsCreate**](GameEngineApiApi.md#gameEngineApiSessionsCreate) | **POST** /game_engine_api/sessions/ | 
+[**gameEngineApiSessionsDelete**](GameEngineApiApi.md#gameEngineApiSessionsDelete) | **DELETE** /game_engine_api/sessions/{session_id}/ | 
 [**gameEngineApiSessionsList**](GameEngineApiApi.md#gameEngineApiSessionsList) | **GET** /game_engine_api/sessions/ | 
 [**gameEngineApiSessionsPartialUpdate**](GameEngineApiApi.md#gameEngineApiSessionsPartialUpdate) | **PATCH** /game_engine_api/sessions/{session_id}/ | 
 [**gameEngineApiSessionsRead**](GameEngineApiApi.md#gameEngineApiSessionsRead) | **GET** /game_engine_api/sessions/{session_id}/ | 
@@ -274,206 +271,6 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## gameEngineApiProfilesList
-
-> InlineResponse2003 gameEngineApiProfilesList(opts)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let opts = {
-  'search': "search_example", // String | A search term.
-  'page': 56 // Number | A page number within the paginated result set.
-};
-apiInstance.gameEngineApiProfilesList(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **search** | **String**| A search term. | [optional] 
- **page** | **Number**| A page number within the paginated result set. | [optional] 
-
-### Return type
-
-[**InlineResponse2003**](InlineResponse2003.md)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## gameEngineApiProfilesPartialUpdate
-
-> Profile gameEngineApiProfilesPartialUpdate(id, data)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let id = 56; // Number | A unique integer value identifying this profile.
-let data = new CardsAgainstHumanityDjangoApi.Profile(); // Profile | 
-apiInstance.gameEngineApiProfilesPartialUpdate(id, data, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **Number**| A unique integer value identifying this profile. | 
- **data** | [**Profile**](Profile.md)|  | 
-
-### Return type
-
-[**Profile**](Profile.md)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## gameEngineApiProfilesRead
-
-> Profile gameEngineApiProfilesRead(id)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let id = 56; // Number | A unique integer value identifying this profile.
-apiInstance.gameEngineApiProfilesRead(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **Number**| A unique integer value identifying this profile. | 
-
-### Return type
-
-[**Profile**](Profile.md)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## gameEngineApiProfilesUpdate
-
-> Profile gameEngineApiProfilesUpdate(id, data)
-
-
-
-### Example
-
-```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
-// Configure HTTP basic authorization: Basic
-let Basic = defaultClient.authentications['Basic'];
-Basic.username = 'YOUR USERNAME';
-Basic.password = 'YOUR PASSWORD';
-
-let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
-let id = 56; // Number | A unique integer value identifying this profile.
-let data = new CardsAgainstHumanityDjangoApi.Profile(); // Profile | 
-apiInstance.gameEngineApiProfilesUpdate(id, data, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **Number**| A unique integer value identifying this profile. | 
- **data** | [**Profile**](Profile.md)|  | 
-
-### Return type
-
-[**Profile**](Profile.md)
-
-### Authorization
-
-[Basic](../README.md#Basic)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## gameEngineApiSessionHasPlayerSubmittedList
 
 > gameEngineApiSessionHasPlayerSubmittedList(sessionId)
@@ -624,7 +421,7 @@ Name | Type | Description  | Notes
 
 ## gameEngineApiSessionRoundsList
 
-> InlineResponse2004 gameEngineApiSessionRoundsList(sessionId, opts)
+> InlineResponse2003 gameEngineApiSessionRoundsList(sessionId, opts)
 
 
 
@@ -662,7 +459,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2004**](InlineResponse2004.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -726,7 +523,7 @@ Name | Type | Description  | Notes
 
 ## gameEngineApiSessionSubmissionsList
 
-> InlineResponse2005 gameEngineApiSessionSubmissionsList(sessionId, opts)
+> InlineResponse2004 gameEngineApiSessionSubmissionsList(sessionId, opts)
 
 
 
@@ -764,7 +561,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -872,9 +669,57 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## gameEngineApiSessionsDelete
+
+> gameEngineApiSessionsDelete(sessionId)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let sessionId = "sessionId_example"; // String | A unique value identifying this game session.
+apiInstance.gameEngineApiSessionsDelete(sessionId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sessionId** | **String**| A unique value identifying this game session. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
 ## gameEngineApiSessionsList
 
-> InlineResponse2006 gameEngineApiSessionsList(opts)
+> InlineResponse2005 gameEngineApiSessionsList(opts)
 
 
 
@@ -912,7 +757,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2006**](InlineResponse2006.md)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 

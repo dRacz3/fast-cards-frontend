@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import GameRound from './GameRound';
+import CardSubmission from './CardSubmission';
 
 /**
  * The InlineResponse2004 model module.
@@ -24,7 +24,7 @@ class InlineResponse2004 {
      * Constructs a new <code>InlineResponse2004</code>.
      * @alias module:model/InlineResponse2004
      * @param count {Number} 
-     * @param results {Array.<module:model/GameRound>} 
+     * @param results {Array.<module:model/CardSubmission>} 
      */
     constructor(count, results) { 
         
@@ -62,7 +62,7 @@ class InlineResponse2004 {
                 obj['previous'] = ApiClient.convertToType(data['previous'], 'String');
             }
             if (data.hasOwnProperty('results')) {
-                obj['results'] = ApiClient.convertToType(data['results'], [GameRound]);
+                obj['results'] = ApiClient.convertToType(data['results'], [CardSubmission]);
             }
         }
         return obj;
@@ -87,7 +87,7 @@ InlineResponse2004.prototype['next'] = undefined;
 InlineResponse2004.prototype['previous'] = undefined;
 
 /**
- * @member {Array.<module:model/GameRound>} results
+ * @member {Array.<module:model/CardSubmission>} results
  */
 InlineResponse2004.prototype['results'] = undefined;
 

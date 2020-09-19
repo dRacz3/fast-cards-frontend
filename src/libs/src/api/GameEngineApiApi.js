@@ -20,8 +20,6 @@ import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
-import InlineResponse2006 from '../model/InlineResponse2006';
-import Profile from '../model/Profile';
 
 /**
 * GameEngineApi service.
@@ -255,180 +253,6 @@ export default class GameEngineApiApi {
     }
 
     /**
-     * Callback function to receive the result of the gameEngineApiProfilesList operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiProfilesListCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2003} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.search A search term.
-     * @param {Number} opts.page A page number within the paginated result set.
-     * @param {module:api/GameEngineApiApi~gameEngineApiProfilesListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2003}
-     */
-    gameEngineApiProfilesList(opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'search': opts['search'],
-        'page': opts['page']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = InlineResponse2003;
-      return this.apiClient.callApi(
-        '/game_engine_api/profiles/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiProfilesPartialUpdate operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiProfilesPartialUpdateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Profile} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {Number} id A unique integer value identifying this profile.
-     * @param {module:model/Profile} data 
-     * @param {module:api/GameEngineApiApi~gameEngineApiProfilesPartialUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Profile}
-     */
-    gameEngineApiProfilesPartialUpdate(id, data, callback) {
-      let postBody = data;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling gameEngineApiProfilesPartialUpdate");
-      }
-      // verify the required parameter 'data' is set
-      if (data === undefined || data === null) {
-        throw new Error("Missing the required parameter 'data' when calling gameEngineApiProfilesPartialUpdate");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Profile;
-      return this.apiClient.callApi(
-        '/game_engine_api/profiles/{id}/', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiProfilesRead operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiProfilesReadCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Profile} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {Number} id A unique integer value identifying this profile.
-     * @param {module:api/GameEngineApiApi~gameEngineApiProfilesReadCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Profile}
-     */
-    gameEngineApiProfilesRead(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling gameEngineApiProfilesRead");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Profile;
-      return this.apiClient.callApi(
-        '/game_engine_api/profiles/{id}/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the gameEngineApiProfilesUpdate operation.
-     * @callback module:api/GameEngineApiApi~gameEngineApiProfilesUpdateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Profile} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * @param {Number} id A unique integer value identifying this profile.
-     * @param {module:model/Profile} data 
-     * @param {module:api/GameEngineApiApi~gameEngineApiProfilesUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Profile}
-     */
-    gameEngineApiProfilesUpdate(id, data, callback) {
-      let postBody = data;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling gameEngineApiProfilesUpdate");
-      }
-      // verify the required parameter 'data' is set
-      if (data === undefined || data === null) {
-        throw new Error("Missing the required parameter 'data' when calling gameEngineApiProfilesUpdate");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['Basic'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Profile;
-      return this.apiClient.callApi(
-        '/game_engine_api/profiles/{id}/', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the gameEngineApiSessionHasPlayerSubmittedList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionHasPlayerSubmittedListCallback
      * @param {String} error Error message, if any.
@@ -557,7 +381,7 @@ export default class GameEngineApiApi {
      * Callback function to receive the result of the gameEngineApiSessionRoundsList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionRoundsListCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2004} data The data returned by the service call.
+     * @param {module:model/InlineResponse2003} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -566,7 +390,7 @@ export default class GameEngineApiApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.page A page number within the paginated result set.
      * @param {module:api/GameEngineApiApi~gameEngineApiSessionRoundsListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2004}
+     * data is of type: {@link module:model/InlineResponse2003}
      */
     gameEngineApiSessionRoundsList(sessionId, opts, callback) {
       opts = opts || {};
@@ -590,7 +414,7 @@ export default class GameEngineApiApi {
       let authNames = ['Basic'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2004;
+      let returnType = InlineResponse2003;
       return this.apiClient.callApi(
         '/game_engine_api/session/{session_id}/rounds', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -648,7 +472,7 @@ export default class GameEngineApiApi {
      * Callback function to receive the result of the gameEngineApiSessionSubmissionsList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionSubmissionsListCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2005} data The data returned by the service call.
+     * @param {module:model/InlineResponse2004} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -657,7 +481,7 @@ export default class GameEngineApiApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.page A page number within the paginated result set.
      * @param {module:api/GameEngineApiApi~gameEngineApiSessionSubmissionsListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2005}
+     * data is of type: {@link module:model/InlineResponse2004}
      */
     gameEngineApiSessionSubmissionsList(sessionId, opts, callback) {
       opts = opts || {};
@@ -681,7 +505,7 @@ export default class GameEngineApiApi {
       let authNames = ['Basic'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2005;
+      let returnType = InlineResponse2004;
       return this.apiClient.callApi(
         '/game_engine_api/session/{session_id}/submissions/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -770,10 +594,50 @@ export default class GameEngineApiApi {
     }
 
     /**
+     * Callback function to receive the result of the gameEngineApiSessionsDelete operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionsDeleteCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} sessionId A unique value identifying this game session.
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionsDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    gameEngineApiSessionsDelete(sessionId, callback) {
+      let postBody = null;
+      // verify the required parameter 'sessionId' is set
+      if (sessionId === undefined || sessionId === null) {
+        throw new Error("Missing the required parameter 'sessionId' when calling gameEngineApiSessionsDelete");
+      }
+
+      let pathParams = {
+        'session_id': sessionId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/game_engine_api/sessions/{session_id}/', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the gameEngineApiSessionsList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionsListCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2006} data The data returned by the service call.
+     * @param {module:model/InlineResponse2005} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -782,7 +646,7 @@ export default class GameEngineApiApi {
      * @param {String} opts.search A search term.
      * @param {Number} opts.page A page number within the paginated result set.
      * @param {module:api/GameEngineApiApi~gameEngineApiSessionsListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2006}
+     * data is of type: {@link module:model/InlineResponse2005}
      */
     gameEngineApiSessionsList(opts, callback) {
       opts = opts || {};
@@ -802,7 +666,7 @@ export default class GameEngineApiApi {
       let authNames = ['Basic'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2006;
+      let returnType = InlineResponse2005;
       return this.apiClient.callApi(
         '/game_engine_api/sessions/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,

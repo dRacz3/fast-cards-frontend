@@ -29,7 +29,6 @@ import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
-import InlineResponse2006 from './model/InlineResponse2006';
 import Login from './model/Login';
 import PasswordChange from './model/PasswordChange';
 import PasswordReset from './model/PasswordReset';
@@ -40,6 +39,7 @@ import UserDetails from './model/UserDetails';
 import VerifyEmail from './model/VerifyEmail';
 import WhiteCard from './model/WhiteCard';
 import ApiApi from './api/ApiApi';
+import CardApiApi from './api/CardApiApi';
 import GameEngineApiApi from './api/GameEngineApiApi';
 
 
@@ -178,12 +178,6 @@ export {
     InlineResponse2005,
 
     /**
-     * The InlineResponse2006 model constructor.
-     * @property {module:model/InlineResponse2006}
-     */
-    InlineResponse2006,
-
-    /**
      * The Login model constructor.
      * @property {module:model/Login}
      */
@@ -242,6 +236,12 @@ export {
     * @property {module:api/ApiApi}
     */
     ApiApi,
+
+    /**
+    * The CardApiApi service constructor.
+    * @property {module:api/CardApiApi}
+    */
+    CardApiApi,
 
     /**
     * The GameEngineApiApi service constructor.

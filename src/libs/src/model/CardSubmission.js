@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import GameRoundProfileData from './GameRoundProfileData';
 import WhiteCard from './WhiteCard';
 
 /**
@@ -56,6 +57,9 @@ class CardSubmission {
             if (data.hasOwnProperty('submission_id')) {
                 obj['submission_id'] = ApiClient.convertToType(data['submission_id'], 'Number');
             }
+            if (data.hasOwnProperty('connected_game_round_profile')) {
+                obj['connected_game_round_profile'] = GameRoundProfileData.constructFromObject(data['connected_game_round_profile']);
+            }
         }
         return obj;
     }
@@ -72,6 +76,11 @@ CardSubmission.prototype['submitted_white_cards'] = undefined;
  * @member {Number} submission_id
  */
 CardSubmission.prototype['submission_id'] = undefined;
+
+/**
+ * @member {module:model/GameRoundProfileData} connected_game_round_profile
+ */
+CardSubmission.prototype['connected_game_round_profile'] = undefined;
 
 
 

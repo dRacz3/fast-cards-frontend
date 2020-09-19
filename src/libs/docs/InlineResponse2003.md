@@ -7,6 +7,6 @@ Name | Type | Description | Notes
 **count** | **Number** |  | 
 **next** | **String** |  | [optional] 
 **previous** | **String** |  | [optional] 
-**results** | [**[Profile]**](Profile.md) |  | 
+**results** | [**[GameRound]**](GameRound.md) |  | 
 
 

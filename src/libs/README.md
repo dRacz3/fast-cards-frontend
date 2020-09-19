@@ -107,10 +107,7 @@ Basic.username = 'YOUR USERNAME'
 Basic.password = 'YOUR PASSWORD'
 
 var api = new CardsAgainstHumanityDjangoApi.ApiApi()
-var opts = {
-  'search': "search_example", // {String} A search term.
-  'page': 56 // {Number} A page number within the paginated result set.
-};
+var data = new CardsAgainstHumanityDjangoApi.Login(); // {Login} 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -118,7 +115,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.apiBlackCardsList(opts, callback);
+api.apiRestAuthLoginCreate(data, callback);
 
 ```
 
@@ -128,10 +125,6 @@ All URIs are relative to *http://localhost:8000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiBlackCardsList**](docs/ApiApi.md#apiBlackCardsList) | **GET** /api/black_cards/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiBlackCardsPartialUpdate**](docs/ApiApi.md#apiBlackCardsPartialUpdate) | **PATCH** /api/black_cards/{card_id}/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiBlackCardsRead**](docs/ApiApi.md#apiBlackCardsRead) | **GET** /api/black_cards/{card_id}/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiBlackCardsUpdate**](docs/ApiApi.md#apiBlackCardsUpdate) | **PUT** /api/black_cards/{card_id}/ | 
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthLoginCreate**](docs/ApiApi.md#apiRestAuthLoginCreate) | **POST** /api/rest-auth/login/ | 
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthLogoutCreate**](docs/ApiApi.md#apiRestAuthLogoutCreate) | **POST** /api/rest-auth/logout/ | Calls Django logout method and delete the Token object assigned to the current User object.
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthLogoutList**](docs/ApiApi.md#apiRestAuthLogoutList) | **GET** /api/rest-auth/logout/ | Calls Django logout method and delete the Token object assigned to the current User object.
@@ -143,19 +136,19 @@ Class | Method | HTTP request | Description
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthUserPartialUpdate**](docs/ApiApi.md#apiRestAuthUserPartialUpdate) | **PATCH** /api/rest-auth/user/ | Reads and updates UserModel fields Accepts GET, PUT, PATCH methods.
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthUserRead**](docs/ApiApi.md#apiRestAuthUserRead) | **GET** /api/rest-auth/user/ | Reads and updates UserModel fields Accepts GET, PUT, PATCH methods.
 *CardsAgainstHumanityDjangoApi.ApiApi* | [**apiRestAuthUserUpdate**](docs/ApiApi.md#apiRestAuthUserUpdate) | **PUT** /api/rest-auth/user/ | Reads and updates UserModel fields Accepts GET, PUT, PATCH methods.
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiWhiteCardsList**](docs/ApiApi.md#apiWhiteCardsList) | **GET** /api/white_cards/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiWhiteCardsPartialUpdate**](docs/ApiApi.md#apiWhiteCardsPartialUpdate) | **PATCH** /api/white_cards/{card_id}/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiWhiteCardsRead**](docs/ApiApi.md#apiWhiteCardsRead) | **GET** /api/white_cards/{card_id}/ | 
-*CardsAgainstHumanityDjangoApi.ApiApi* | [**apiWhiteCardsUpdate**](docs/ApiApi.md#apiWhiteCardsUpdate) | **PUT** /api/white_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiBlackCardsList**](docs/CardApiApi.md#cardApiBlackCardsList) | **GET** /card-api/black_cards/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiBlackCardsPartialUpdate**](docs/CardApiApi.md#cardApiBlackCardsPartialUpdate) | **PATCH** /card-api/black_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiBlackCardsRead**](docs/CardApiApi.md#cardApiBlackCardsRead) | **GET** /card-api/black_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiBlackCardsUpdate**](docs/CardApiApi.md#cardApiBlackCardsUpdate) | **PUT** /card-api/black_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiWhiteCardsList**](docs/CardApiApi.md#cardApiWhiteCardsList) | **GET** /card-api/white_cards/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiWhiteCardsPartialUpdate**](docs/CardApiApi.md#cardApiWhiteCardsPartialUpdate) | **PATCH** /card-api/white_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiWhiteCardsRead**](docs/CardApiApi.md#cardApiWhiteCardsRead) | **GET** /card-api/white_cards/{card_id}/ | 
+*CardsAgainstHumanityDjangoApi.CardApiApi* | [**cardApiWhiteCardsUpdate**](docs/CardApiApi.md#cardApiWhiteCardsUpdate) | **PUT** /card-api/white_cards/{card_id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataCreate**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataCreate) | **POST** /game_engine_api/gameroundprofiledata/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataList**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataList) | **GET** /game_engine_api/gameroundprofiledata/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataPartialUpdate**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataPartialUpdate) | **PATCH** /game_engine_api/gameroundprofiledata/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataRead**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataRead) | **GET** /game_engine_api/gameroundprofiledata/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataUpdate**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataUpdate) | **PUT** /game_engine_api/gameroundprofiledata/{id}/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesList**](docs/GameEngineApiApi.md#gameEngineApiProfilesList) | **GET** /game_engine_api/profiles/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesPartialUpdate**](docs/GameEngineApiApi.md#gameEngineApiProfilesPartialUpdate) | **PATCH** /game_engine_api/profiles/{id}/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesRead**](docs/GameEngineApiApi.md#gameEngineApiProfilesRead) | **GET** /game_engine_api/profiles/{id}/ | 
-*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiProfilesUpdate**](docs/GameEngineApiApi.md#gameEngineApiProfilesUpdate) | **PUT** /game_engine_api/profiles/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionHasPlayerSubmittedList**](docs/GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionMycardsList**](docs/GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionProfilesList**](docs/GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
@@ -164,6 +157,7 @@ Class | Method | HTTP request | Description
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionSubmissionsList**](docs/GameEngineApiApi.md#gameEngineApiSessionSubmissionsList) | **GET** /game_engine_api/session/{session_id}/submissions/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionViewList**](docs/GameEngineApiApi.md#gameEngineApiSessionViewList) | **GET** /game_engine_api/session/{session_id}/view | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsCreate**](docs/GameEngineApiApi.md#gameEngineApiSessionsCreate) | **POST** /game_engine_api/sessions/ | 
+*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsDelete**](docs/GameEngineApiApi.md#gameEngineApiSessionsDelete) | **DELETE** /game_engine_api/sessions/{session_id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsList**](docs/GameEngineApiApi.md#gameEngineApiSessionsList) | **GET** /game_engine_api/sessions/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsPartialUpdate**](docs/GameEngineApiApi.md#gameEngineApiSessionsPartialUpdate) | **PATCH** /game_engine_api/sessions/{session_id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionsRead**](docs/GameEngineApiApi.md#gameEngineApiSessionsRead) | **GET** /game_engine_api/sessions/{session_id}/ | 
@@ -188,7 +182,6 @@ Class | Method | HTTP request | Description
  - [CardsAgainstHumanityDjangoApi.InlineResponse2003](docs/InlineResponse2003.md)
  - [CardsAgainstHumanityDjangoApi.InlineResponse2004](docs/InlineResponse2004.md)
  - [CardsAgainstHumanityDjangoApi.InlineResponse2005](docs/InlineResponse2005.md)
- - [CardsAgainstHumanityDjangoApi.InlineResponse2006](docs/InlineResponse2006.md)
  - [CardsAgainstHumanityDjangoApi.Login](docs/Login.md)
  - [CardsAgainstHumanityDjangoApi.PasswordChange](docs/PasswordChange.md)
  - [CardsAgainstHumanityDjangoApi.PasswordReset](docs/PasswordReset.md)

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import Profile from './Profile';
+import GameRound from './GameRound';
 
 /**
  * The InlineResponse2003 model module.
@@ -24,7 +24,7 @@ class InlineResponse2003 {
      * Constructs a new <code>InlineResponse2003</code>.
      * @alias module:model/InlineResponse2003
      * @param count {Number} 
-     * @param results {Array.<module:model/Profile>} 
+     * @param results {Array.<module:model/GameRound>} 
      */
     constructor(count, results) { 
         
@@ -62,7 +62,7 @@ class InlineResponse2003 {
                 obj['previous'] = ApiClient.convertToType(data['previous'], 'String');
             }
             if (data.hasOwnProperty('results')) {
-                obj['results'] = ApiClient.convertToType(data['results'], [Profile]);
+                obj['results'] = ApiClient.convertToType(data['results'], [GameRound]);
             }
         }
         return obj;
@@ -87,7 +87,7 @@ InlineResponse2003.prototype['next'] = undefined;
 InlineResponse2003.prototype['previous'] = undefined;
 
 /**
- * @member {Array.<module:model/Profile>} results
+ * @member {Array.<module:model/GameRound>} results
  */
 InlineResponse2003.prototype['results'] = undefined;
 
