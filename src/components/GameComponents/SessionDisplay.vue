@@ -13,6 +13,9 @@
 
         <md-card-actions>
           <md-button @click="join_session(data.session_id)">Join</md-button>
+          <md-button class="md-accent" @click="delete_Session(data.session_id)"
+            ><md-icon>delete</md-icon>Delete</md-button
+          >
         </md-card-actions>
       </md-ripple>
     </md-card>
@@ -25,13 +28,17 @@ export default {
   components: {},
   props: {
     data: {
-      required: true,
+      required: true
     },
     join_session: {
       type: Function,
-      required: true,
+      required: true
     },
-  },
+    delete_Session: {
+      type: Function,
+      required: true
+    }
+  }
 };
 </script>
 

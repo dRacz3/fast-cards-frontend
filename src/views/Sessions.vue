@@ -22,7 +22,11 @@
           >
         </md-field>
         <div v-for="(entry, index) of sessions" :key="index">
-          <session-display :data="entry" :join_session="joinSession">
+          <session-display
+            :data="entry"
+            :join_session="joinSession"
+            :delete_Session="deleteSession"
+          >
           </session-display>
         </div>
       </div>
@@ -77,6 +81,28 @@ export default {
     },
     createAndJoinSession() {
       this.joinSession(this.new_room_name);
+    },
+    deleteSession(session_name) {
+      gameApi.gameEngineApiSessionsDelete(
+        session_name,
+        (error, data, response) => {
+          if (error) {
+            this.$store.commit(
+              "push_message_to_snackbar",
+              "Failed to delete session : " +
+                session_name +
+                ", " +
+                response.text
+            );
+          } else {
+            this.$store.commit(
+              "push_message_to_snackbar",
+              "Session : " + session_name + " deleted, " + response.text
+            );
+            this.getSessions();
+          }
+        }
+      );
     }
   },
   mounted() {
