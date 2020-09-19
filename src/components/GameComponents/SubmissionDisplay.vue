@@ -42,6 +42,12 @@ export default {
   computed: {
     submitted_content() {
       let str = this.black_card_data.text;
+      if (str.indexOf("_") == -1) {
+        return (
+          str + " [" + this.submission_info.submitted_white_cards[0].text + "]"
+        );
+      }
+
       let replacements = this.submission_info.submitted_white_cards.map(
         e => e.text
       );
