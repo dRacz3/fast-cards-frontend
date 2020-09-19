@@ -11,15 +11,15 @@
 
     <div v-else>
       <div v-if="selected_session == null">
-        <md-button @click="getSessions">
-          <md-icon>refresh</md-icon> Refresh</md-button
-        >
-        <md-button @click="createAndJoinSession">
-          <md-icon>create</md-icon>Create & Join new Room</md-button
-        >
         <md-field>
           <label>New Room Name</label>
           <md-input v-model="new_room_name"></md-input>
+          <md-button @click="createAndJoinSession">
+            <md-icon>create</md-icon>Create & Join new Room</md-button
+          >
+          <md-button @click="getSessions">
+            <md-icon>refresh</md-icon> Refresh</md-button
+          >
         </md-field>
         <div v-for="(entry, index) of sessions" :key="index">
           <session-display :data="entry" :join_session="joinSession">
