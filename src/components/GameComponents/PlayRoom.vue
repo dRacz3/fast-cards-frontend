@@ -6,13 +6,14 @@
           session_data.last_round.session.session_id !== null
       "
     >
-      <md-app-toolbar class="md-primary">
+      <md-app-toolbar class="md-primary flex-row-view">
         <span class="md-title">
           Room [{{ session_data.last_round.session.session_id }}], round : #{{
             session_data.last_round.roundNumber
           }}
           with {{ number_of_players }} player
         </span>
+        <slot></slot>
       </md-app-toolbar>
 
       <md-app-content>
@@ -85,7 +86,7 @@ export default {
     connect_to_socket() {
       backendSocket.$connect(
         "ws://" +
-          "10.36.60.241:8000/ws/chat/" +
+          "localhost:8000/ws/chat/" +
           "user/" +
           this.session_name +
           "/" +
@@ -288,10 +289,9 @@ ul {
   width: 100%;
 }
 
-.central-row-view {
+.flex-row-view {
   display: flex;
   flex-direction: row;
-  padding: 10px;
-  border: 5px chocolate;
+  justify-content: space-between;
 }
 </style>

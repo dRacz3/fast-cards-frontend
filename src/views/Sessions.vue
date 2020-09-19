@@ -17,8 +17,14 @@
       </div>
     </div>
     <div v-else>
-      <md-button @click="selected_session = null">Exit</md-button>
-      <play-room :session_name="selected_session"></play-room>
+      <play-room :session_name="selected_session">
+        <md-button
+          @click="selected_session = null"
+          class="md-raised md-primary"
+        >
+          <md-icon>exit_to_app</md-icon> Exit</md-button
+        >
+      </play-room>
     </div>
   </div>
 </template>
@@ -33,17 +39,17 @@ export default {
   data: () => ({
     sessions: null,
     selected_session: null,
-    new_room_name: null,
+    new_room_name: null
   }),
   components: {
     "session-display": SessionDisplay,
-    "play-room": PlayRoom,
+    "play-room": PlayRoom
   },
   methods: {
     getSessions() {
       let opts = {
         search: "", // String | A search term.
-        page: 1, // Number | A page number within the paginated result set.
+        page: 1 // Number | A page number within the paginated result set.
       };
 
       gameApi.gameEngineApiSessionsList(opts, (error, data, response) => {
@@ -64,10 +70,10 @@ export default {
     },
     createAndJoinSession() {
       this.joinSession(this.new_room_name);
-    },
+    }
   },
   mounted() {
     this.getSessions();
-  },
+  }
 };
 </script>

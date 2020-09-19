@@ -1,5 +1,5 @@
 <template>
-  <div class="disable_selection" @click="toggleSelect">
+  <div class="disable_selection white-card-container" @click="toggleSelect">
     <md-card md-with-hover class="white-card">
       <div class="md-title">{{ displayedText }}</div>
 
@@ -7,8 +7,8 @@
         <span>{{ card_data.icon }} </span><span>{{ card_data.deck }}</span>
       </div>
     </md-card>
-  </div></template
->
+  </div>
+</template>
 
 <script>
 export default {
@@ -19,21 +19,21 @@ export default {
       if (this.on_clicked_callback) {
         this.on_clicked_callback(this.card_data, true);
       }
-    },
+    }
   },
   props: {
     card_data: {
-      required: true,
+      required: true
     },
     on_clicked_callback: {
-      default: null,
-    },
+      default: null
+    }
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -52,7 +52,7 @@ export default {
   background: white;
   color: black;
   // height: 15em;
-  width: 25em;
+  min-width: 25em;
   margin: 10px 5px 5px 0px;
   padding: 15px;
   display: flex;
@@ -76,5 +76,10 @@ export default {
   border-radius: 50px;
   background: #626262ca;
   padding: 15px;
+}
+
+.white-card-container {
+  height: 100%;
+  display: flex;
 }
 </style>
