@@ -1,22 +1,31 @@
 <template>
-  <div class="hello">
-    Hello there {{ username }} -> {{ token }}
-    <md-field>
-      <label>UserName</label>
-      <md-input v-model="username"></md-input>
-    </md-field>
+  <div>
+    <div class="hello" v-if="token == null">
+      Please register or log in.
+      <md-field>
+        <label>UserName</label>
+        <md-input v-model="username"></md-input>
+      </md-field>
 
-    <md-field>
-      <label>Password</label>
-      <md-input v-model="password"></md-input>
-    </md-field>
+      <md-field>
+        <label>Password</label>
+        <md-input v-model="password"></md-input>
+      </md-field>
 
-    <md-field>
-      <label>Email</label>
-      <md-input v-model="email"></md-input>
-    </md-field>
-    <md-button class="md-accent" @click="register()">Register</md-button>
-    <md-button class="md-accent" @click="login()">Login</md-button>
+      <md-field>
+        <label>Email</label>
+        <md-input v-model="email"></md-input>
+      </md-field>
+      <md-button class="md-accent" @click="register()">Register</md-button>
+      <md-button class="md-accent" @click="login()">Login</md-button>
+    </div>
+
+    <div v-else>
+      You are logged in. Do you want to log out?
+      <md-button class="md-accent" @click="logout()">
+        <md-icon>exit_to_app</md-icon>Log out</md-button
+      >
+    </div>
   </div>
 </template>
 
@@ -50,6 +59,13 @@ export default {
         (error, data, response) => {
           if (error) {
             console.error(error);
+            this.$store.commit(
+              "push_message_to_snackbar",
+              "Registration failed with " +
+                error +
+                " error is : " +
+                response.text
+            );
           } else {
             console.log("API called successfully. Returned data: ");
             this.token = JSON.parse(response.text).key;
@@ -57,6 +73,10 @@ export default {
             apiclient.defaultHeaders = {
               Authorization: `Token ${this.token}`
             };
+            this.$store.commit(
+              "push_message_to_snackbar",
+              "Registration success, you are now logged in as " + this.username
+            );
           }
         }
       );
@@ -86,20 +106,34 @@ export default {
       backendApi.apiRestAuthLoginCreate(logindata, (error, data, response) => {
         if (error) {
           console.error(error);
+          this.$store.commit(
+            "push_message_to_snackbar",
+            "Login failed with " + error + " error is : " + response.text
+          );
         } else {
           console.log("API called successfully. Returned data: ");
           this.token = JSON.parse(response.text).key;
-          // let asd = response;
-          // console.log(asd);
-          // console.log(asd.xhr);
-          // document.cookie = "username=John Doe";
+
           this.$store.commit("update_api_token", this.token);
           apiclient.defaultHeaders = {
             Authorization: `Token ${this.token}`
           };
-          console.log(this.getCookie("csrftoken"));
+          this.$store.commit(
+            "push_message_to_snackbar",
+            "Loged in as " + this.username
+          );
         }
       });
+    },
+    logout() {
+      this.username = null;
+      this.password = null;
+      this.token = null;
+      this.$store.commit("update_api_token", null);
+      this.$store.commit("push_message_to_snackbar", "Logged out");
+      apiclient.defaultHeaders = {
+        Authorization: ``
+      };
     }
   },
   mounted() {

@@ -1,30 +1,41 @@
 <template>
   <div>
-    <div v-if="selected_session == null">
-      <md-button @click="getSessions">
-        <md-icon>refresh</md-icon> Refresh</md-button
-      >
-      <md-button @click="createAndJoinSession">
-        <md-icon>create</md-icon>Create & Join new Room</md-button
-      >
-      <md-field>
-        <label>New Room Name</label>
-        <md-input v-model="new_room_name"></md-input>
-      </md-field>
-      <div v-for="(entry, index) of sessions" :key="index">
-        <session-display :data="entry" :join_session="joinSession">
-        </session-display>
-      </div>
-    </div>
+    <md-empty-state
+      v-if="sessions == null"
+      md-rounded
+      md-icon="warning"
+      md-label="Failed to load rooms"
+      md-description="Are you logged in? Is the server running and available?"
+    >
+    </md-empty-state>
+
     <div v-else>
-      <play-room :session_name="selected_session">
-        <md-button
-          @click="selected_session = null"
-          class="md-raised md-primary"
+      <div v-if="selected_session == null">
+        <md-button @click="getSessions">
+          <md-icon>refresh</md-icon> Refresh</md-button
         >
-          <md-icon>exit_to_app</md-icon> Exit</md-button
+        <md-button @click="createAndJoinSession">
+          <md-icon>create</md-icon>Create & Join new Room</md-button
         >
-      </play-room>
+        <md-field>
+          <label>New Room Name</label>
+          <md-input v-model="new_room_name"></md-input>
+        </md-field>
+        <div v-for="(entry, index) of sessions" :key="index">
+          <session-display :data="entry" :join_session="joinSession">
+          </session-display>
+        </div>
+      </div>
+      <div v-else>
+        <play-room :session_name="selected_session">
+          <md-button
+            @click="selected_session = null"
+            class="md-raised md-primary"
+          >
+            <md-icon>exit_to_app</md-icon> Exit</md-button
+          >
+        </play-room>
+      </div>
     </div>
   </div>
 </template>
@@ -56,11 +67,7 @@ export default {
         if (error) {
           console.error(error);
         } else {
-          console.log(
-            "apiBlackCardsList API called successfully. Returned data: "
-          );
           let cards = JSON.parse(response.text).results;
-          console.log();
           this.sessions = cards;
         }
       });

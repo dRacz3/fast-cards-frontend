@@ -24,25 +24,25 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item to="/about">
+          <!-- <md-list-item to="/about">
             <md-icon>login</md-icon>
             <span class="md-list-item-text"> About</span>
-          </md-list-item>
+          </md-list-item> -->
 
           <md-list-item to="/">
-            <md-icon>home</md-icon>
-            <span class="md-list-item-text"> Home </span>
+            <md-icon>account_circle</md-icon>
+            <span class="md-list-item-text"> Login </span>
           </md-list-item>
 
           <md-list-item to="/sessions">
-            <md-icon>open_in_browser</md-icon>
-            <span class="md-list-item-text"> Session</span>
+            <md-icon>games</md-icon>
+            <span class="md-list-item-text"> Game </span>
           </md-list-item>
 
-          <md-list-item to="/itemtest">
+          <!-- <md-list-item to="/itemtest">
             <md-icon>warning</md-icon>
             <span class="md-list-item-text"> Test View</span>
-          </md-list-item>
+          </md-list-item> -->
         </md-list>
       </md-app-drawer>
 
@@ -71,8 +71,8 @@ export default {
       duration: 4000,
       position: "center",
       showSnackbar: false,
-      message: "",
-    },
+      message: ""
+    }
   }),
   methods: {
     toggleMenu() {
@@ -82,19 +82,19 @@ export default {
       this.snackbar.message = event;
       this.snackbar.showSnackbar = false;
       this.snackbar.showSnackbar = true;
-    },
+    }
   },
   mounted() {
     let token = this.$store.state.api_token;
     if (token) {
       console.log("Setting up authentication header");
       apiclient.defaultHeaders = {
-        Authorization: `Token ${this.$store.state.api_token}`,
+        Authorization: `Token ${this.$store.state.api_token}`
       };
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
