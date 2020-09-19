@@ -1,10 +1,9 @@
 <template>
   <div class="disable_selection">
     <md-card class="player_card" md-with-hover>
-      <!-- {{ player_data }} -->
       <md-card-header>
         <md-card-header-text>
-          <div class="md-title">{{ player_data.user }}</div>
+          <div class="md-title">{{ displayed_name }}</div>
           <div class="md-subhead" v-if="is_tzar">
             TZAR <md-icon>star_rate</md-icon>
           </div>
@@ -32,13 +31,19 @@ export default {
     is_tzar: {
       default: false
     }
+  },
+  computed: {
+    displayed_name() {
+      return this.player_data.user.substring(0, 15);
+    }
   }
 };
 </script>
 
 <style scoped>
 .player_card {
-  max-width: 25em;
+  border-radius: 50px;
+  background: rgba(186, 251, 251, 0.315);
 }
 
 ul {

@@ -1,19 +1,24 @@
 <template>
-  <div>
+  <div class="page-container">
     <div v-if="current_player_data == null">
       loading..
     </div>
 
     <div v-if="profile_data">
-      <ul>
+      <ul class="flex-container">
         <div v-for="(entry, index) of profile_data" :key="index">
           <player-display :player_data="entry" :is_tzar="isTzar(entry)" />
         </div>
       </ul>
     </div>
 
+    <black-card-display
+      :card_data="active_round.active_black_card"
+    ></black-card-display>
+
     <div>
-      <ul v-if="submissions.length > 0">
+      <ul v-if="submissions.length > 0" class="table-container">
+        Selected cards:
         <div v-for="(entry, index) of submissions" :key="index">
           <white-card-display
             :card_data="entry"
@@ -31,12 +36,8 @@
       >Submit Selected</md-button
     >
 
-    <black-card-display
-      :card_data="active_round.active_black_card"
-    ></black-card-display>
-
     <div>
-      <ul>
+      <ul class="flex-container table-container">
         <div v-for="(entry, index) of cards_to_display" :key="index">
           <white-card-display
             :card_data="entry"
@@ -146,4 +147,24 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.flex-container {
+  display: flex;
+  align-content: center;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.page-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container {
+  border: rgba(8, 15, 15, 0.232) 1px solid;
+  border-radius: 50px;
+  padding: 15px;
+}
+</style>
