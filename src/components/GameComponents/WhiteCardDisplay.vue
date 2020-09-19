@@ -51,8 +51,7 @@ export default {
 .white-card {
   background: white;
   color: black;
-  min-width: 25em;
-  max-width: 35em;
+  width: 25em;
   margin: 10px 5px 5px 0px;
   padding: 15px;
   display: flex;

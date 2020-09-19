@@ -49,6 +49,14 @@
 
     <md-button @click="session_data_update()"> Click</md-button>
     <md-button @click="connect_to_socket()">Websocket</md-button>
+
+    <md-dialog-alert
+      :md-title="dialog.title"
+      :md-active.sync="dialog.active"
+      :md-content="dialog.content"
+      md-confirm-text="Cool!"
+    >
+    </md-dialog-alert>
   </div>
 </template>
 
@@ -65,7 +73,12 @@ export default {
     profile_data: null,
     current_player_data: null,
     submissions_by_everyone: [],
-    has_player_submitted: false
+    has_player_submitted: false,
+    dialog: {
+      title: "",
+      active: false,
+      content: "lofasz"
+    }
   }),
   components: {
     "waiting-for-start-view": WaitingForStart,
@@ -109,6 +122,13 @@ export default {
         this.session_data_update();
       } else if (message === "REQUEST_PLAYER_DATA") {
         this.update_player_data();
+      } else if (message.startsWith("__DECLARE_WINNER__")) {
+        console.log("Winner has been declared!");
+        this.dialog.content =
+          "Winner has been selected! IT is : " +
+          message.split("__|")[1] +
+          "<br>NEXT ROUND STARTS!";
+        this.dialog.active = true;
       } else {
         console.log("Unhandled message: " + message);
         console.log(message);
