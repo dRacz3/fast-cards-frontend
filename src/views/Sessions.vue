@@ -21,8 +21,13 @@
             <md-icon>refresh</md-icon> Refresh</md-button
           >
         </md-field>
-        <div v-for="(entry, index) of sessions" :key="index">
+        <div
+          v-for="(entry, index) of sessions"
+          :key="index"
+          class="flex-container"
+        >
           <session-display
+            class="session-display-card"
             :data="entry"
             :join_session="joinSession"
             :delete_Session="deleteSession"
@@ -110,3 +115,26 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.flex-container {
+  display: flex;
+  align-content: center;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.session-display-card {
+  width: 80%;
+}
+
+.disable_selection {
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+}
+</style>

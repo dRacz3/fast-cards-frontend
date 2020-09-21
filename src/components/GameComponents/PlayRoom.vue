@@ -99,7 +99,8 @@ export default {
     connect_to_socket() {
       backendSocket.$connect(
         "ws://" +
-          "localhost:8000/ws/chat/" +
+          window.location.hostname +
+          ":8000/ws/chat/" +
           "user/" +
           this.session_name +
           "/" +

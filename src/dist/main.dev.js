@@ -38,11 +38,8 @@ _vue["default"].use(_vueMaterial["default"]);
 _vue["default"].config.productionTip = false;
 console.log();
 
-_vue["default"].use(_vueNativeWebsocket["default"], "ws://localhost:8000/ws/chat/myUser/szoba1/", {
+_vue["default"].use(_vueNativeWebsocket["default"], "ws://3.128.255.2:8000/ws/chat/", {
   store: _store["default"],
-  // format: "json",
-  // reconnection: true,
-  // reconnectionDelay: 3000,
   connectManually: true
 });
 

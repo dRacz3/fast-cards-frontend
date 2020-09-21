@@ -15,6 +15,7 @@ _vue["default"].use(_vuex["default"]);
 
 var _default = new _vuex["default"].Store({
   state: {
+    backend_endpoint: "3.128.255.2:8000",
     api_token: null,
     socket: {
       isConnected: false,
@@ -25,6 +26,10 @@ var _default = new _vuex["default"].Store({
     on_message_callback: null
   },
   mutations: {
+    updateBackendEndpoint: function updateBackendEndpoint(state, endpoint) {
+      state.backend_endpoint = endpoint;
+      localStorage.setItem("backend_endpoint", endpoint);
+    },
     update_api_token: function update_api_token(state, new_token) {
       state.api_token = new_token;
       localStorage.setItem("api_token", new_token);
@@ -34,6 +39,12 @@ var _default = new _vuex["default"].Store({
 
       if (stored_token) {
         state.api_token = stored_token;
+      }
+
+      var endpoint = localStorage.getItem("backend_endpoint");
+
+      if (endpoint) {
+        state.backend_endpoint = endpoint;
       }
     },
     register_event_callback: function register_event_callback(state, event_callback) {

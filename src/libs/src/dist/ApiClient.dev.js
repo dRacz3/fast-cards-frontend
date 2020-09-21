@@ -40,9 +40,9 @@ function () {
     /**
      * The base URL against which to resolve every API call's (relative) path.
      * @type {String}
-     * @default http://localhost:8000
+     * @default http://3.128.255.2:8000
      */
-    this.basePath = 'http://10.36.60.241:8000'.replace(/\/+$/, '');
+    this.basePath = 'http://3.128.255.2:8000'.replace(/\/+$/, '');
     /**
      * The authentication methods to be included for all API calls.
      * @type {Array.<String>}
@@ -539,7 +539,7 @@ function () {
      */
     value: function hostSettings() {
       return [{
-        'url': "http://10.36.60.241:8000/",
+        'url': "http://3.128.255.2:8000/",
         'description': "No description provided"
       }];
     }

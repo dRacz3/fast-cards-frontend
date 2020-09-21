@@ -121,7 +121,7 @@ api.apiRestAuthLoginCreate(data, callback);
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:8000*
+All URIs are relative to *http://10.36.60.241:8000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
