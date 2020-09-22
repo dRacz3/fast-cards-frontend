@@ -1,4 +1,7 @@
-# web-frontend
+![Compile static site with npm](https://github.com/dRacz3/cards-against-humanity-vue-frontend/workflows/Compile%20static%20site%20with%20npm/badge.svg)
+# Cards Against Humanity Vue Based frontend
+
+
 
 ## Project setup
 ```
