@@ -53,7 +53,7 @@ export default {
       );
 
       let count = 0;
-      while (str.indexOf("_") > 0) {
+      while (str.indexOf("_") != -1) {
         let i = str.indexOf("_");
         str = this.replace_character_at_index(
           str,
