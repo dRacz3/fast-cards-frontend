@@ -13,7 +13,16 @@
           }}
           with {{ number_of_players }} player
         </span>
-        <slot></slot>
+
+        <div>
+          <md-button @click="session_data_update()" class="md-raised md-primary"
+            >Refresh session data</md-button
+          >
+          <slot></slot>
+          <!-- <md-button @click="connect_to_socket()" class="md-raised md-primary"
+          >Reconnect</md-button
+        > -->
+        </div>
       </md-app-toolbar>
 
       <md-app-content>
@@ -47,9 +56,6 @@
       </md-app-content>
     </md-app>
 
-    <md-button @click="session_data_update()"> Click</md-button>
-    <md-button @click="connect_to_socket()">Websocket</md-button>
-
     <md-dialog-alert
       :md-title="dialog.title"
       :md-active.sync="dialog.active"
@@ -78,7 +84,8 @@ export default {
       title: "",
       active: false,
       content: "lofasz"
-    }
+    },
+    reconnect_timer: null
   }),
   components: {
     "waiting-for-start-view": WaitingForStart,
@@ -94,6 +101,15 @@ export default {
     this.session_data_update();
     this.$store.commit("register_on_message_callback", this.on_new_message);
     this.connect_to_socket();
+    this.reconnect_timer = setInterval(() => {
+      if (!this.$store.state.socket.isConnected) {
+        this.$store.commit(
+          "push_message_to_snackbar",
+          "Connection lost attempting to reconnect to socket."
+        );
+        this.connect_to_socket();
+      }
+    }, 3000);
   },
   methods: {
     connect_to_socket() {
@@ -270,6 +286,7 @@ export default {
 
   destroyed() {
     console.log("PlayRoom destroyed");
+    clearInterval(this.this.reconnect_timer);
     this.$store.commit("register_on_message_callback", null);
     backendSocket.$disconnect();
   },
