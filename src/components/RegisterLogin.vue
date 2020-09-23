@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="hello" v-if="token == null">
-      Please register or log in.
+      <h1>
+        Please register or log in in order to play the game. No hard checks for
+        e-mail. You will be logged in automatically after registering
+      </h1>
+
       <md-field>
         <label>UserName</label>
         <md-input v-model="username"></md-input>
