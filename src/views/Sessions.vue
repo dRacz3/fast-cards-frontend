@@ -37,10 +37,7 @@
       </div>
       <div v-else>
         <play-room :session_name="selected_session">
-          <md-button
-            @click="selected_session = null"
-            class="md-raised md-primary"
-          >
+          <md-button @click="leaveRoom()" class="md-raised md-primary">
             <md-icon>exit_to_app</md-icon> Exit</md-button
           >
         </play-room>
@@ -66,6 +63,10 @@ export default {
     "play-room": PlayRoom
   },
   methods: {
+    leaveRoom() {
+      this.selected_session = null;
+    },
+
     getSessions() {
       let opts = {
         search: "", // String | A search term.

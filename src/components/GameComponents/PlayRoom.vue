@@ -23,6 +23,7 @@
           >Reconnect</md-button
         > -->
         </div>
+        {{ socket_url }}
       </md-app-toolbar>
 
       <md-app-content>
@@ -85,7 +86,8 @@ export default {
       active: false,
       content: "lofasz"
     },
-    reconnect_timer: null
+    reconnect_timer: null,
+    socket_url: ""
   }),
   components: {
     "waiting-for-start-view": WaitingForStart,
@@ -113,16 +115,16 @@ export default {
   },
   methods: {
     connect_to_socket() {
-      backendSocket.$connect(
+      this.socket_url =
         "ws://" +
-          window.location.hostname +
-          ":8000/ws/chat/" +
-          "user/" +
-          this.session_name +
-          "/" +
-          "?token=" +
-          this.$store.state.api_token
-      );
+        window.location.hostname +
+        ":8000/ws/chat/" +
+        "user/" +
+        this.session_name +
+        "/" +
+        "?token=" +
+        this.$store.state.api_token;
+      backendSocket.$connect(this.socket_url);
     },
 
     step_game() {

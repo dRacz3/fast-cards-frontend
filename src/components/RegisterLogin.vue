@@ -37,6 +37,7 @@
 import Register from "@/libs/src/model/Register";
 
 import { backendApi, apiclient } from "../main";
+import generateName from "../helpers/generateFunnyName";
 
 export default {
   name: "HelloWorld",
@@ -146,6 +147,7 @@ export default {
   },
   mounted() {
     this.token = this.$store.state.api_token;
+    this.username = generateName().replace(" ", "_");
   }
 };
 </script>
