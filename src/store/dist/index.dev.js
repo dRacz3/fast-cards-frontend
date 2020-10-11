@@ -15,7 +15,7 @@ _vue["default"].use(_vuex["default"]);
 
 var _default = new _vuex["default"].Store({
   state: {
-    backend_endpoint: "3.128.255.2:8000",
+    backend_endpoint: "192.168.0.103:8000",
     api_token: null,
     socket: {
       isConnected: false,

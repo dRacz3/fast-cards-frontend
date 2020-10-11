@@ -32,9 +32,9 @@ class ApiClient {
         /**
          * The base URL against which to resolve every API call's (relative) path.
          * @type {String}
-         * @default http://3.128.255.2:8000
+         * @default http://192.168.0.103:8000
          */
-        this.basePath = 'http://3.128.255.2:8000'.replace(/\/+$/, '');
+        this.basePath = 'http://192.168.0.103:8000'.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.
@@ -558,7 +558,7 @@ class ApiClient {
      */
     hostSettings() {
         return [{
-            'url': "http://3.128.255.2:8000/",
+            'url': "http://192.168.0.103:8000/",
             'description': "No description provided",
         }];
     }

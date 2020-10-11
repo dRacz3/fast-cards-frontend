@@ -16,7 +16,7 @@ Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
 console.log();
-Vue.use(VueNativeSock, "ws://3.128.255.2:8000/ws/chat/", {
+Vue.use(VueNativeSock, "ws://192.168.0.103:8000/ws/chat/", {
   store: store,
   connectManually: true
 });

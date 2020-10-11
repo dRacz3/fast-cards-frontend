@@ -12,7 +12,7 @@
         },
         "version": "v1"
     },
-    "host": "3.128.255.2:8000",
+    "host": "192.168.0.103:8000",
     "schemes": ["http"],
     "basePath": "/",
     "consumes": ["application/json"],
