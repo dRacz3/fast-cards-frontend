@@ -7,11 +7,10 @@
       Waiting for every player to submit
     </div>
     <!-- Cards submitted so far in the round -->
-    <ul v-if="submissions.length > 0">
-      <md-list v-for="(entry, index) of submissions" :key="index">
-        <md-list-item>
+    <div v-if="submissions.length > 0">
+      <ul v-for="(entry, index) of submissions" :key="index">
+        <div>
           <submission-display
-            class="md-list-item-text"
             :submission_info="entry"
             :black_card_data="session_data.last_round.active_black_card"
           >
@@ -21,9 +20,9 @@
               >
             </div>
           </submission-display>
-        </md-list-item>
-      </md-list>
-    </ul>
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 

@@ -1,15 +1,14 @@
 <template>
   <div class="submitted-display">
-    <md-content class="submission_content">
+    <div class="submission_content">
       {{ submitted_content }}
-
       <p>
         Submitted by
         {{ submission_info.connected_game_round_profile.user_profile.user }}
       </p>
 
       <slot></slot>
-    </md-content>
+    </div>
   </div>
 </template>
 
