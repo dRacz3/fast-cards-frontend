@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**gameEngineApiSessionActionSubmitCreate**](GameEngineApiApi.md#gameEngineApiSessionActionSubmitCreate) | **POST** /game_engine_api/session/action/submit/{room_name} | 
 [**gameEngineApiSessionHasPlayerSubmittedList**](GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 [**gameEngineApiSessionMycardsList**](GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
+[**gameEngineApiSessionOverviewRead**](GameEngineApiApi.md#gameEngineApiSessionOverviewRead) | **GET** /game_engine_api/session/overview/{room_name} | 
 [**gameEngineApiSessionProfilesList**](GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
 [**gameEngineApiSessionRoundsList**](GameEngineApiApi.md#gameEngineApiSessionRoundsList) | **GET** /game_engine_api/session/{session_id}/rounds | 
 [**gameEngineApiSessionSubmissionsCreate**](GameEngineApiApi.md#gameEngineApiSessionSubmissionsCreate) | **POST** /game_engine_api/session/{session_id}/submissions/ | 
@@ -452,6 +453,54 @@ apiInstance.gameEngineApiSessionMycardsList(sessionId, (error, data, response) =
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String**|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+## gameEngineApiSessionOverviewRead
+
+> gameEngineApiSessionOverviewRead(roomName)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let roomName = "roomName_example"; // String | 
+apiInstance.gameEngineApiSessionOverviewRead(roomName, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomName** | **String**|  | 
 
 ### Return type
 

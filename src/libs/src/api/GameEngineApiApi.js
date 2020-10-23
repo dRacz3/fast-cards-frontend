@@ -420,6 +420,46 @@ export default class GameEngineApiApi {
     }
 
     /**
+     * Callback function to receive the result of the gameEngineApiSessionOverviewRead operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionOverviewReadCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} roomName 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionOverviewReadCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    gameEngineApiSessionOverviewRead(roomName, callback) {
+      let postBody = null;
+      // verify the required parameter 'roomName' is set
+      if (roomName === undefined || roomName === null) {
+        throw new Error("Missing the required parameter 'roomName' when calling gameEngineApiSessionOverviewRead");
+      }
+
+      let pathParams = {
+        'room_name': roomName
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/overview/{room_name}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the gameEngineApiSessionProfilesList operation.
      * @callback module:api/GameEngineApiApi~gameEngineApiSessionProfilesListCallback
      * @param {String} error Error message, if any.
