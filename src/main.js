@@ -16,9 +16,9 @@ Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
 console.log();
-Vue.use(VueNativeSock, "ws://192.168.0.103:8000/ws/chat/", {
+Vue.use(VueNativeSock, "ws://127.0.0.1:8000/ws/chat/", {
   store: store,
-  connectManually: true
+  connectManually: true,
 });
 
 export const backendSocket = new Vue();
@@ -35,8 +35,8 @@ export const gameApi = new GameEngineApiApi(apiclient);
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
   beforeCreate() {
     this.$store.commit("initialiseStore");
-  }
+  },
 }).$mount("#app");

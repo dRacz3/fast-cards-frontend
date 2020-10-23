@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports["default"] = void 0;
 
@@ -9,21 +9,23 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _vuex = _interopRequireDefault(require("vuex"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 _vue["default"].use(_vuex["default"]);
 
 var _default = new _vuex["default"].Store({
   state: {
-    backend_endpoint: "192.168.0.103:8000",
+    backend_endpoint: "127.0.0.1:8000",
     api_token: null,
     socket: {
       isConnected: false,
       message: "",
-      reconnectError: false
+      reconnectError: false,
     },
     event_callback: null,
-    on_message_callback: null
+    on_message_callback: null,
   },
   mutations: {
     updateBackendEndpoint: function updateBackendEndpoint(state, endpoint) {
@@ -47,13 +49,22 @@ var _default = new _vuex["default"].Store({
         state.backend_endpoint = endpoint;
       }
     },
-    register_event_callback: function register_event_callback(state, event_callback) {
+    register_event_callback: function register_event_callback(
+      state,
+      event_callback
+    ) {
       state.event_callback = event_callback;
     },
-    register_on_message_callback: function register_on_message_callback(state, on_message_callback) {
+    register_on_message_callback: function register_on_message_callback(
+      state,
+      on_message_callback
+    ) {
       state.on_message_callback = on_message_callback;
     },
-    push_message_to_snackbar: function push_message_to_snackbar(state, message) {
+    push_message_to_snackbar: function push_message_to_snackbar(
+      state,
+      message
+    ) {
       state.event_callback(message);
     },
     SOCKET_ONOPEN: function SOCKET_ONOPEN(state, event) {
@@ -111,14 +122,14 @@ var _default = new _vuex["default"].Store({
       if (state.event_callback) {
         state.event_callback("Reconnection error...");
       }
-    }
+    },
   },
   actions: {
     sendMessage: function sendMessage(context, message) {
       _vue["default"].prototype.$socket.send(message);
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });
 
 exports["default"] = _default;
