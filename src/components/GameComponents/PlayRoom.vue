@@ -277,12 +277,6 @@ export default {
             console.log(
               "API called successfully. Returned data: " + data + response
             );
-            this.$store.commit(
-              "push_message_to_snackbar",
-              `gameEngineApiSessionActionSubmitCreate Success ${JSON.stringify(
-                data
-              )} - ${JSON.stringify(response.text)}`
-            );
             this.step_game();
           }
         }

@@ -123,7 +123,7 @@ export default {
           };
           this.$store.commit(
             "push_message_to_snackbar",
-            "Loged in as " + this.username
+            "Logged in as " + this.username
           );
         }
       });
