@@ -72,7 +72,6 @@ export default {
                 response.text
             );
           } else {
-            console.log("API called successfully. Returned data: ");
             this.token = JSON.parse(response.text).key;
             this.$store.commit("update_api_token", this.token);
             apiclient.defaultHeaders = {
@@ -116,7 +115,6 @@ export default {
             "Login failed with " + error + " error is : " + response.text
           );
         } else {
-          console.log("API called successfully. Returned data: ");
           this.token = JSON.parse(response.text).key;
 
           this.$store.commit("update_api_token", this.token);

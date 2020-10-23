@@ -47,20 +47,20 @@ export default new Vuex.Store({
       state.socket.isConnected = false;
       console.log("SOCKET_ONCLOSE");
       if (state.event_callback) {
-        state.event_callback("Connection closed..." + event.reason);
+        state.event_callback("Connection closed..." + JSON.stringify(event));
       }
     },
     SOCKET_ONERROR(state, event) {
       console.error(state, event);
       console.log("SOCKET_ONERROR");
       if (state.event_callback) {
-        state.event_callback(`Error!: ` + event);
+        state.event_callback(`Error!: ` + JSON.stringify(event));
       }
     },
     // default handler called for all methods
     SOCKET_ONMESSAGE(state, message) {
       state.socket.message = message;
-      console.log("SOCKET_ONMESSAGE " + message);
+      console.log("SOCKET_ONMESSAGE " + JSON.stringify(message));
       if (state.event_callback) {
         state.event_callback(message.data);
       }
