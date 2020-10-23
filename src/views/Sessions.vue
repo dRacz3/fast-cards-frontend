@@ -84,7 +84,32 @@ export default {
       });
     },
     joinSession(session_name) {
-      this.selected_session = session_name;
+      this.$store.commit(
+        "push_message_to_snackbar",
+        `Joining room ${session_name}, please wait...`
+      );
+      gameApi.gameEngineApiSessionActionJoinCreate(
+        session_name,
+        (error, data, response) => {
+          if (error) {
+            console.log(
+              `gameEngineApiSessionActionJoinCreate failed: ${error}`
+            );
+            this.$store.commit(
+              "push_message_to_snackbar",
+              `Failed to execute ${session_name}. Message: ${error}`
+            );
+          }
+
+          console.log(data);
+          console.log(response);
+          this.$store.commit(
+            "push_message_to_snackbar",
+            `Joined room ${session_name}. Message: ${response}`
+          );
+          this.selected_session = session_name;
+        }
+      );
     },
     createAndJoinSession() {
       this.joinSession(this.new_room_name);

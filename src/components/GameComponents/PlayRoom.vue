@@ -259,12 +259,36 @@ export default {
     submit_cards(submissions) {
       let submit_text = "__submit__|";
       let selected_card_texts = submissions.map(e => e.text);
-
-      backendSocket.$socket.send(
-        JSON.stringify({
-          message: submit_text + selected_card_texts.join("|")
-        })
+      submit_text = submit_text + selected_card_texts.join("|");
+      gameApi.gameEngineApiSessionActionSubmitCreate(
+        this.session_name,
+        {
+          submission_text: submit_text
+        },
+        (error, data, response) => {
+          if (error) {
+            this.$store.commit(
+              "push_message_to_snackbar",
+              `gameEngineApiSessionActionSubmitCreate Failed ${error} - ${JSON.stringify(
+                response.text
+              )}`
+            );
+          } else {
+            console.log(
+              "API called successfully. Returned data: " + data + response
+            );
+            this.$store.commit(
+              "push_message_to_snackbar",
+              `gameEngineApiSessionActionSubmitCreate Success ${JSON.stringify(
+                data
+              )} - ${JSON.stringify(response.text)}`
+            );
+            this.step_game();
+          }
+        }
       );
+
+      //
     },
 
     select_winner(winning_submission_id) {
