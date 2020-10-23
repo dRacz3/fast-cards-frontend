@@ -79,9 +79,26 @@ export default {
       this.menuVisible = !this.menuVisible;
     },
     snakcbar_event(event) {
-      this.snackbar.message = event;
-      this.snackbar.showSnackbar = false;
-      this.snackbar.showSnackbar = true;
+      // Avoid spamming the 'update'..
+
+      let displayed = this.format_event(event);
+      if (displayed.length > 0) {
+        this.snackbar.message = displayed;
+        this.snackbar.showSnackbar = false;
+        this.snackbar.showSnackbar = true;
+      }
+    },
+
+    format_event(event) {
+      if (event === '{"message": "UPDATE"}' || event.includes("__")) {
+        return "";
+      }
+      if (event.includes("event_name")) {
+        const parsed = JSON.parse(event);
+        return `[${parsed.event_name}] : ${parsed.message}`;
+      } else {
+        return event;
+      }
     }
   },
   mounted() {
