@@ -65,6 +65,7 @@ export default {
   methods: {
     leaveRoom() {
       this.selected_session = null;
+      this.getSessions();
     },
 
     getSessions() {
