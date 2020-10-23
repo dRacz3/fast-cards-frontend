@@ -35,6 +35,7 @@ import PasswordReset from './model/PasswordReset';
 import PasswordResetConfirm from './model/PasswordResetConfirm';
 import Profile from './model/Profile';
 import Register from './model/Register';
+import SubmittedCardRequest from './model/SubmittedCardRequest';
 import UserDetails from './model/UserDetails';
 import VerifyEmail from './model/VerifyEmail';
 import WhiteCard from './model/WhiteCard';
@@ -212,6 +213,12 @@ export {
      * @property {module:model/Register}
      */
     Register,
+
+    /**
+     * The SubmittedCardRequest model constructor.
+     * @property {module:model/SubmittedCardRequest}
+     */
+    SubmittedCardRequest,
 
     /**
      * The UserDetails model constructor.

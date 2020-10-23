@@ -1,6 +1,6 @@
 # CardsAgainstHumanityDjangoApi.GameEngineApiApi
 
-All URIs are relative to *http://10.36.60.241:8000*
+All URIs are relative to *http://localhost:8000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**gameEngineApiGameroundprofiledataPartialUpdate**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataPartialUpdate) | **PATCH** /game_engine_api/gameroundprofiledata/{id}/ | 
 [**gameEngineApiGameroundprofiledataRead**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataRead) | **GET** /game_engine_api/gameroundprofiledata/{id}/ | 
 [**gameEngineApiGameroundprofiledataUpdate**](GameEngineApiApi.md#gameEngineApiGameroundprofiledataUpdate) | **PUT** /game_engine_api/gameroundprofiledata/{id}/ | 
+[**gameEngineApiSessionActionJoinCreate**](GameEngineApiApi.md#gameEngineApiSessionActionJoinCreate) | **POST** /game_engine_api/session/action/join/{room_name} | 
+[**gameEngineApiSessionActionSubmitCreate**](GameEngineApiApi.md#gameEngineApiSessionActionSubmitCreate) | **POST** /game_engine_api/session/action/submit/{room_name} | 
 [**gameEngineApiSessionHasPlayerSubmittedList**](GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 [**gameEngineApiSessionMycardsList**](GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
 [**gameEngineApiSessionProfilesList**](GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
@@ -260,6 +262,104 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GameRoundProfileData**](GameRoundProfileData.md)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## gameEngineApiSessionActionJoinCreate
+
+> gameEngineApiSessionActionJoinCreate(roomName)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let roomName = "roomName_example"; // String | 
+apiInstance.gameEngineApiSessionActionJoinCreate(roomName, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomName** | **String**|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[Basic](../README.md#Basic)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+## gameEngineApiSessionActionSubmitCreate
+
+> SubmittedCardRequest gameEngineApiSessionActionSubmitCreate(roomName, data)
+
+
+
+### Example
+
+```javascript
+import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
+let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+// Configure HTTP basic authorization: Basic
+let Basic = defaultClient.authentications['Basic'];
+Basic.username = 'YOUR USERNAME';
+Basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new CardsAgainstHumanityDjangoApi.GameEngineApiApi();
+let roomName = "roomName_example"; // String | 
+let data = new CardsAgainstHumanityDjangoApi.SubmittedCardRequest(); // SubmittedCardRequest | 
+apiInstance.gameEngineApiSessionActionSubmitCreate(roomName, data, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roomName** | **String**|  | 
+ **data** | [**SubmittedCardRequest**](SubmittedCardRequest.md)|  | 
+
+### Return type
+
+[**SubmittedCardRequest**](SubmittedCardRequest.md)
 
 ### Authorization
 

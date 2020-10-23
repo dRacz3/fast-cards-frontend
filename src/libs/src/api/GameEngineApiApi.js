@@ -20,6 +20,7 @@ import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
+import SubmittedCardRequest from '../model/SubmittedCardRequest';
 
 /**
 * GameEngineApi service.
@@ -247,6 +248,92 @@ export default class GameEngineApiApi {
       let returnType = GameRoundProfileData;
       return this.apiClient.callApi(
         '/game_engine_api/gameroundprofiledata/{id}/', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the gameEngineApiSessionActionJoinCreate operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionActionJoinCreateCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} roomName 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionActionJoinCreateCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    gameEngineApiSessionActionJoinCreate(roomName, callback) {
+      let postBody = null;
+      // verify the required parameter 'roomName' is set
+      if (roomName === undefined || roomName === null) {
+        throw new Error("Missing the required parameter 'roomName' when calling gameEngineApiSessionActionJoinCreate");
+      }
+
+      let pathParams = {
+        'room_name': roomName
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/action/join/{room_name}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the gameEngineApiSessionActionSubmitCreate operation.
+     * @callback module:api/GameEngineApiApi~gameEngineApiSessionActionSubmitCreateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/SubmittedCardRequest} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} roomName 
+     * @param {module:model/SubmittedCardRequest} data 
+     * @param {module:api/GameEngineApiApi~gameEngineApiSessionActionSubmitCreateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/SubmittedCardRequest}
+     */
+    gameEngineApiSessionActionSubmitCreate(roomName, data, callback) {
+      let postBody = data;
+      // verify the required parameter 'roomName' is set
+      if (roomName === undefined || roomName === null) {
+        throw new Error("Missing the required parameter 'roomName' when calling gameEngineApiSessionActionSubmitCreate");
+      }
+      // verify the required parameter 'data' is set
+      if (data === undefined || data === null) {
+        throw new Error("Missing the required parameter 'data' when calling gameEngineApiSessionActionSubmitCreate");
+      }
+
+      let pathParams = {
+        'room_name': roomName
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['Basic'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = SubmittedCardRequest;
+      return this.apiClient.callApi(
+        '/game_engine_api/session/action/submit/{room_name}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

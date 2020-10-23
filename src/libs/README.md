@@ -121,7 +121,7 @@ api.apiRestAuthLoginCreate(data, callback);
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://10.36.60.241:8000*
+All URIs are relative to *http://localhost:8000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -149,6 +149,8 @@ Class | Method | HTTP request | Description
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataPartialUpdate**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataPartialUpdate) | **PATCH** /game_engine_api/gameroundprofiledata/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataRead**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataRead) | **GET** /game_engine_api/gameroundprofiledata/{id}/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiGameroundprofiledataUpdate**](docs/GameEngineApiApi.md#gameEngineApiGameroundprofiledataUpdate) | **PUT** /game_engine_api/gameroundprofiledata/{id}/ | 
+*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionActionJoinCreate**](docs/GameEngineApiApi.md#gameEngineApiSessionActionJoinCreate) | **POST** /game_engine_api/session/action/join/{room_name} | 
+*CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionActionSubmitCreate**](docs/GameEngineApiApi.md#gameEngineApiSessionActionSubmitCreate) | **POST** /game_engine_api/session/action/submit/{room_name} | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionHasPlayerSubmittedList**](docs/GameEngineApiApi.md#gameEngineApiSessionHasPlayerSubmittedList) | **GET** /game_engine_api/session/{session_id}/has_player_submitted/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionMycardsList**](docs/GameEngineApiApi.md#gameEngineApiSessionMycardsList) | **GET** /game_engine_api/session/{session_id}/mycards/ | 
 *CardsAgainstHumanityDjangoApi.GameEngineApiApi* | [**gameEngineApiSessionProfilesList**](docs/GameEngineApiApi.md#gameEngineApiSessionProfilesList) | **GET** /game_engine_api/session/{session_id}/profiles | 
@@ -188,6 +190,7 @@ Class | Method | HTTP request | Description
  - [CardsAgainstHumanityDjangoApi.PasswordResetConfirm](docs/PasswordResetConfirm.md)
  - [CardsAgainstHumanityDjangoApi.Profile](docs/Profile.md)
  - [CardsAgainstHumanityDjangoApi.Register](docs/Register.md)
+ - [CardsAgainstHumanityDjangoApi.SubmittedCardRequest](docs/SubmittedCardRequest.md)
  - [CardsAgainstHumanityDjangoApi.UserDetails](docs/UserDetails.md)
  - [CardsAgainstHumanityDjangoApi.VerifyEmail](docs/VerifyEmail.md)
  - [CardsAgainstHumanityDjangoApi.WhiteCard](docs/WhiteCard.md)
