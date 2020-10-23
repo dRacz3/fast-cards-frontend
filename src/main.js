@@ -6,6 +6,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+import VueLodash from "vue-lodash";
+import lodash from "lodash";
+
 import VueNativeSock from "vue-native-websocket";
 
 import VueMaterial from "vue-material";
@@ -14,6 +17,9 @@ import "vue-material/dist/theme/default.css";
 
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
+
+// name is optional
+Vue.use(VueLodash, { name: "custom", lodash: lodash });
 
 console.log();
 Vue.use(VueNativeSock, "ws://127.0.0.1:8000/ws/chat/", {

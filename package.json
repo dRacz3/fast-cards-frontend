@@ -14,10 +14,12 @@
     "@openapitools/openapi-generator-cli": "^1.0.18-4.3.1",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.20",
     "register-service-worker": "^1.7.1",
     "superagent": "^6.1.0",
     "typeface-roboto": "0.0.75",
     "vue": "^2.6.11",
+    "vue-lodash": "^2.1.2",
     "vue-material": "^1.0.0-beta-15",
     "vue-native-websocket": "^2.0.14",
     "vue-router": "^3.2.0",
@@ -59,15 +61,17 @@
       "parser": "babel-eslint"
     },
     "rules": {},
-    "overrides": [{
-      "files": [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)"
-      ],
-      "env": {
-        "mocha": true
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "mocha": true
+        }
       }
-    }]
+    ]
   },
   "browserslist": [
     "> 1%",
