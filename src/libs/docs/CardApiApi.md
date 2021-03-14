@@ -1,4 +1,4 @@
-# CardsAgainstHumanityDjangoApi.CardApiApi
+# SnippetsApi.CardApiApi
 
 All URIs are relative to *http://localhost:8000*
 
@@ -24,14 +24,14 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let opts = {
   'search': "search_example", // String | A search term.
   'page': 56 // Number | A page number within the paginated result set.
@@ -76,16 +76,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this black card.
-let data = new CardsAgainstHumanityDjangoApi.BlackCard(); // BlackCard | 
+let data = new SnippetsApi.BlackCard(); // BlackCard | 
 apiInstance.cardApiBlackCardsPartialUpdate(cardId, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -126,14 +126,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this black card.
 apiInstance.cardApiBlackCardsRead(cardId, (error, data, response) => {
   if (error) {
@@ -174,16 +174,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this black card.
-let data = new CardsAgainstHumanityDjangoApi.BlackCard(); // BlackCard | 
+let data = new SnippetsApi.BlackCard(); // BlackCard | 
 apiInstance.cardApiBlackCardsUpdate(cardId, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -224,14 +224,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let opts = {
   'search': "search_example", // String | A search term.
   'page': 56 // Number | A page number within the paginated result set.
@@ -276,16 +276,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this white card.
-let data = new CardsAgainstHumanityDjangoApi.WhiteCard(); // WhiteCard | 
+let data = new SnippetsApi.WhiteCard(); // WhiteCard | 
 apiInstance.cardApiWhiteCardsPartialUpdate(cardId, data, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -326,14 +326,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this white card.
 apiInstance.cardApiWhiteCardsRead(cardId, (error, data, response) => {
   if (error) {
@@ -374,16 +374,16 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import CardsAgainstHumanityDjangoApi from 'cards_against_humanity_django_api';
-let defaultClient = CardsAgainstHumanityDjangoApi.ApiClient.instance;
+import SnippetsApi from 'snippets_api';
+let defaultClient = SnippetsApi.ApiClient.instance;
 // Configure HTTP basic authorization: Basic
 let Basic = defaultClient.authentications['Basic'];
 Basic.username = 'YOUR USERNAME';
 Basic.password = 'YOUR PASSWORD';
 
-let apiInstance = new CardsAgainstHumanityDjangoApi.CardApiApi();
+let apiInstance = new SnippetsApi.CardApiApi();
 let cardId = 56; // Number | A unique integer value identifying this white card.
-let data = new CardsAgainstHumanityDjangoApi.WhiteCard(); // WhiteCard | 
+let data = new SnippetsApi.WhiteCard(); // WhiteCard | 
 apiInstance.cardApiWhiteCardsUpdate(cardId, data, (error, data, response) => {
   if (error) {
     console.error(error);

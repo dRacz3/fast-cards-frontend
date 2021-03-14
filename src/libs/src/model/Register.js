@@ -1,5 +1,5 @@
 /**
- * CardsAgainstHumanity-Django API
+ * Snippets API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -23,13 +23,12 @@ class Register {
      * Constructs a new <code>Register</code>.
      * @alias module:model/Register
      * @param username {String} 
-     * @param email {String} 
      * @param password1 {String} 
      * @param password2 {String} 
      */
-    constructor(username, email, password1, password2) { 
+    constructor(username, password1, password2) { 
         
-        Register.initialize(this, username, email, password1, password2);
+        Register.initialize(this, username, password1, password2);
     }
 
     /**
@@ -37,9 +36,8 @@ class Register {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, username, email, password1, password2) { 
+    static initialize(obj, username, password1, password2) { 
         obj['username'] = username;
-        obj['email'] = email;
         obj['password1'] = password1;
         obj['password2'] = password2;
     }

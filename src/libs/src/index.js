@@ -1,5 +1,5 @@
 /**
- * CardsAgainstHumanity-Django API
+ * Snippets API
  * Test description
  *
  * The version of the OpenAPI document: v1
@@ -14,34 +14,19 @@
 
 import ApiClient from './ApiClient';
 import BlackCard from './model/BlackCard';
-import CardSubmission from './model/CardSubmission';
-import GameRound from './model/GameRound';
-import GameRoundProfileData from './model/GameRoundProfileData';
-import GameRoundWinner from './model/GameRoundWinner';
-import GameRoundWinnerUser from './model/GameRoundWinnerUser';
-import GameRoundWinnerUserContentType from './model/GameRoundWinnerUserContentType';
-import GameRoundWinnerUserGroups from './model/GameRoundWinnerUserGroups';
-import GameRoundWinnerUserPermissions from './model/GameRoundWinnerUserPermissions';
-import GameSession from './model/GameSession';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
-import InlineResponse2002 from './model/InlineResponse2002';
-import InlineResponse2003 from './model/InlineResponse2003';
-import InlineResponse2004 from './model/InlineResponse2004';
-import InlineResponse2005 from './model/InlineResponse2005';
 import Login from './model/Login';
 import PasswordChange from './model/PasswordChange';
 import PasswordReset from './model/PasswordReset';
 import PasswordResetConfirm from './model/PasswordResetConfirm';
-import Profile from './model/Profile';
 import Register from './model/Register';
-import SubmittedCardRequest from './model/SubmittedCardRequest';
 import UserDetails from './model/UserDetails';
 import VerifyEmail from './model/VerifyEmail';
 import WhiteCard from './model/WhiteCard';
 import ApiApi from './api/ApiApi';
 import CardApiApi from './api/CardApiApi';
-import GameEngineApiApi from './api/GameEngineApiApi';
+import RestAuthApi from './api/RestAuthApi';
 
 
 /**
@@ -50,9 +35,9 @@ import GameEngineApiApi from './api/GameEngineApiApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var CardsAgainstHumanityDjangoApi = require('index'); // See note below*.
-* var xxxSvc = new CardsAgainstHumanityDjangoApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new CardsAgainstHumanityDjangoApi.Yyy(); // Construct a model instance.
+* var SnippetsApi = require('index'); // See note below*.
+* var xxxSvc = new SnippetsApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new SnippetsApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -64,8 +49,8 @@ import GameEngineApiApi from './api/GameEngineApiApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new CardsAgainstHumanityDjangoApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new CardsAgainstHumanityDjangoApi.Yyy(); // Construct a model instance.
+* var xxxSvc = new SnippetsApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new SnippetsApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -89,60 +74,6 @@ export {
     BlackCard,
 
     /**
-     * The CardSubmission model constructor.
-     * @property {module:model/CardSubmission}
-     */
-    CardSubmission,
-
-    /**
-     * The GameRound model constructor.
-     * @property {module:model/GameRound}
-     */
-    GameRound,
-
-    /**
-     * The GameRoundProfileData model constructor.
-     * @property {module:model/GameRoundProfileData}
-     */
-    GameRoundProfileData,
-
-    /**
-     * The GameRoundWinner model constructor.
-     * @property {module:model/GameRoundWinner}
-     */
-    GameRoundWinner,
-
-    /**
-     * The GameRoundWinnerUser model constructor.
-     * @property {module:model/GameRoundWinnerUser}
-     */
-    GameRoundWinnerUser,
-
-    /**
-     * The GameRoundWinnerUserContentType model constructor.
-     * @property {module:model/GameRoundWinnerUserContentType}
-     */
-    GameRoundWinnerUserContentType,
-
-    /**
-     * The GameRoundWinnerUserGroups model constructor.
-     * @property {module:model/GameRoundWinnerUserGroups}
-     */
-    GameRoundWinnerUserGroups,
-
-    /**
-     * The GameRoundWinnerUserPermissions model constructor.
-     * @property {module:model/GameRoundWinnerUserPermissions}
-     */
-    GameRoundWinnerUserPermissions,
-
-    /**
-     * The GameSession model constructor.
-     * @property {module:model/GameSession}
-     */
-    GameSession,
-
-    /**
      * The InlineResponse200 model constructor.
      * @property {module:model/InlineResponse200}
      */
@@ -153,30 +84,6 @@ export {
      * @property {module:model/InlineResponse2001}
      */
     InlineResponse2001,
-
-    /**
-     * The InlineResponse2002 model constructor.
-     * @property {module:model/InlineResponse2002}
-     */
-    InlineResponse2002,
-
-    /**
-     * The InlineResponse2003 model constructor.
-     * @property {module:model/InlineResponse2003}
-     */
-    InlineResponse2003,
-
-    /**
-     * The InlineResponse2004 model constructor.
-     * @property {module:model/InlineResponse2004}
-     */
-    InlineResponse2004,
-
-    /**
-     * The InlineResponse2005 model constructor.
-     * @property {module:model/InlineResponse2005}
-     */
-    InlineResponse2005,
 
     /**
      * The Login model constructor.
@@ -203,22 +110,10 @@ export {
     PasswordResetConfirm,
 
     /**
-     * The Profile model constructor.
-     * @property {module:model/Profile}
-     */
-    Profile,
-
-    /**
      * The Register model constructor.
      * @property {module:model/Register}
      */
     Register,
-
-    /**
-     * The SubmittedCardRequest model constructor.
-     * @property {module:model/SubmittedCardRequest}
-     */
-    SubmittedCardRequest,
 
     /**
      * The UserDetails model constructor.
@@ -251,8 +146,8 @@ export {
     CardApiApi,
 
     /**
-    * The GameEngineApiApi service constructor.
-    * @property {module:api/GameEngineApiApi}
+    * The RestAuthApi service constructor.
+    * @property {module:api/RestAuthApi}
     */
-    GameEngineApiApi
+    RestAuthApi
 };

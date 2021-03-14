@@ -1,4 +1,4 @@
-# CardsAgainstHumanityDjangoApi.WhiteCard
+# SnippetsApi.WhiteCard
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# CardsAgainstHumanityDjangoApi.PasswordResetConfirm
+# SnippetsApi.PasswordResetConfirm
 
 ## Properties
 

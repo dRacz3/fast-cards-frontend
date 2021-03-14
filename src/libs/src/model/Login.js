@@ -1,5 +1,5 @@
 /**
- * CardsAgainstHumanity-Django API
+ * Snippets API
  * Test description
  *
  * The version of the OpenAPI document: v1
