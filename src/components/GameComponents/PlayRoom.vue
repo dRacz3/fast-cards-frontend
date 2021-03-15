@@ -3,7 +3,7 @@
     <md-app
       v-if="
         session_data !== null &&
-          session_data.last_round.session.session_id !== null
+        session_data.last_round.session.session_id !== null
       "
     >
       <md-app-toolbar class="md-primary flex-row-view">
@@ -84,24 +84,24 @@ export default {
     dialog: {
       title: "",
       active: false,
-      content: "lofasz"
+      content: "lofasz",
     },
     reconnect_timer: null,
-    socket_url: ""
+    socket_url: "",
   }),
   components: {
     "waiting-for-start-view": WaitingForStart,
     "during-game-round-view": DuringGameRound,
-    "submission-round-view": PlaySubmissionView
+    "submission-round-view": PlaySubmissionView,
   },
   props: {
     session_name: {
-      required: true
-    }
+      required: true,
+    },
   },
   mounted() {
     this.session_data_update();
-    this.$store.commit("register_on_message_callback", this.on_new_message);
+    this.$store.commit("register_message_listener", this.on_new_message);
     this.connect_to_socket();
     this.reconnect_timer = setInterval(() => {
       if (!this.$store.state.socket.isConnected) {
@@ -130,7 +130,7 @@ export default {
     step_game() {
       backendSocket.$socket.send(
         JSON.stringify({
-          message: "step"
+          message: "step",
         })
       );
       this.session_data_update();
@@ -179,7 +179,7 @@ export default {
 
     remove_card_from_submission(card /*isSelected*/) {
       // eslint-disable-next-line no-unused-vars
-      this.submissions = this.submissions.filter(function(value, index, arr) {
+      this.submissions = this.submissions.filter(function (value, index, arr) {
         return value.text != card.text;
       });
     },
@@ -258,12 +258,12 @@ export default {
 
     submit_cards(submissions) {
       let submit_text = "__submit__|";
-      let selected_card_texts = submissions.map(e => e.text);
+      let selected_card_texts = submissions.map((e) => e.text);
       submit_text = submit_text + selected_card_texts.join("|");
       gameApi.gameEngineApiSessionActionSubmitCreate(
         this.session_name,
         {
-          submission_text: submit_text
+          submission_text: submit_text,
         },
         (error, data, response) => {
           if (error) {
@@ -290,7 +290,7 @@ export default {
 
       backendSocket.$socket.send(
         JSON.stringify({
-          message: submit_text
+          message: submit_text,
         })
       );
       this.step_game();
@@ -301,20 +301,20 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
 
   destroyed() {
     console.log("PlayRoom destroyed");
     clearInterval(this.this.reconnect_timer);
-    this.$store.commit("register_on_message_callback", null);
+    this.$store.commit("register_message_listener", null);
     backendSocket.$disconnect();
   },
 
   computed: {
     submit_command() {
       let submit_text = "__submit__|";
-      let selected_card_texts = this.submissions.map(e => e.text);
+      let selected_card_texts = this.submissions.map((e) => e.text);
       return submit_text + selected_card_texts.join("|");
     },
 
@@ -332,8 +332,8 @@ export default {
     },
     number_of_players() {
       return this.players.length;
-    }
-  }
+    },
+  },
 };
 </script>
 

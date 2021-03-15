@@ -55,7 +55,7 @@ var _default = new _vuex["default"].Store({
     ) {
       state.event_callback = event_callback;
     },
-    register_on_message_callback: function register_on_message_callback(
+    register_message_listener: function register_message_listener(
       state,
       on_message_callback
     ) {

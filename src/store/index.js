@@ -3,6 +3,15 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+import { Message, SocketEvent, SocketEventTypes } from "../helpers/message"
+
+function sendToListeners(payload, listeners)
+{
+  listeners.forEach(l => {
+    l.callback(payload)
+  });
+}
+
 export default new Vuex.Store({
   state: {
     developer_mode : true,
@@ -13,8 +22,11 @@ export default new Vuex.Store({
       message: "",
       reconnectError: false
     },
-    event_callback: null,
-    on_message_callback: null,
+
+    message_listeners: [],
+    socket_event_listeners : [],
+
+    event_callback_list: null,
     message_log: [],
   },
   mutations: {
@@ -30,64 +42,83 @@ export default new Vuex.Store({
         localStorage.getItem("logged_in_username") || null;
     },
     register_event_callback(state, event_callback) {
-      state.event_callback = event_callback;
+      state.event_callback_list = event_callback;
     },
-    register_on_message_callback(state, on_message_callback) {
-      state.on_message_callback = on_message_callback;
+
+
+    register_message_listener(state, listener) {
+      if (state.message_listeners.filter(l => l.listener_instance == listener.listener_instance).length == 0) {
+        state.message_listeners.push(listener);
+      }
     },
+    remove_message_listener(state, listener_instance) {
+      state.message_listeners = state.message_listeners(l => l != listener_instance);
+    },
+
+
+    register_socket_event_listeners(state, listener) {
+      console.log(`register_socket_event_listeners - ${listener}`);
+      if (state.socket_event_listeners.filter(l => l.listener_instance == listener.listener_instance).length == 0) {
+        state.socket_event_listeners.push(listener);
+      }
+    },
+    remove_socket_event_listeners(state, listener_instance) {
+      state.socket_event_listeners = state.socket_event_listeners(l => l != listener_instance);
+    },
+
+
+
+
     push_message_to_snackbar(state, message) {
       state.message_log.push(message);
-      state.event_callback(message);
+      state.event_callback_list(message);
     },
+
+
+    // Socket related mutations
     SOCKET_ONOPEN(state, event) {
       Vue.prototype.$socket = event.currentTarget;
       state.socket.isConnected = true;
-      console.log("SOCKET_ONOPEN");
-      if (state.event_callback) {
-        state.event_callback(event);
-      }
+      sendToListeners(new SocketEvent(SocketEventTypes.SOCKET_ONOPEN, event), state.socket_event_listeners)
     },
     // eslint-disable-next-line no-unused-vars
     SOCKET_ONCLOSE(state, event) {
       state.socket.isConnected = false;
       console.log("SOCKET_ONCLOSE");
-      if (state.event_callback) {
-        state.event_callback("Connection closed..." + JSON.stringify(event));
-      }
+      sendToListeners(new SocketEvent(SocketEventTypes.SOCKET_ONCLOSE, event), state.socket_event_listeners)
     },
     SOCKET_ONERROR(state, event) {
       console.error(state, event);
-      console.log("SOCKET_ONERROR");
-      if (state.event_callback) {
-        state.event_callback(`Error!: ` + JSON.stringify(event));
-      }
-    },
-    // default handler called for all methods
-    SOCKET_ONMESSAGE(state, message) {
-      state.socket.message = message;
-      console.log("SOCKET_ONMESSAGE " + JSON.stringify(message));
-      if (state.event_callback) {
-        state.event_callback(message);
-      }
-      if (state.on_message_callback) {
-        state.on_message_callback();
-      }
+      sendToListeners(new SocketEvent(SocketEventTypes.SOCKET_ONERROR, event), state.socket_event_listeners)
     },
     // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
       console.info(state, count);
-      console.log("SOCKET_RECONNECT " + count);
-      if (state.event_callback) {
-        state.event_callback(`Reconnected! ${count}`);
-      }
+      sendToListeners(new SocketEvent(SocketEventTypes.SOCKET_RECONNECT, count), state.socket_event_listeners)
     },
     SOCKET_RECONNECT_ERROR(state) {
       state.socket.reconnectError = true;
       console.log("SOCKET_RECONNECT_ERROR ");
-      if (state.event_callback) {
-        state.event_callback("Reconnection error...");
+      sendToListeners(new SocketEvent(SocketEventTypes.SOCKET_RECONNECT_ERROR, null), state.socket_event_listeners)
+    },
+
+
+    // message is somewhat special, it has it's own handler list.
+    SOCKET_ONMESSAGE(state, message) {
+      state.socket.message = message;
+      console.log("SOCKET_ONMESSAGE " + JSON.stringify(message));
+      if (state.event_callback_list) {
+        state.event_callback_list(message);
       }
-    }
+      if ("message" in message) {
+        let relevant_listeners = state.message_listeners.filter(l => {
+          return l.topic == message.topic
+        })
+
+        let msg = new Message(message.sender, message.topic, message.message);
+        sendToListeners(msg, relevant_listeners)
+      }
+    },
   },
   actions: {
     sendMessage: function(context, message) {
