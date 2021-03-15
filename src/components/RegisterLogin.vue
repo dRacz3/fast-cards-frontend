@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Register from "@/libs/src/model/Register";
+import Register from "../libs/src/model/Register";
 
 import { backendApi, apiclient } from "../main";
 import generateName from "../helpers/generateFunnyName";
@@ -45,10 +45,10 @@ export default {
     username: null,
     password: null,
     email: null,
-    token: null
+    token: null,
   }),
   props: {
-    msg: String
+    msg: String,
   },
   methods: {
     register() {
@@ -59,6 +59,7 @@ export default {
         this.password,
         this.password
       );
+
       backendApi.apiRestAuthRegistrationCreate(
         userRegistrationData,
         (error, data, response) => {
@@ -75,7 +76,7 @@ export default {
             this.token = JSON.parse(response.text).key;
             this.$store.commit("update_api_token", this.token);
             apiclient.defaultHeaders = {
-              Authorization: `Token ${this.token}`
+              Authorization: `Token ${this.token}`,
             };
             this.$store.commit(
               "push_message_to_snackbar",
@@ -104,10 +105,10 @@ export default {
       let logindata = {
         username: this.username,
         email: "user@example.com",
-        password: this.password
+        password: this.password,
       };
 
-      backendApi.apiRestAuthLoginCreate(logindata, (error, data, response) => {
+      backendApi.restAuthLoginCreate(logindata, (error, data, response) => {
         if (error) {
           console.error(error);
           this.$store.commit(
@@ -115,11 +116,11 @@ export default {
             "Login failed with " + error + " error is : " + response.text
           );
         } else {
-          this.token = JSON.parse(response.text).key;
-
+          const parsedResponse = JSON.parse(response.text);
+          this.token = parsedResponse.token;
           this.$store.commit("update_api_token", this.token);
           apiclient.defaultHeaders = {
-            Authorization: `Token ${this.token}`
+            Authorization: `Token ${this.token}`,
           };
           this.$store.commit(
             "push_message_to_snackbar",
@@ -135,18 +136,18 @@ export default {
       this.$store.commit("update_api_token", null);
       this.$store.commit("push_message_to_snackbar", "Logged out");
       apiclient.defaultHeaders = {
-        Authorization: ``
+        Authorization: ``,
       };
       // eslint-disable-next-line no-unused-vars
-      backendApi.apiRestAuthLogoutCreate((error, data, resposne) => {
+      backendApi.restAuthLogoutCreate((error, data, resposne) => {
         console.log("Logged out...");
       });
-    }
+    },
   },
   mounted() {
     this.token = this.$store.state.api_token;
     this.username = generateName().replace(" ", "_");
-  }
+  },
 };
 </script>
 

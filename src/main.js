@@ -30,12 +30,12 @@ Vue.use(VueNativeSock, "ws://127.0.0.1:8000/ws/chat/", {
 export const backendSocket = new Vue();
 
 import ApiClient from "./libs/src/ApiClient";
-import ApiApi from "./libs/src/api/ApiApi";
 import GameEngineApiApi from "./libs/src/api/GameEngineApiApi";
+import RestAuthApi from "./libs/src/api/RestAuthApi";
 
 export const apiclient = new ApiClient();
 
-export const backendApi = new ApiApi(apiclient);
+export const backendApi = new RestAuthApi(apiclient);
 export const gameApi = new GameEngineApiApi(apiclient);
 
 new Vue({
