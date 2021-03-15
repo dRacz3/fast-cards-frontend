@@ -43,8 +43,12 @@
             <md-icon>warning</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item>
-          <md-list-item to="/chit-chat">
+          <md-list-item to="/messagelogs">
             <md-icon>error</md-icon>
+            <span class="md-list-item-text"> Test View</span>
+          </md-list-item>
+          <md-list-item to="/chat">
+            <md-icon>mail</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item>
         </md-list>
@@ -83,7 +87,6 @@ export default {
     },
     snakcbar_event(event) {
       // Avoid spamming the 'update'..
-
       let displayed = this.format_event(event);
       if (displayed.length > 0) {
         this.snackbar.message = displayed;
@@ -93,14 +96,13 @@ export default {
     },
 
     format_event(event) {
-      if (event === '{"message": "UPDATE"}' || event.includes("__")) {
-        return "";
-      }
-      if (event.includes("event_name")) {
-        const parsed = JSON.parse(event);
-        return `[${parsed.event_name}] : ${parsed.message}`;
+      if ("message" in event) {
+        console.log(`New message received: ${event.message}`);
+        return event.message;
       } else {
-        return event;
+        const serializedEvent = JSON.stringify(event);
+        console.log(`Received event: ${serializedEvent}`);
+        return serializedEvent;
       }
     },
   },

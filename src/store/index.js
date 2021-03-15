@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     event_callback: null,
     on_message_callback: null,
-    message_log : []
+    message_log: [],
   },
   mutations: {
     update_api_token(state, login_data) {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       state.socket.isConnected = true;
       console.log("SOCKET_ONOPEN");
       if (state.event_callback) {
-        state.event_callback(event.data);
+        state.event_callback(event);
       }
     },
     // eslint-disable-next-line no-unused-vars
@@ -67,10 +67,10 @@ export default new Vuex.Store({
       state.socket.message = message;
       console.log("SOCKET_ONMESSAGE " + JSON.stringify(message));
       if (state.event_callback) {
-        state.event_callback(message.data);
+        state.event_callback(message);
       }
       if (state.on_message_callback) {
-        state.on_message_callback(JSON.parse(message.data).message);
+        state.on_message_callback();
       }
     },
     // mutations for reconnect methods

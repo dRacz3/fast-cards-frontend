@@ -17,12 +17,7 @@ export default {
   components: {},
 
   mounted() {
-    const st = this.$store.state;
-    this.messages = st.message_log;
-  },
-  updated() {
-    const st = this.$store.state;
-    this.messages = st.message_log;
+    this.messages = this.$store.state.message_log;
   },
 };
 </script>

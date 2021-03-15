@@ -35,9 +35,14 @@ const routes = [
     component: () => import("../views/GameOverview.vue"),
   },
   {
-    path: "/chit-chat",
+    path: "/messagelogs",
+    name: "Logs",
+    component: () => import("../views/dev/MessageLogs.vue"),
+  },
+  {
+    path: "/chat",
     name: "Chat",
-    component: () => import("../views/dev/Chitchat.vue"),
+    component: () => import("../views/ChatRoom.vue"),
   },
 ];
 

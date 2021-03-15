@@ -25,6 +25,7 @@ console.log();
 Vue.use(VueNativeSock, "ws://127.0.0.1:8000/ws/chat/", {
   store: store,
   connectManually: true,
+  format : 'json'
 });
 
 export const backendSocket = new Vue();
@@ -37,6 +38,7 @@ export const apiclient = new ApiClient();
 
 export const backendApi = new RestAuthApi(apiclient);
 export const gameApi = new GameEngineApiApi(apiclient);
+
 
 new Vue({
   router,
