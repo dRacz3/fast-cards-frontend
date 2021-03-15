@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "Home", 
     component: Home,
   },
   {
@@ -33,6 +33,11 @@ const routes = [
     path: "/game-overview",
     name: "Game overview",
     component: () => import("../views/GameOverview.vue"),
+  },
+  {
+    path: "/chit-chat",
+    name: "Chat",
+    component: () => import("../views/dev/Chitchat.vue"),
   },
 ];
 
