@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="hello" v-if="token == null">
+    <div v-if="devmode">Current login data: {{ token }}</div>
+    <div class="hello" v-if="isUserLoggedIn">
       <h1>
         Please register or log in in order to play the game. No hard checks for
         e-mail. You will be logged in automatically after registering
@@ -16,10 +17,6 @@
         <md-input v-model="password"></md-input>
       </md-field>
 
-      <md-field>
-        <label>Email</label>
-        <md-input v-model="email"></md-input>
-      </md-field>
       <md-button class="md-accent" @click="register()">Register</md-button>
       <md-button class="md-accent" @click="login()">Login</md-button>
     </div>
@@ -44,8 +41,8 @@ export default {
   data: () => ({
     username: null,
     password: null,
-    email: null,
     token: null,
+    devmode: false,
   }),
   props: {
     msg: String,
@@ -55,33 +52,24 @@ export default {
       apiclient.defaultHeaders = {};
       let userRegistrationData = new Register(
         this.username,
-        this.email,
         this.password,
         this.password
       );
 
-      backendApi.apiRestAuthRegistrationCreate(
+      console.log(`Registering with: ${JSON.stringify(userRegistrationData)}`);
+
+      backendApi.restAuthRegistrationCreate(
         userRegistrationData,
         (error, data, response) => {
           if (error) {
             console.error(error);
             this.$store.commit(
               "push_message_to_snackbar",
-              "Registration failed with " +
-                error +
-                " error is : " +
-                response.text
+              `Registration failed with ${error} error is : ${response.text}`
             );
           } else {
-            this.token = JSON.parse(response.text).key;
-            this.$store.commit("update_api_token", this.token);
-            apiclient.defaultHeaders = {
-              Authorization: `Token ${this.token}`,
-            };
-            this.$store.commit(
-              "push_message_to_snackbar",
-              "Registration success, you are now logged in as " + this.username
-            );
+            this.token = JSON.parse(response.text).token;
+            this.storeSuccessfulLoginData(this.token, this.username);
           }
         }
       );
@@ -104,7 +92,6 @@ export default {
     login() {
       let logindata = {
         username: this.username,
-        email: "user@example.com",
         password: this.password,
       };
 
@@ -118,14 +105,8 @@ export default {
         } else {
           const parsedResponse = JSON.parse(response.text);
           this.token = parsedResponse.token;
-          this.$store.commit("update_api_token", this.token);
-          apiclient.defaultHeaders = {
-            Authorization: `Token ${this.token}`,
-          };
-          this.$store.commit(
-            "push_message_to_snackbar",
-            "Logged in as " + this.username
-          );
+
+          this.storeSuccessfulLoginData(this.token, this.username);
         }
       });
     },
@@ -133,7 +114,11 @@ export default {
       this.username = null;
       this.password = null;
       this.token = null;
-      this.$store.commit("update_api_token", null);
+
+      this.$store.commit("update_api_token", {
+        token: null,
+        username: null,
+      });
       this.$store.commit("push_message_to_snackbar", "Logged out");
       apiclient.defaultHeaders = {
         Authorization: ``,
@@ -143,10 +128,34 @@ export default {
         console.log("Logged out...");
       });
     },
+
+    storeSuccessfulLoginData(token, username) {
+      this.$store.commit("update_api_token", {
+        token: token,
+        username: username,
+      });
+      apiclient.defaultHeaders = {
+        Authorization: `Token ${this.token}`,
+      };
+      this.$store.commit(
+        "push_message_to_snackbar",
+        "Logged in as " + this.username
+      );
+    },
   },
   mounted() {
-    this.token = this.$store.state.api_token;
-    this.username = generateName().replace(" ", "_");
+    this.token = this.$store.state.token;
+    this.devmode = this.$store.state.developer_mode;
+    const logged_in_username = this.$store.state.logged_in_username;
+
+    this.username = logged_in_username || generateName().replace(" ", "_");
+    this.password = this.username + "123";
+  },
+
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.state.token !== null;
+    },
   },
 };
 </script>
