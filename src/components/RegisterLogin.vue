@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="devmode">Current login data: {{ token }}</div>
-    <div class="hello" v-if="isUserLoggedIn">
+    <div class="hello" v-if="!isUserLoggedIn">
       <h1>
         Please register or log in in order to play the game. No hard checks for
         e-mail. You will be logged in automatically after registering
@@ -144,7 +144,7 @@ export default {
     },
   },
   mounted() {
-    this.token = this.$store.state.token;
+    this.token = this.$store.state.api_token;
     this.devmode = this.$store.state.developer_mode;
     const logged_in_username = this.$store.state.logged_in_username;
 
@@ -154,7 +154,7 @@ export default {
 
   computed: {
     isUserLoggedIn() {
-      return this.$store.state.token !== null;
+      return this.$store.state.api_token != null;
     },
   },
 };
