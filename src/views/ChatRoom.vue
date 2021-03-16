@@ -33,6 +33,9 @@ export default {
   components: {},
   props: {},
   mounted() {},
+  destroyed() {
+    backendSocket.$disconnect();
+  },
 
   methods: {
     connect_to_socket() {
@@ -40,6 +43,10 @@ export default {
       this.socket_url = get_full_ws_address(this.chat_room_name, api_token);
 
       console.log(`Attempting to connect WS to url ${this.socket_url}`);
+
+      if (this.is_connected) {
+        backendSocket.$disconnect();
+      }
       backendSocket.$connect(this.socket_url);
 
       this.message_listener = new MessageListener(
@@ -82,7 +89,6 @@ export default {
           this.is_connected = false;
           break;
         default:
-          console.log("Fallback to default");
           break;
       }
     }
