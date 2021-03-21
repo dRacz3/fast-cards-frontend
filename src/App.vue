@@ -96,7 +96,8 @@ export default {
     },
 
     format_event(event) {
-      if ("message" in event) {
+
+      if (typeof event != 'string' && "message" in event) {
         console.log(`New message received: ${event.message}`);
         return event.message;
       } else {

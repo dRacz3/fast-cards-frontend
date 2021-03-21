@@ -31,9 +31,10 @@
 </template>
 
 <script>
-import Register from "../libs/src/model/Register";
 
-import { backendApi, apiclient } from "../main";
+import { UserSchema, UserLoginSchema} from '../libs/src/index'
+
+import { userApi, apiclient } from "../main";
 import generateName from "../helpers/generateFunnyName";
 
 export default {
@@ -50,16 +51,16 @@ export default {
   methods: {
     register() {
       apiclient.defaultHeaders = {};
-      let userRegistrationData = new Register(
+      let userRegistrationSchema = new UserSchema(
         this.username,
-        this.password,
+        this.username + "@fakemail.com",
         this.password
       );
 
-      console.log(`Registering with: ${JSON.stringify(userRegistrationData)}`);
+      console.log(`Registering with: ${JSON.stringify(userRegistrationSchema)}`);
 
-      backendApi.restAuthRegistrationCreate(
-        userRegistrationData,
+      userApi.createUserAuthSignupPost(
+        userRegistrationSchema,
         (error, data, response) => {
           if (error) {
             console.error(error);
@@ -68,7 +69,7 @@ export default {
               `Registration failed with ${error} error is : ${response.text}`
             );
           } else {
-            this.token = JSON.parse(response.text).token;
+            this.token = JSON.parse(response.text).access_token;
             this.storeSuccessfulLoginData(this.token, this.username);
           }
         }
@@ -90,12 +91,10 @@ export default {
       return cookieValue;
     },
     login() {
-      let logindata = {
-        username: this.username,
-        password: this.password,
-      };
-
-      backendApi.restAuthLoginCreate(logindata, (error, data, response) => {
+      // I was lazy to add a proper email field, so each username is postfixed with this
+      // so i can generate unique email addresses for them.
+      let logindata = new UserLoginSchema(this.username + "@fakemail.com", this.password);
+      userApi.userLoginAuthLoginPost(logindata, (error, data, response) => {
         if (error) {
           console.error(error);
           this.$store.commit(
@@ -104,8 +103,7 @@ export default {
           );
         } else {
           const parsedResponse = JSON.parse(response.text);
-          this.token = parsedResponse.token;
-
+          this.token = parsedResponse.access_token;
           this.storeSuccessfulLoginData(this.token, this.username);
         }
       });
@@ -123,10 +121,6 @@ export default {
       apiclient.defaultHeaders = {
         Authorization: ``,
       };
-      // eslint-disable-next-line no-unused-vars
-      backendApi.restAuthLogoutCreate((error, data, resposne) => {
-        console.log("Logged out...");
-      });
     },
 
     storeSuccessfulLoginData(token, username) {
