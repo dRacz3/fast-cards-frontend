@@ -2,7 +2,7 @@
   <div>
     <h1>Message log</h1>
     <ul class="flex-container">
-      <div v-for="(entry, index) of messages.reverse()" :key="index">
+      <div v-for="(entry, index) of messages" :key="index">
         <md-content> [{{ index }}] {{ entry }} </md-content>
       </div>
     </ul>
