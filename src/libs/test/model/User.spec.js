@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new FastCards.BlackCard();
+    instance = new FastCards.User();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,40 +47,28 @@
       object[property] = value;
   }
 
-  describe('BlackCard', function() {
-    it('should create an instance of BlackCard', function() {
-      // uncomment below and update the code to test BlackCard
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be.a(FastCards.BlackCard);
+  describe('User', function() {
+    it('should create an instance of User', function() {
+      // uncomment below and update the code to test User
+      //var instane = new FastCards.User();
+      //expect(instance).to.be.a(FastCards.User);
     });
 
-    it('should have the property cardId (base name: "card_id")', function() {
-      // uncomment below and update the code to test the property cardId
-      //var instane = new FastCards.BlackCard();
+    it('should have the property email (base name: "email")', function() {
+      // uncomment below and update the code to test the property email
+      //var instane = new FastCards.User();
       //expect(instance).to.be();
     });
 
-    it('should have the property text (base name: "text")', function() {
-      // uncomment below and update the code to test the property text
-      //var instane = new FastCards.BlackCard();
+    it('should have the property id (base name: "id")', function() {
+      // uncomment below and update the code to test the property id
+      //var instane = new FastCards.User();
       //expect(instance).to.be();
     });
 
-    it('should have the property icon (base name: "icon")', function() {
-      // uncomment below and update the code to test the property icon
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property deck (base name: "deck")', function() {
-      // uncomment below and update the code to test the property deck
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property pick (base name: "pick")', function() {
-      // uncomment below and update the code to test the property pick
-      //var instane = new FastCards.BlackCard();
+    it('should have the property isActive (base name: "is_active")', function() {
+      // uncomment below and update the code to test the property isActive
+      //var instane = new FastCards.User();
       //expect(instance).to.be();
     });
 

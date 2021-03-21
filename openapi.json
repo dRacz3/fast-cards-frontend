@@ -1,1 +1,517 @@
-{"swagger": "2.0", "info": {"title": "Snippets API", "description": "Test description", "termsOfService": "https://www.google.com/policies/terms/", "contact": {"email": "contact@snippets.local"}, "license": {"name": "BSD License"}, "version": "v1"}, "host": "localhost:8000", "schemes": ["http"], "basePath": "/", "consumes": ["application/json"], "produces": ["application/json"], "securityDefinitions": {"Basic": {"type": "basic"}}, "security": [{"Basic": []}], "paths": {"/api/rest-auth/registration/": {"post": {"operationId": "api_rest-auth_registration_create", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/Register"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/Register"}}}, "tags": ["api"]}, "parameters": []}, "/api/rest-auth/registration/verify-email/": {"post": {"operationId": "api_rest-auth_registration_verify-email_create", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/VerifyEmail"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/VerifyEmail"}}}, "tags": ["api"]}, "parameters": []}, "/card-api/black_cards/": {"get": {"operationId": "card-api_black_cards_list", "description": "", "parameters": [{"name": "search", "in": "query", "description": "A search term.", "required": false, "type": "string"}, {"name": "page", "in": "query", "description": "A page number within the paginated result set.", "required": false, "type": "integer"}], "responses": {"200": {"description": "", "schema": {"required": ["count", "results"], "type": "object", "properties": {"count": {"type": "integer"}, "next": {"type": "string", "format": "uri", "x-nullable": true}, "previous": {"type": "string", "format": "uri", "x-nullable": true}, "results": {"type": "array", "items": {"$ref": "#/definitions/BlackCard"}}}}}}, "tags": ["card-api"]}, "parameters": []}, "/card-api/black_cards/{card_id}/": {"get": {"operationId": "card-api_black_cards_read", "description": "", "parameters": [], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/BlackCard"}}}, "tags": ["card-api"]}, "put": {"operationId": "card-api_black_cards_update", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/BlackCard"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/BlackCard"}}}, "tags": ["card-api"]}, "patch": {"operationId": "card-api_black_cards_partial_update", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/BlackCard"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/BlackCard"}}}, "tags": ["card-api"]}, "parameters": [{"name": "card_id", "in": "path", "description": "A unique integer value identifying this black card.", "required": true, "type": "integer"}]}, "/card-api/white_cards/": {"get": {"operationId": "card-api_white_cards_list", "description": "", "parameters": [{"name": "search", "in": "query", "description": "A search term.", "required": false, "type": "string"}, {"name": "page", "in": "query", "description": "A page number within the paginated result set.", "required": false, "type": "integer"}], "responses": {"200": {"description": "", "schema": {"required": ["count", "results"], "type": "object", "properties": {"count": {"type": "integer"}, "next": {"type": "string", "format": "uri", "x-nullable": true}, "previous": {"type": "string", "format": "uri", "x-nullable": true}, "results": {"type": "array", "items": {"$ref": "#/definitions/WhiteCard"}}}}}}, "tags": ["card-api"]}, "parameters": []}, "/card-api/white_cards/{card_id}/": {"get": {"operationId": "card-api_white_cards_read", "description": "", "parameters": [], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/WhiteCard"}}}, "tags": ["card-api"]}, "put": {"operationId": "card-api_white_cards_update", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/WhiteCard"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/WhiteCard"}}}, "tags": ["card-api"]}, "patch": {"operationId": "card-api_white_cards_partial_update", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/WhiteCard"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/WhiteCard"}}}, "tags": ["card-api"]}, "parameters": [{"name": "card_id", "in": "path", "description": "A unique integer value identifying this white card.", "required": true, "type": "integer"}]}, "/rest-auth/login/": {"post": {"operationId": "rest-auth_login_create", "description": "Check the credentials and return the REST Token\nif the credentials are valid and authenticated.\nCalls Django Auth login method to register User ID\nin Django session framework\n\nAccept the following POST parameters: username, password\nReturn the REST Framework Token Object's key.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/Login"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/Login"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/logout/": {"get": {"operationId": "rest-auth_logout_list", "summary": "Calls Django logout method and delete the Token object\nassigned to the current User object.", "description": "Accepts/Returns nothing.", "parameters": [], "responses": {"200": {"description": ""}}, "tags": ["rest-auth"]}, "post": {"operationId": "rest-auth_logout_create", "summary": "Calls Django logout method and delete the Token object\nassigned to the current User object.", "description": "Accepts/Returns nothing.", "parameters": [], "responses": {"201": {"description": ""}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/password/change/": {"post": {"operationId": "rest-auth_password_change_create", "summary": "Calls Django Auth SetPasswordForm save method.", "description": "Accepts the following POST parameters: new_password1, new_password2\nReturns the success/fail message.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/PasswordChange"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/PasswordChange"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/password/reset/": {"post": {"operationId": "rest-auth_password_reset_create", "summary": "Calls Django Auth PasswordResetForm save method.", "description": "Accepts the following POST parameters: email\nReturns the success/fail message.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/PasswordReset"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/PasswordReset"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/password/reset/confirm/": {"post": {"operationId": "rest-auth_password_reset_confirm_create", "summary": "Password reset e-mail link is confirmed, therefore\nthis resets the user's password.", "description": "Accepts the following POST parameters: token, uid,\n    new_password1, new_password2\nReturns the success/fail message.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/PasswordResetConfirm"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/PasswordResetConfirm"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/registration/": {"post": {"operationId": "rest-auth_registration_create", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/Register"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/Register"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/registration/verify-email/": {"post": {"operationId": "rest-auth_registration_verify-email_create", "description": "", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/VerifyEmail"}}], "responses": {"201": {"description": "", "schema": {"$ref": "#/definitions/VerifyEmail"}}}, "tags": ["rest-auth"]}, "parameters": []}, "/rest-auth/user/": {"get": {"operationId": "rest-auth_user_read", "summary": "Reads and updates UserModel fields\nAccepts GET, PUT, PATCH methods.", "description": "Default accepted fields: username, first_name, last_name\nDefault display fields: pk, username, email, first_name, last_name\nRead-only fields: pk, email\n\nReturns UserModel fields.", "parameters": [], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/UserDetails"}}}, "tags": ["rest-auth"]}, "put": {"operationId": "rest-auth_user_update", "summary": "Reads and updates UserModel fields\nAccepts GET, PUT, PATCH methods.", "description": "Default accepted fields: username, first_name, last_name\nDefault display fields: pk, username, email, first_name, last_name\nRead-only fields: pk, email\n\nReturns UserModel fields.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/UserDetails"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/UserDetails"}}}, "tags": ["rest-auth"]}, "patch": {"operationId": "rest-auth_user_partial_update", "summary": "Reads and updates UserModel fields\nAccepts GET, PUT, PATCH methods.", "description": "Default accepted fields: username, first_name, last_name\nDefault display fields: pk, username, email, first_name, last_name\nRead-only fields: pk, email\n\nReturns UserModel fields.", "parameters": [{"name": "data", "in": "body", "required": true, "schema": {"$ref": "#/definitions/UserDetails"}}], "responses": {"200": {"description": "", "schema": {"$ref": "#/definitions/UserDetails"}}}, "tags": ["rest-auth"]}, "parameters": []}}, "definitions": {"Register": {"required": ["username", "password1", "password2"], "type": "object", "properties": {"username": {"title": "Username", "type": "string", "maxLength": 150, "minLength": 1}, "email": {"title": "Email", "type": "string", "format": "email", "minLength": 1}, "password1": {"title": "Password1", "type": "string", "minLength": 1}, "password2": {"title": "Password2", "type": "string", "minLength": 1}}}, "VerifyEmail": {"required": ["key"], "type": "object", "properties": {"key": {"title": "Key", "type": "string", "minLength": 1}}}, "BlackCard": {"required": ["text", "icon", "deck", "pick"], "type": "object", "properties": {"text": {"title": "Text", "type": "string", "maxLength": 200, "minLength": 1}, "icon": {"title": "Icon", "type": "string", "maxLength": 200, "minLength": 1}, "deck": {"title": "Deck", "type": "string", "maxLength": 200, "minLength": 1}, "pick": {"title": "Pick", "type": "integer"}}}, "WhiteCard": {"required": ["text", "icon", "deck"], "type": "object", "properties": {"text": {"title": "Text", "type": "string", "maxLength": 200, "minLength": 1}, "icon": {"title": "Icon", "type": "string", "maxLength": 200, "minLength": 1}, "deck": {"title": "Deck", "type": "string", "maxLength": 200, "minLength": 1}}}, "Login": {"required": ["password"], "type": "object", "properties": {"username": {"title": "Username", "type": "string"}, "email": {"title": "Email", "type": "string", "format": "email"}, "password": {"title": "Password", "type": "string", "minLength": 1}}}, "PasswordChange": {"required": ["new_password1", "new_password2"], "type": "object", "properties": {"new_password1": {"title": "New password1", "type": "string", "maxLength": 128, "minLength": 1}, "new_password2": {"title": "New password2", "type": "string", "maxLength": 128, "minLength": 1}}}, "PasswordReset": {"required": ["email"], "type": "object", "properties": {"email": {"title": "Email", "type": "string", "format": "email", "minLength": 1}}}, "PasswordResetConfirm": {"required": ["new_password1", "new_password2", "uid", "token"], "type": "object", "properties": {"new_password1": {"title": "New password1", "type": "string", "maxLength": 128, "minLength": 1}, "new_password2": {"title": "New password2", "type": "string", "maxLength": 128, "minLength": 1}, "uid": {"title": "Uid", "type": "string", "minLength": 1}, "token": {"title": "Token", "type": "string", "minLength": 1}}}, "UserDetails": {"required": ["username"], "type": "object", "properties": {"pk": {"title": "ID", "type": "integer", "readOnly": true}, "username": {"title": "Username", "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.", "type": "string", "pattern": "^[\\w.@+-]+$", "maxLength": 150, "minLength": 1}, "email": {"title": "Email address", "type": "string", "format": "email", "readOnly": true, "minLength": 1}, "first_name": {"title": "First name", "type": "string", "maxLength": 150}, "last_name": {"title": "Last name", "type": "string", "maxLength": 150}}}}}
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "fast-cards",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "user"
+                ],
+                "summary": "Create User",
+                "operationId": "create_user_auth_signup_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "user"
+                ],
+                "summary": "User Login",
+                "operationId": "user_login_auth_login_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserLoginSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginFailureMessage"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Read Users",
+                "operationId": "read_users_auth__get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Skip",
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "name": "skip",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Limit",
+                            "type": "integer",
+                            "default": 100
+                        },
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "X-Token",
+                            "type": "string"
+                        },
+                        "name": "x-token",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Read Users Auth  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserSchema"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Read User",
+                "operationId": "read_user_auth_users__user_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "User Id",
+                            "type": "integer"
+                        },
+                        "name": "user_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cards/white": {
+            "put": {
+                "tags": [
+                    "cards"
+                ],
+                "summary": "Create White Card",
+                "operationId": "create_white_card_cards_white_put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WhiteCard"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WhiteCard"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWTBearer": []
+                    }
+                ]
+            }
+        },
+        "/cards/black": {
+            "put": {
+                "tags": [
+                    "cards"
+                ],
+                "summary": "Create Black Card",
+                "operationId": "create_black_card_cards_black_put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlackCard"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlackCard"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWTBearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BlackCard": {
+                "title": "BlackCard",
+                "required": [
+                    "text",
+                    "icon",
+                    "deck",
+                    "pick"
+                ],
+                "type": "object",
+                "properties": {
+                    "card_id": {
+                        "title": "Card Id",
+                        "type": "integer",
+                        "default": -1
+                    },
+                    "text": {
+                        "title": "Text",
+                        "type": "string"
+                    },
+                    "icon": {
+                        "title": "Icon",
+                        "type": "string"
+                    },
+                    "deck": {
+                        "title": "Deck",
+                        "type": "string"
+                    },
+                    "pick": {
+                        "title": "Pick",
+                        "type": "integer"
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "LoginFailureMessage": {
+                "title": "LoginFailureMessage",
+                "required": [
+                    "detail"
+                ],
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "detail": "The reason why the authenticaion failed"
+                }
+            },
+            "TokenResponse": {
+                "title": "TokenResponse",
+                "required": [
+                    "access_token"
+                ],
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "title": "Access Token",
+                        "type": "string"
+                    }
+                }
+            },
+            "User": {
+                "title": "User",
+                "required": [
+                    "email",
+                    "id",
+                    "is_active"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "title": "Email",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "is_active": {
+                        "title": "Is Active",
+                        "type": "boolean"
+                    }
+                }
+            },
+            "UserLoginSchema": {
+                "title": "UserLoginSchema",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "title": "Email",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "abdulazeez@x.com",
+                    "password": "weakpassword"
+                }
+            },
+            "UserSchema": {
+                "title": "UserSchema",
+                "required": [
+                    "username",
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "title": "Username",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "Abdulazeez Abdulazeez Adeshina",
+                    "email": "abdulazeez@x.com",
+                    "password": "weakpassword"
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            },
+            "WhiteCard": {
+                "title": "WhiteCard",
+                "required": [
+                    "text",
+                    "icon",
+                    "deck"
+                ],
+                "type": "object",
+                "properties": {
+                    "card_id": {
+                        "title": "Card Id",
+                        "type": "integer",
+                        "default": -1
+                    },
+                    "text": {
+                        "title": "Text",
+                        "type": "string"
+                    },
+                    "icon": {
+                        "title": "Icon",
+                        "type": "string"
+                    },
+                    "deck": {
+                        "title": "Deck",
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "JWTBearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

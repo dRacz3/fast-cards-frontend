@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new FastCards.WhiteCard();
+    instance = new FastCards.CardsApi();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,37 +47,27 @@
       object[property] = value;
   }
 
-  describe('WhiteCard', function() {
-    it('should create an instance of WhiteCard', function() {
-      // uncomment below and update the code to test WhiteCard
-      //var instane = new FastCards.WhiteCard();
-      //expect(instance).to.be.a(FastCards.WhiteCard);
+  describe('CardsApi', function() {
+    describe('createBlackCardCardsBlackPut', function() {
+      it('should call createBlackCardCardsBlackPut successfully', function(done) {
+        //uncomment below and update the code to test createBlackCardCardsBlackPut
+        //instance.createBlackCardCardsBlackPut(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
     });
-
-    it('should have the property cardId (base name: "card_id")', function() {
-      // uncomment below and update the code to test the property cardId
-      //var instane = new FastCards.WhiteCard();
-      //expect(instance).to.be();
+    describe('createWhiteCardCardsWhitePut', function() {
+      it('should call createWhiteCardCardsWhitePut successfully', function(done) {
+        //uncomment below and update the code to test createWhiteCardCardsWhitePut
+        //instance.createWhiteCardCardsWhitePut(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
     });
-
-    it('should have the property text (base name: "text")', function() {
-      // uncomment below and update the code to test the property text
-      //var instane = new FastCards.WhiteCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property icon (base name: "icon")', function() {
-      // uncomment below and update the code to test the property icon
-      //var instane = new FastCards.WhiteCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property deck (base name: "deck")', function() {
-      // uncomment below and update the code to test the property deck
-      //var instane = new FastCards.WhiteCard();
-      //expect(instance).to.be();
-    });
-
   });
 
 }));

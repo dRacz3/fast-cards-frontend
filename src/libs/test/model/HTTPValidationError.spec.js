@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new FastCards.BlackCard();
+    instance = new FastCards.HTTPValidationError();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,40 +47,16 @@
       object[property] = value;
   }
 
-  describe('BlackCard', function() {
-    it('should create an instance of BlackCard', function() {
-      // uncomment below and update the code to test BlackCard
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be.a(FastCards.BlackCard);
+  describe('HTTPValidationError', function() {
+    it('should create an instance of HTTPValidationError', function() {
+      // uncomment below and update the code to test HTTPValidationError
+      //var instane = new FastCards.HTTPValidationError();
+      //expect(instance).to.be.a(FastCards.HTTPValidationError);
     });
 
-    it('should have the property cardId (base name: "card_id")', function() {
-      // uncomment below and update the code to test the property cardId
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property text (base name: "text")', function() {
-      // uncomment below and update the code to test the property text
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property icon (base name: "icon")', function() {
-      // uncomment below and update the code to test the property icon
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property deck (base name: "deck")', function() {
-      // uncomment below and update the code to test the property deck
-      //var instane = new FastCards.BlackCard();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property pick (base name: "pick")', function() {
-      // uncomment below and update the code to test the property pick
-      //var instane = new FastCards.BlackCard();
+    it('should have the property detail (base name: "detail")', function() {
+      // uncomment below and update the code to test the property detail
+      //var instane = new FastCards.HTTPValidationError();
       //expect(instance).to.be();
     });
 
