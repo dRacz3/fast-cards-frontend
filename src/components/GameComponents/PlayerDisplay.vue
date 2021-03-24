@@ -4,9 +4,11 @@
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{ displayed_name }}</div>
-          <div class="md-subhead" v-if="is_tzar">
+          <div class="md-subhead" v-if="isTzar">
             TZAR <md-icon>star_rate</md-icon>
           </div>
+          Points: {{ player_data.points }} Submissions:
+          {{ player_data.submissions }}
         </md-card-header-text>
 
         <md-card-media>
@@ -26,17 +28,17 @@ export default {
   components: {},
   props: {
     player_data: {
-      required: true
+      required: true,
     },
-    is_tzar: {
-      default: false
-    }
   },
   computed: {
     displayed_name() {
-      return this.player_data.user.substring(0, 15);
-    }
-  }
+      return this.player_data.username.substring(0, 15);
+    },
+    isTzar() {
+      return this.player_data.current_role === "TZAR";
+    },
+  },
 };
 </script>
 

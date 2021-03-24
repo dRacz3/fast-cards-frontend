@@ -32,7 +32,7 @@ const routes = [
   {
     path: "/game-overview",
     name: "Game overview",
-    component: () => import("../views/GameOverview.vue"),
+    component: () => import("../views/Game.vue"),
   },
   {
     path: "/messagelogs",
