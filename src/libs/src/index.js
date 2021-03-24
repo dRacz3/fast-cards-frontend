@@ -14,8 +14,14 @@
 
 import ApiClient from './ApiClient';
 import BlackCard from './model/BlackCard';
+import CardsAgainstHumanityPlayer from './model/CardsAgainstHumanityPlayer';
+import GameStateMachine from './model/GameStateMachine';
+import GameStatePlayerView from './model/GameStatePlayerView';
 import HTTPValidationError from './model/HTTPValidationError';
 import LoginFailureMessage from './model/LoginFailureMessage';
+import PlayerOutsideView from './model/PlayerOutsideView';
+import SelectWinningSubmission from './model/SelectWinningSubmission';
+import Submission from './model/Submission';
 import TokenResponse from './model/TokenResponse';
 import User from './model/User';
 import UserLoginSchema from './model/UserLoginSchema';
@@ -24,7 +30,9 @@ import ValidationError from './model/ValidationError';
 import WhiteCard from './model/WhiteCard';
 import AuthApi from './api/AuthApi';
 import CardsApi from './api/CardsApi';
+import CardsAgainstApi from './api/CardsAgainstApi';
 import UserApi from './api/UserApi';
+import WsApi from './api/WsApi';
 
 
 /**
@@ -72,6 +80,24 @@ export {
     BlackCard,
 
     /**
+     * The CardsAgainstHumanityPlayer model constructor.
+     * @property {module:model/CardsAgainstHumanityPlayer}
+     */
+    CardsAgainstHumanityPlayer,
+
+    /**
+     * The GameStateMachine model constructor.
+     * @property {module:model/GameStateMachine}
+     */
+    GameStateMachine,
+
+    /**
+     * The GameStatePlayerView model constructor.
+     * @property {module:model/GameStatePlayerView}
+     */
+    GameStatePlayerView,
+
+    /**
      * The HTTPValidationError model constructor.
      * @property {module:model/HTTPValidationError}
      */
@@ -82,6 +108,24 @@ export {
      * @property {module:model/LoginFailureMessage}
      */
     LoginFailureMessage,
+
+    /**
+     * The PlayerOutsideView model constructor.
+     * @property {module:model/PlayerOutsideView}
+     */
+    PlayerOutsideView,
+
+    /**
+     * The SelectWinningSubmission model constructor.
+     * @property {module:model/SelectWinningSubmission}
+     */
+    SelectWinningSubmission,
+
+    /**
+     * The Submission model constructor.
+     * @property {module:model/Submission}
+     */
+    Submission,
 
     /**
      * The TokenResponse model constructor.
@@ -132,8 +176,20 @@ export {
     CardsApi,
 
     /**
+    * The CardsAgainstApi service constructor.
+    * @property {module:api/CardsAgainstApi}
+    */
+    CardsAgainstApi,
+
+    /**
     * The UserApi service constructor.
     * @property {module:api/UserApi}
     */
-    UserApi
+    UserApi,
+
+    /**
+    * The WsApi service constructor.
+    * @property {module:api/WsApi}
+    */
+    WsApi
 };

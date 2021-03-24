@@ -126,15 +126,29 @@ Class | Method | HTTP request | Description
 *FastCards.AuthApi* | [**userLoginAuthLoginPost**](docs/AuthApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
 *FastCards.CardsApi* | [**createBlackCardCardsBlackPut**](docs/CardsApi.md#createBlackCardCardsBlackPut) | **PUT** /cards/black | Create Black Card
 *FastCards.CardsApi* | [**createWhiteCardCardsWhitePut**](docs/CardsApi.md#createWhiteCardCardsWhitePut) | **PUT** /cards/white | Create White Card
+*FastCards.CardsAgainstApi* | [**createNewGameGameNewPost**](docs/CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game
+*FastCards.CardsAgainstApi* | [**joinGameGameJoinPost**](docs/CardsAgainstApi.md#joinGameGameJoinPost) | **POST** /game/join | Join Game
+*FastCards.CardsAgainstApi* | [**leaveGameGameLeavePost**](docs/CardsAgainstApi.md#leaveGameGameLeavePost) | **POST** /game/leave | Leave Game
+*FastCards.CardsAgainstApi* | [**refreshGameRefreshGet**](docs/CardsAgainstApi.md#refreshGameRefreshGet) | **GET** /game/refresh | Refresh
+*FastCards.CardsAgainstApi* | [**selectWinnerGameSelectwinnerPost**](docs/CardsAgainstApi.md#selectWinnerGameSelectwinnerPost) | **POST** /game/selectwinner | Select Winner
+*FastCards.CardsAgainstApi* | [**startGameGameStartGamePost**](docs/CardsAgainstApi.md#startGameGameStartGamePost) | **POST** /game/start_game | Start Game
+*FastCards.CardsAgainstApi* | [**submitCardsGameSubmitPost**](docs/CardsAgainstApi.md#submitCardsGameSubmitPost) | **POST** /game/submit | Submit Cards
 *FastCards.UserApi* | [**createUserAuthSignupPost**](docs/UserApi.md#createUserAuthSignupPost) | **POST** /auth/signup | Create User
 *FastCards.UserApi* | [**userLoginAuthLoginPost**](docs/UserApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
+*FastCards.WsApi* | [**getWsGet**](docs/WsApi.md#getWsGet) | **GET** /ws/ | Get
 
 
 ## Documentation for Models
 
  - [FastCards.BlackCard](docs/BlackCard.md)
+ - [FastCards.CardsAgainstHumanityPlayer](docs/CardsAgainstHumanityPlayer.md)
+ - [FastCards.GameStateMachine](docs/GameStateMachine.md)
+ - [FastCards.GameStatePlayerView](docs/GameStatePlayerView.md)
  - [FastCards.HTTPValidationError](docs/HTTPValidationError.md)
  - [FastCards.LoginFailureMessage](docs/LoginFailureMessage.md)
+ - [FastCards.PlayerOutsideView](docs/PlayerOutsideView.md)
+ - [FastCards.SelectWinningSubmission](docs/SelectWinningSubmission.md)
+ - [FastCards.Submission](docs/Submission.md)
  - [FastCards.TokenResponse](docs/TokenResponse.md)
  - [FastCards.User](docs/User.md)
  - [FastCards.UserLoginSchema](docs/UserLoginSchema.md)
