@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import AnyType from '../model/AnyType';
 import GameStateMachine from '../model/GameStateMachine';
 import GameStatePlayerView from '../model/GameStatePlayerView';
 import HTTPValidationError from '../model/HTTPValidationError';
@@ -127,7 +126,7 @@ export default class CardsAgainstApi {
      * Callback function to receive the result of the leaveGameGameLeavePost operation.
      * @callback module:api/CardsAgainstApi~leaveGameGameLeavePostCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/AnyType} data The data returned by the service call.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -135,7 +134,7 @@ export default class CardsAgainstApi {
      * Leave Game
      * @param {String} roomName 
      * @param {module:api/CardsAgainstApi~leaveGameGameLeavePostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AnyType}
+     * data is of type: {@link Object}
      */
     leaveGameGameLeavePost(roomName, callback) {
       let postBody = null;
@@ -157,7 +156,7 @@ export default class CardsAgainstApi {
       let authNames = ['JWTBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = AnyType;
+      let returnType = Object;
       return this.apiClient.callApi(
         '/game/leave', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

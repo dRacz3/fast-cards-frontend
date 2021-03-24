@@ -32,7 +32,6 @@ import AuthApi from './api/AuthApi';
 import CardsApi from './api/CardsApi';
 import CardsAgainstApi from './api/CardsAgainstApi';
 import UserApi from './api/UserApi';
-import WsApi from './api/WsApi';
 
 
 /**
@@ -185,11 +184,5 @@ export {
     * The UserApi service constructor.
     * @property {module:api/UserApi}
     */
-    UserApi,
-
-    /**
-    * The WsApi service constructor.
-    * @property {module:api/WsApi}
-    */
-    WsApi
+    UserApi
 };

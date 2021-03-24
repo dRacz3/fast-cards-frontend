@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 ## leaveGameGameLeavePost
 
-> AnyType leaveGameGameLeavePost(roomName)
+> Object leaveGameGameLeavePost(roomName)
 
 Leave Game
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AnyType**](AnyType.md)
+**Object**
 
 ### Authorization
 

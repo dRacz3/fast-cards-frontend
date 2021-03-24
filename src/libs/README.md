@@ -135,7 +135,6 @@ Class | Method | HTTP request | Description
 *FastCards.CardsAgainstApi* | [**submitCardsGameSubmitPost**](docs/CardsAgainstApi.md#submitCardsGameSubmitPost) | **POST** /game/submit | Submit Cards
 *FastCards.UserApi* | [**createUserAuthSignupPost**](docs/UserApi.md#createUserAuthSignupPost) | **POST** /auth/signup | Create User
 *FastCards.UserApi* | [**userLoginAuthLoginPost**](docs/UserApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
-*FastCards.WsApi* | [**getWsGet**](docs/WsApi.md#getWsGet) | **GET** /ws/ | Get
 
 
 ## Documentation for Models
