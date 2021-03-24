@@ -31,8 +31,7 @@
 </template>
 
 <script>
-
-import { UserSchema, UserLoginSchema} from '../libs/src/index'
+import { UserSchema, UserLoginSchema } from "../libs/src/index";
 
 import { userApi, apiclient } from "../main";
 import generateName from "../helpers/generateFunnyName";
@@ -57,7 +56,9 @@ export default {
         this.password
       );
 
-      console.log(`Registering with: ${JSON.stringify(userRegistrationSchema)}`);
+      console.log(
+        `Registering with: ${JSON.stringify(userRegistrationSchema)}`
+      );
 
       userApi.createUserAuthSignupPost(
         userRegistrationSchema,
@@ -93,7 +94,10 @@ export default {
     login() {
       // I was lazy to add a proper email field, so each username is postfixed with this
       // so i can generate unique email addresses for them.
-      let logindata = new UserLoginSchema(this.username + "@fakemail.com", this.password);
+      let logindata = new UserLoginSchema(
+        this.username + "@fakemail.com",
+        this.password
+      );
       userApi.userLoginAuthLoginPost(logindata, (error, data, response) => {
         if (error) {
           console.error(error);
@@ -118,9 +122,7 @@ export default {
         username: null,
       });
       this.$store.commit("push_message_to_snackbar", "Logged out");
-      apiclient.defaultHeaders = {
-        Authorization: ``,
-      };
+      apiclient.authentications["JWTBearer"].accessToken = "";
     },
 
     storeSuccessfulLoginData(token, username) {
@@ -128,9 +130,8 @@ export default {
         token: token,
         username: username,
       });
-      apiclient.defaultHeaders = {
-        Authorization: `Token ${this.token}`,
-      };
+
+      apiclient.authentications["JWTBearer"].accessToken = token;
       this.$store.commit(
         "push_message_to_snackbar",
         "Logged in as " + this.username

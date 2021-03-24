@@ -23,11 +23,12 @@ Vue.use(VueNativeSock, `ws://${SERVER_ADDRESS}/ws/chat/`, {
 
 export const backendSocket = new Vue();
 
-import {UserApi, ApiClient} from "./libs/src/index"
+import {UserApi, ApiClient ,CardsAgainstApi } from "./libs/src/index"
 
 export const apiclient = new ApiClient();
 apiclient.basePath = `http://${SERVER_ADDRESS}`
 export const userApi = new UserApi(apiclient);
+export const cardsAgainstApi = new CardsAgainstApi(apiclient);
 
 new Vue({
   router,

@@ -96,8 +96,7 @@ export default {
     },
 
     format_event(event) {
-
-      if (typeof event != 'string' && "message" in event) {
+      if (typeof event != "string" && "message" in event) {
         console.log(`New message received: ${event.message}`);
         return event.message;
       } else {
@@ -111,9 +110,7 @@ export default {
     let token = this.$store.state.api_token;
     if (token) {
       console.log("Setting up authentication header");
-      apiclient.defaultHeaders = {
-        Authorization: `Token ${this.$store.state.api_token}`,
-      };
+      apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
     }
