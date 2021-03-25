@@ -46,9 +46,6 @@ import PlayerDisplay from "./PlayerDisplay";
 
 export default {
   props: {
-    startGameCallback: {
-      required: true,
-    },
     room_data: {
       type: Object,
       required: true,

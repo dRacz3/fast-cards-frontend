@@ -29,7 +29,10 @@
         ></players-submitting-view>
       </div>
       <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
-        {{ this.room_data }}
+        <tzar-chosing-winner-view
+          :room_data="room_data"
+          @onWinnerSelected="selectWinner"
+        ></tzar-chosing-winner-view>
       </div>
     </div>
 
@@ -39,12 +42,11 @@
 
 <script>
 import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
-// import BlackCardDisplay from "../GameComponents/BlackCardDisplay";
-// import PlayerDisplay from "../components/GameComponents/PlayerDisplay";
-// import WhiteCardDisplay from "../components/GameComponents/WhiteCardDisplay";
+
 import WelcomeView from "../components/GameComponents/WelcomeView";
 import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
-import { WhiteCard } from "../libs/src";
+import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
+import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 
 export default {
   name: "Game",
@@ -54,11 +56,9 @@ export default {
     submissions: [],
   }),
   components: {
-    // "black-card-display": BlackCardDisplay,
-    // "player-display": PlayerDisplay,
-    // "white-card-display": WhiteCardDisplay,
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
+    "tzar-chosing-winner-view": TzarChosingWinner,
   },
   mounted() {
     // this.newRoom();
@@ -158,6 +158,23 @@ export default {
           } else {
             this.room_data = JSON.parse(response.text);
             pushMessageToSnackbar("Cards submitted.");
+          }
+        }
+      );
+    },
+    selectWinner(submission) {
+      let selectWinningSubmission = SelectWinningSubmission.constructFromObject(
+        { submission: submission }
+      ); // SelectWinningSubmission |
+      cardsAgainstApi.selectWinnerGameSelectwinnerPost(
+        this.room_name,
+        selectWinningSubmission,
+        (error, data, response) => {
+          if (error) {
+            console.error(error);
+          } else {
+            pushMessageToSnackbar("Winner was selected verified!");
+            this.room_data = JSON.parse(response.text);
           }
         }
       );
