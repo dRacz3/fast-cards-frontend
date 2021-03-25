@@ -19,38 +19,56 @@
     <black-card-display :card_data="room_data.currently_active_card">
     </black-card-display>
     <!-- Cards to submit -->
-    <div>
-      <ul class="flex-container table-container">
-        <div v-for="(entry, index) of cards_for_submission" :key="index">
-          <white-card-display
-            :card_data="entry"
-            :on_clicked_callback="on_submitted_white_card_clicked"
-          >
-          </white-card-display>
+    <div v-if="!isCurrentPlayerTzar && !has_player_submitted_this_round">
+      <div>
+        <ul class="flex-container table-container">
+          <div v-for="(entry, index) of cards_for_submission" :key="index">
+            <white-card-display
+              :card_data="entry"
+              :on_clicked_callback="on_submitted_white_card_clicked"
+            >
+            </white-card-display>
+          </div>
+        </ul>
+        <div
+          v-if="
+            cards_for_submission.length == room_data.currently_active_card.pick
+          "
+        >
+          <md-button @click="submitCards">Submit</md-button>
         </div>
-      </ul>
-      <div
-        v-if="
-          cards_for_submission.length == room_data.currently_active_card.pick
-        "
-      >
-        <md-button @click="submitCards">Submit</md-button>
+      </div>
+
+      <br />
+
+      <!-- Your cards -->
+      <div>
+        <ul class="flex-container table-container">
+          <div v-for="(entry, index) of cards_to_display" :key="index">
+            <white-card-display
+              :card_data="entry"
+              :on_clicked_callback="on_white_card_clicked"
+            >
+            </white-card-display>
+          </div>
+        </ul>
       </div>
     </div>
-
-    <br />
-
-    <!-- Your cards -->
-    <div v-if="!isCurrentPlayerTzar">
-      <ul class="flex-container table-container">
-        <div v-for="(entry, index) of cards_to_display" :key="index">
-          <white-card-display
-            :card_data="entry"
-            :on_clicked_callback="on_white_card_clicked"
-          >
-          </white-card-display>
-        </div>
-      </ul>
+    <div v-if="isCurrentPlayerTzar">
+      You are the Tzar currently. You cannot submit cards this round, but
+      prepare to judge other player's submissions! Enjoy this progressbar while
+      you wait.
+      <md-progress-bar
+        class="md-accent"
+        md-mode="indeterminate"
+      ></md-progress-bar>
+    </div>
+    <div v-if="has_player_submitted_this_round">
+      You have already submitted this round. Wait for others to finish.
+      <md-progress-bar
+        class="md-accent"
+        md-mode="indeterminate"
+      ></md-progress-bar>
     </div>
   </div>
 </template>
@@ -106,6 +124,7 @@ export default {
     submitCards() {
       console.log("Submitting from view");
       this.submitClicked(this.cards_for_submission);
+      this.cards_for_submission = [];
     },
   },
 
@@ -118,13 +137,22 @@ export default {
       return this.player.current_role === "TZAR";
     },
     cards_to_display() {
-      //   return this.player.cards_in_hand;
       if (this.player) {
+        const submission_text_map = this.cards_for_submission.map(
+          (c) => c.text
+        );
+        console.log(`Submission map: ${submission_text_map}`);
+
         return this.player.cards_in_hand.filter(
-          (e) => !this.cards_for_submission.includes(e)
+          (e) => !submission_text_map.includes(e.text)
         );
       }
       return [];
+    },
+    has_player_submitted_this_round() {
+      return Object.keys(this.room_data.player_submissions).includes(
+        this.room_data.player.username
+      );
     },
   },
 };

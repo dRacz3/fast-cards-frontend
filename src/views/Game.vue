@@ -1,15 +1,16 @@
 <template>
   <div>
-    <md-button @click="refresh">Refresh</md-button>
+    <!-- {{ room_data }} -->
+    <!-- <md-button @click="refresh">Refresh</md-button> -->
     <div>
       <h1>Welcome to room [{{ room_name }}]</h1>
       <md-field>
         <label>Room</label>
         <md-input v-model="room_name"></md-input>
       </md-field>
-      <md-button @click="newRoom">New room</md-button>
-      <md-button @click="joinRoom">Join</md-button>
-      <md-button @click="leaveRoom">Leave</md-button>
+      <md-button class="md-raised" @click="newRoom">New room</md-button>
+      <md-button class="md-raised" @click="joinRoom">Join</md-button>
+      <md-button class="md-raised" @click="leaveRoom">Leave</md-button>
     </div>
 
     <div v-if="room_data">
@@ -101,7 +102,7 @@ export default {
           } else {
             this.room_data = JSON.parse(response.text);
             pushMessageToSnackbar("Joined room");
-            this.refresh_timer = setInterval(() => this.refresh(), 200);
+            this.refresh_timer = setInterval(() => this.refresh(), 2000);
           }
         }
       );
@@ -159,6 +160,9 @@ export default {
         (error, data, response) => {
           if (error) {
             console.error(error);
+            pushMessageToSnackbar(
+              `Failed to Submit cards :.${JSON.parse(response.text).detail}`
+            );
           } else {
             this.room_data = JSON.parse(response.text);
             pushMessageToSnackbar("Cards submitted.");
