@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <h4>Game is in state:{{ this.room_data.state }}</h4>
     <div>
       <player-display :player_data="player"></player-display>
@@ -29,7 +29,13 @@
           </white-card-display>
         </div>
       </ul>
-      <md-button @click="submitCards">Submit</md-button>
+      <div
+        v-if="
+          cards_for_submission.length == room_data.currently_active_card.pick
+        "
+      >
+        <md-button @click="submitCards">Submit</md-button>
+      </div>
     </div>
 
     <br />
@@ -123,3 +129,27 @@ export default {
   },
 };
 </script>
+
+
+
+<style scoped>
+.flex-container {
+  display: flex;
+  align-content: center;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.page-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container {
+  border: rgba(8, 15, 15, 0.232) 1px solid;
+  border-radius: 50px;
+  padding: 15px;
+}
+</style>

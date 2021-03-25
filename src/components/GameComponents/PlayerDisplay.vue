@@ -45,16 +45,8 @@ export default {
 <style scoped>
 .player_card {
   border-radius: 50px;
-  background: rgba(186, 251, 251, 0.315);
-}
-
-ul {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 10px;
-  width: 100%;
+  background: rgba(206, 247, 247, 0.315);
+  width: 350px;
 }
 
 .disable_selection {

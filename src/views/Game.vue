@@ -1,7 +1,7 @@
 <template>
   <div>
     <md-button @click="refresh">Refresh</md-button>
-    <div v-if="!room_data">
+    <div>
       <h1>Welcome to room [{{ room_name }}]</h1>
       <md-field>
         <label>Room</label>
@@ -9,32 +9,36 @@
       </md-field>
       <md-button @click="newRoom">New room</md-button>
       <md-button @click="joinRoom">Join</md-button>
+      <md-button @click="leaveRoom">Leave</md-button>
     </div>
 
-    <!-- Before the game  starts -->
-    <div v-if="room_data.state === 'STARTING'">
-      <welcome-view
-        @startGameClicked="startGame"
-        :room_data="room_data"
-      ></welcome-view>
+    <div v-if="room_data">
+      <!-- Before the game  starts -->
+      <div v-if="room_data.state === 'STARTING'">
+        <welcome-view
+          @startGameClicked="startGame"
+          :room_data="room_data"
+        ></welcome-view>
+      </div>
+
+      <!-- When players are submitting cards -->
+      <div v-else-if="room_data.state === 'PLAYERS_SUBMITTING_CARDS'">
+        <players-submitting-view
+          :room_data="room_data"
+          :submitClicked="submit"
+        ></players-submitting-view>
+      </div>
+      <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
+        {{ this.room_data }}
+      </div>
     </div>
 
-    <!-- When players are submitting cards -->
-    <div v-else-if="room_data.state === 'PLAYERS_SUBMITTING_CARDS'">
-      <players-submitting-view
-        :room_data="room_data"
-        :submitClicked="submit"
-      ></players-submitting-view>
-    </div>
-    <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
-      {{ this.room_data }}
-    </div>
     <br />
   </div>
 </template>
 
 <script>
-import { cardsAgainstApi } from "../main";
+import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
 // import BlackCardDisplay from "../GameComponents/BlackCardDisplay";
 // import PlayerDisplay from "../components/GameComponents/PlayerDisplay";
 // import WhiteCardDisplay from "../components/GameComponents/WhiteCardDisplay";
@@ -45,7 +49,7 @@ import { WhiteCard } from "../libs/src";
 export default {
   name: "Game",
   data: () => ({
-    room_name: "2hello222",
+    room_name: null,
     room_data: null,
     submissions: [],
   }),
@@ -57,9 +61,9 @@ export default {
     "players-submitting-view": PlayersSubmittingView,
   },
   mounted() {
-    this.newRoom();
+    // this.newRoom();
     // this.joinRoom();
-    this.refresh();
+    // this.refresh();
   },
   methods: {
     newRoom() {
@@ -69,10 +73,14 @@ export default {
           if (error) {
             console.error(error);
             console.error(response);
-            this.joinRoom();
+            pushMessageToSnackbar(
+              `Failed to create room.${JSON.parse(response.text).detail}`
+            );
+            // this.joinRoom();
           } else {
             this.room_data = JSON.parse(response.text);
             console.log("Room created");
+            pushMessageToSnackbar("Room was created.");
             this.joinRoom();
           }
         }
@@ -84,9 +92,30 @@ export default {
         (error, data, response) => {
           if (error) {
             console.error(error);
+            pushMessageToSnackbar(
+              `Failed to join room.${JSON.parse(response.text).detail}`
+            );
           } else {
             this.room_data = JSON.parse(response.text);
-            console.log("Joined room.");
+            pushMessageToSnackbar("Joined room");
+          }
+        }
+      );
+    },
+
+    leaveRoom() {
+      cardsAgainstApi.leaveGameGameLeavePost(
+        this.room_name,
+        (error, data, response) => {
+          if (error) {
+            console.error(error);
+            pushMessageToSnackbar(
+              `Failed to leave room.${JSON.parse(response.text).detail}`
+            );
+          } else {
+            this.room_data = null;
+            pushMessageToSnackbar("Left room");
+            this.room_name = null;
           }
         }
       );
@@ -98,7 +127,7 @@ export default {
           if (error) {
             console.error(error);
           } else {
-            console.log("Game started in room.");
+            pushMessageToSnackbar("Game has started");
             this.room_data = JSON.parse(response.text);
           }
         }
@@ -111,7 +140,7 @@ export default {
           if (error) {
             console.error(error);
           } else {
-            console.log("Refresh success");
+            pushMessageToSnackbar("Refresh success");
             this.room_data = JSON.parse(response.text);
           }
         }
@@ -128,7 +157,7 @@ export default {
             console.error(error);
           } else {
             this.room_data = JSON.parse(response.text);
-            console.log("submitted " + data);
+            pushMessageToSnackbar("Cards submitted.");
           }
         }
       );

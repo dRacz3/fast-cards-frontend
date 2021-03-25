@@ -30,6 +30,10 @@ apiclient.basePath = `http://${SERVER_ADDRESS}`
 export const userApi = new UserApi(apiclient);
 export const cardsAgainstApi = new CardsAgainstApi(apiclient);
 
+export const pushMessageToSnackbar = (message) => {
+  store.commit("push_message_to_snackbar", message);
+}
+
 new Vue({
   router,
   store,
