@@ -7,8 +7,8 @@
           <div class="md-subhead" v-if="isTzar">
             TZAR <md-icon>star_rate</md-icon>
           </div>
-          Points: {{ player_data.points }} Submissions:
-          {{ player_data.submissions }}
+          Points: {{ player_data.points }}
+          <!-- Submissions: {{ player_data.submissions }} -->
         </md-card-header-text>
 
         <md-card-media>

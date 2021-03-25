@@ -54,16 +54,19 @@ export default {
     room_name: null,
     room_data: null,
     submissions: [],
+    refresh_timer: null,
   }),
   components: {
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
     "tzar-chosing-winner-view": TzarChosingWinner,
   },
-  mounted() {
-    // this.newRoom();
-    // this.joinRoom();
-    // this.refresh();
+  mounted() {},
+  destroyed() {
+    clearInterval(this.refresh_timer);
+  },
+  unmounted() {
+    clearInterval(this.refresh_timer);
   },
   methods: {
     newRoom() {
@@ -98,6 +101,7 @@ export default {
           } else {
             this.room_data = JSON.parse(response.text);
             pushMessageToSnackbar("Joined room");
+            this.refresh_timer = setInterval(() => this.refresh(), 200);
           }
         }
       );
@@ -140,7 +144,7 @@ export default {
           if (error) {
             console.error(error);
           } else {
-            pushMessageToSnackbar("Refresh success");
+            // pushMessageToSnackbar("Refresh success");
             this.room_data = JSON.parse(response.text);
           }
         }
