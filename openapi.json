@@ -1040,15 +1040,14 @@
             "UserLoginSchema": {
                 "title": "UserLoginSchema",
                 "required": [
-                    "email",
+                    "username",
                     "password"
                 ],
                 "type": "object",
                 "properties": {
-                    "email": {
-                        "title": "Email",
-                        "type": "string",
-                        "format": "email"
+                    "username": {
+                        "title": "Username",
+                        "type": "string"
                     },
                     "password": {
                         "title": "Password",
@@ -1056,8 +1055,8 @@
                     }
                 },
                 "example": {
-                    "email": "abdulazeez@x.com",
-                    "password": "weakpassword"
+                    "username": "Joe",
+                    "password": "the_password"
                 }
             },
             "UserSchema": {
@@ -1084,9 +1083,9 @@
                     }
                 },
                 "example": {
-                    "username": "Abdulazeez Abdulazeez Adeshina",
-                    "email": "abdulazeez@x.com",
-                    "password": "weakpassword"
+                    "username": "Joe",
+                    "email": "Joe@x.com",
+                    "password": "the_password"
                 }
             },
             "ValidationError": {

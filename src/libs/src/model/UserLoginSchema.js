@@ -22,12 +22,12 @@ class UserLoginSchema {
     /**
      * Constructs a new <code>UserLoginSchema</code>.
      * @alias module:model/UserLoginSchema
-     * @param email {String} 
+     * @param username {String} 
      * @param password {String} 
      */
-    constructor(email, password) { 
+    constructor(username, password) { 
         
-        UserLoginSchema.initialize(this, email, password);
+        UserLoginSchema.initialize(this, username, password);
     }
 
     /**
@@ -35,8 +35,8 @@ class UserLoginSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
-        obj['email'] = email;
+    static initialize(obj, username, password) { 
+        obj['username'] = username;
         obj['password'] = password;
     }
 
@@ -51,8 +51,8 @@ class UserLoginSchema {
         if (data) {
             obj = obj || new UserLoginSchema();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('username')) {
+                obj['username'] = ApiClient.convertToType(data['username'], 'String');
             }
             if (data.hasOwnProperty('password')) {
                 obj['password'] = ApiClient.convertToType(data['password'], 'String');
@@ -65,9 +65,9 @@ class UserLoginSchema {
 }
 
 /**
- * @member {String} email
+ * @member {String} username
  */
-UserLoginSchema.prototype['email'] = undefined;
+UserLoginSchema.prototype['username'] = undefined;
 
 /**
  * @member {String} password
