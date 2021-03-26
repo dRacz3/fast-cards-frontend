@@ -9,7 +9,7 @@
         <md-card-actions v-if="isTzar">
           <!-- <md-button>Action</md-button> -->
           <md-button class="md-raised" @click="onWinnerSelected">
-            <md-icon>thumb_up</md-icon> I like this
+            <md-icon>coronavirus</md-icon> I like this
           </md-button>
         </md-card-actions>
       </md-ripple>

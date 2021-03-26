@@ -1,18 +1,29 @@
 <template>
   <div>
-    <div v-for="(entry, index) of rooms" :key="index">
+    <div>
+      <md-field>
+        <label>You can search for rooms here</label>
+        <md-input v-model="search"></md-input>
+        <md-button @click="onRefreshClicked"
+          ><md-icon>refresh</md-icon></md-button
+        >
+      </md-field>
+    </div>
+    <div v-for="(entry, index) of filteredRooms" :key="index">
       <room-card
         :room_data="entry"
         @onJoinRoomClicked="onJoinRoomClicked"
       ></room-card>
     </div>
-    <md-button @click="onRefreshClicked"><md-icon>refresh</md-icon></md-button>
   </div>
 </template>
 
 <script>
 import RoomCard from "./RoomCard";
 export default {
+  data: () => ({
+    search: "",
+  }),
   components: {
     "room-card": RoomCard,
   },
@@ -28,6 +39,13 @@ export default {
     },
     onJoinRoomClicked(room_name) {
       this.$emit("onJoinRoomClicked", room_name);
+    },
+  },
+  computed: {
+    filteredRooms() {
+      return this.rooms.filter((room) => {
+        return room.room_name.toLowerCase().includes(this.search.toLowerCase());
+      });
     },
   },
 };

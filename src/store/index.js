@@ -33,8 +33,15 @@ export default new Vuex.Store({
     update_api_token(state, login_data) {
       state.logged_in_username = login_data.username;
       state.api_token = login_data.token;
-      localStorage.setItem("api_token", state.api_token);
-      localStorage.setItem("logged_in_username", state.logged_in_username);
+      if (login_data.token === null) {
+        localStorage.removeItem('api_token')
+        localStorage.removeItem('logged_in_username')
+      }
+      else
+      {
+        localStorage.setItem("api_token", state.api_token);
+        localStorage.setItem("logged_in_username", state.logged_in_username);
+      }
     },
     initialiseStore(state) {
       state.api_token = localStorage.getItem("api_token") || null;
@@ -71,7 +78,9 @@ export default new Vuex.Store({
 
     push_message_to_snackbar(state, message) {
       state.message_log.push(message);
-      state.event_callback_list(message);
+      if (state.event_callback_list) {
+        state.event_callback_list(message);
+      }
     },
 
 

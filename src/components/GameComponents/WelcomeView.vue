@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    {{ this.room_data }}
+    <!-- {{ this.room_data }} -->
   </div>
 </template>
 

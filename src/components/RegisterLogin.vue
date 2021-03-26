@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="devmode">Current login data: {{ token }}</div>
-    <div class="hello" v-if="!isUserLoggedIn">
+    <div v-if="!isUserLoggedIn">
       <h1>
         Please register or log in in order to play the game. No hard checks for
         e-mail. You will be logged in automatically after registering
@@ -52,7 +52,7 @@ export default {
       apiclient.defaultHeaders = {};
       let userRegistrationSchema = new UserSchema(
         this.username,
-        this.username + "@fakemail.com",
+        this.username + "@emailisnotused.com",
         this.password
       );
 
@@ -92,12 +92,7 @@ export default {
       return cookieValue;
     },
     login() {
-      // I was lazy to add a proper email field, so each username is postfixed with this
-      // so i can generate unique email addresses for them.
-      let logindata = new UserLoginSchema(
-        this.username + "@fakemail.com",
-        this.password
-      );
+      let logindata = new UserLoginSchema(this.username, this.password);
       userApi.userLoginAuthLoginPost(logindata, (error, data, response) => {
         if (error) {
           console.error(error);
@@ -149,7 +144,10 @@ export default {
 
   computed: {
     isUserLoggedIn() {
-      return this.$store.state.api_token != null;
+      return (
+        this.$store.state.api_token !== null &&
+        this.$store.state.api_token !== "null"
+      );
     },
   },
 };

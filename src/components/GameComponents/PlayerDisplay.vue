@@ -4,18 +4,19 @@
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{ displayed_name }}</div>
-          <div class="md-subhead" v-if="isTzar">
-            TZAR <md-icon>star_rate</md-icon>
-          </div>
+
           Points: {{ player_data.points }}
           <!-- Submissions: {{ player_data.submissions }} -->
         </md-card-header-text>
 
         <md-card-media>
-          <img
+          <!-- <img
             src="https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295430_1280.png"
             alt="Player"
-          />
+          /> -->
+          <div class="md-subhead" v-if="isTzar">
+            TZAR <md-icon>star_rate</md-icon>
+          </div>
         </md-card-media>
       </md-card-header>
     </md-card>

@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div v-if="!room_name">
+    <div v-if="!room_data">
       <div>
         <md-toolbar>
           <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
+          <div>Create room -></div>
           <md-button
             class="md-icon-button"
             @click="show_advanced_room_options = !show_advanced_room_options"
@@ -16,15 +17,15 @@
         </md-toolbar>
         <div v-if="show_advanced_room_options">
           <md-field>
-            <label>Enter room name here</label>
+            <label>You can create a new room, just pick a unique name.</label>
             <md-input v-model="room_name"></md-input>
+            <md-button class="md-raised" @click="newRoom">Create</md-button>
           </md-field>
 
-          <md-button class="md-raised" @click="newRoom">New room</md-button>
-          <md-button class="md-raised" @click="joinRoom">Join</md-button>
-          <md-button class="md-raised" @click="refreshRoomList"
+          <!-- <md-button class="md-raised" @click="joinRoom">Join</md-button> -->
+          <!-- <md-button class="md-raised" @click="refreshRoomList"
             >Refresh rooms</md-button
-          >
+          > -->
         </div>
       </div>
 
@@ -37,7 +38,7 @@
         ></room-selection>
       </div>
     </div>
-    <md-toolbar v-if="room_name">
+    <md-toolbar v-if="room_data">
       <h1 style="flex: 1" class="md-title">
         You are currently in room [{{ room_name }}]
       </h1>
@@ -95,12 +96,13 @@ import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 export default {
   name: "Game",
   data: () => ({
+    room_name_input: null,
     room_name: null,
     room_data: null,
     submissions: [],
     refresh_timer: null,
     available_rooms: [],
-    show_advanced_room_options: false,
+    show_advanced_room_options: true,
   }),
   components: {
     "welcome-view": WelcomeView,
@@ -129,7 +131,6 @@ export default {
             pushMessageToSnackbar(
               `Failed to create room.${JSON.parse(response.text).detail}`
             );
-            // this.joinRoom();
           } else {
             this.room_data = JSON.parse(response.text);
             console.log("Room created");
@@ -138,8 +139,10 @@ export default {
           }
         }
       );
+      this.refreshRoomList();
     },
     directJoinRoom(room_name) {
+      console.log(`joining room directly`);
       this.room_name = room_name;
       this.joinRoom();
     },
@@ -163,18 +166,18 @@ export default {
     },
 
     leaveRoom() {
+      this.refreshRoomList();
       cardsAgainstApi.leaveGameGameLeavePost(
         this.room_name,
         (error, data, response) => {
+          this.room_data = null;
+          this.room_name = null;
+          pushMessageToSnackbar("Left room");
           if (error) {
             console.error(error);
             pushMessageToSnackbar(
               `Failed to leave room.${JSON.parse(response.text).detail}`
             );
-          } else {
-            this.room_data = null;
-            pushMessageToSnackbar("Left room");
-            this.room_name = null;
           }
         }
       );
