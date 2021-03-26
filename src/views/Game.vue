@@ -1,17 +1,54 @@
 <template>
   <div>
+    <div v-if="!room_name">
+      <div>
+        <md-toolbar>
+          <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
+          <md-button
+            class="md-icon-button"
+            @click="show_advanced_room_options = !show_advanced_room_options"
+          >
+            <md-icon v-if="!show_advanced_room_options"
+              >keyboard_arrow_down</md-icon
+            >
+            <md-icon v-else>keyboard_arrow_up</md-icon>
+          </md-button>
+        </md-toolbar>
+        <div v-if="show_advanced_room_options">
+          <md-field>
+            <label>Enter room name here</label>
+            <md-input v-model="room_name"></md-input>
+          </md-field>
+
+          <md-button class="md-raised" @click="newRoom">New room</md-button>
+          <md-button class="md-raised" @click="joinRoom">Join</md-button>
+          <md-button class="md-raised" @click="refreshRoomList"
+            >Refresh rooms</md-button
+          >
+        </div>
+      </div>
+
+      <div>
+        <md-divider></md-divider>
+        <room-selection
+          @onRefreshClicked="refreshRoomList"
+          @onJoinRoomClicked="directJoinRoom"
+          :rooms="available_rooms"
+        ></room-selection>
+      </div>
+    </div>
+    <md-toolbar v-if="room_name">
+      <h1 style="flex: 1" class="md-title">
+        You are currently in room [{{ room_name }}]
+      </h1>
+      <md-button class="md-raised" @click="leaveRoom"
+        >Leave <md-icon>exit_to_app</md-icon></md-button
+      >
+    </md-toolbar>
+    <!-- Room header -->
+    <div></div>
     <!-- {{ room_data }} -->
     <!-- <md-button @click="refresh">Refresh</md-button> -->
-    <div>
-      <h1>Welcome to room [{{ room_name }}]</h1>
-      <md-field>
-        <label>Room</label>
-        <md-input v-model="room_name"></md-input>
-      </md-field>
-      <md-button class="md-raised" @click="newRoom">New room</md-button>
-      <md-button class="md-raised" @click="joinRoom">Join</md-button>
-      <md-button class="md-raised" @click="leaveRoom">Leave</md-button>
-    </div>
 
     <div v-if="room_data">
       <!-- Before the game  starts -->
@@ -48,6 +85,7 @@
 <script>
 import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
 
+import RoomSelection from "../components/GameComponents/RoomSelection";
 import WelcomeView from "../components/GameComponents/WelcomeView";
 import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
@@ -61,14 +99,19 @@ export default {
     room_data: null,
     submissions: [],
     refresh_timer: null,
+    available_rooms: [],
+    show_advanced_room_options: false,
   }),
   components: {
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
     "tzar-chosing-winner-view": TzarChosingWinner,
     "game-has-finished-view": GameFinishedView,
+    "room-selection": RoomSelection,
   },
-  mounted() {},
+  mounted() {
+    this.refreshRoomList();
+  },
   destroyed() {
     clearInterval(this.refresh_timer);
   },
@@ -96,6 +139,11 @@ export default {
         }
       );
     },
+    directJoinRoom(room_name) {
+      this.room_name = room_name;
+      this.joinRoom();
+    },
+
     joinRoom() {
       cardsAgainstApi.joinGameGameJoinPost(
         this.room_name,
@@ -192,6 +240,16 @@ export default {
           }
         }
       );
+    },
+    refreshRoomList() {
+      cardsAgainstApi.listRoomsGameRoomsGet((error, data, response) => {
+        if (error) {
+          console.error(error);
+        } else {
+          pushMessageToSnackbar("Refreshing avialable rooms...");
+          this.available_rooms = JSON.parse(response.text).rooms;
+        }
+      });
     },
   },
 

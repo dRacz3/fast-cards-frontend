@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1>The game has ended!</h1>
+      <h1>This game has ended!</h1>
       <h2>The winner is : {{ player_ascending[0].username }}</h2>
     </div>
     <div>

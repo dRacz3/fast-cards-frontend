@@ -24,33 +24,22 @@
         </md-toolbar>
 
         <md-list>
-          <!-- <md-list-item to="/about">
-            <md-icon>login</md-icon>
-            <span class="md-list-item-text"> About</span>
-          </md-list-item> -->
-
           <md-list-item to="/">
             <md-icon>account_circle</md-icon>
             <span class="md-list-item-text"> Login </span>
           </md-list-item>
-
-          <md-list-item to="/sessions">
-            <md-icon>games</md-icon>
-            <span class="md-list-item-text"> Game </span>
-          </md-list-item>
-
           <md-list-item to="/game-overview">
-            <md-icon>warning</md-icon>
-            <span class="md-list-item-text"> Test View</span>
+            <md-icon>games</md-icon>
+            <span class="md-list-item-text">Game</span>
           </md-list-item>
-          <md-list-item to="/messagelogs">
+          <!-- <md-list-item to="/messagelogs">
             <md-icon>error</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item>
           <md-list-item to="/chat">
             <md-icon>mail</md-icon>
             <span class="md-list-item-text"> Test View</span>
-          </md-list-item>
+          </md-list-item> -->
         </md-list>
       </md-app-drawer>
       <md-app-content>

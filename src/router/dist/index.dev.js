@@ -37,13 +37,7 @@ var routes = [{
     });
   }
 }, {
-  path: "/sessions",
-  name: "Sessions",
-  component: function component() {
-    return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require("../views/Sessions.vue"));
-    });
-  }
+
 }, {
   path: "/itemtest",
   name: "Item tests",
