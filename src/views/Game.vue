@@ -35,6 +35,10 @@
           @onWinnerSelected="selectWinner"
         ></tzar-chosing-winner-view>
       </div>
+
+      <div v-else-if="room_data.state === 'FINISHED'">
+        <game-has-finished-view :room_data="room_data"></game-has-finished-view>
+      </div>
     </div>
 
     <br />
@@ -47,6 +51,7 @@ import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
 import WelcomeView from "../components/GameComponents/WelcomeView";
 import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
+import GameFinishedView from "../components/GameComponents/GameFinishedView";
 import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 
 export default {
@@ -61,6 +66,7 @@ export default {
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
     "tzar-chosing-winner-view": TzarChosingWinner,
+    "game-has-finished-view": GameFinishedView,
   },
   mounted() {},
   destroyed() {
