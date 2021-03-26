@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import GameStateMachine from '../model/GameStateMachine';
 import GameStatePlayerView from '../model/GameStatePlayerView';
 import HTTPValidationError from '../model/HTTPValidationError';
+import RoomListing from '../model/RoomListing';
 import SelectWinningSubmission from '../model/SelectWinningSubmission';
 import WhiteCard from '../model/WhiteCard';
 
@@ -159,6 +160,42 @@ export default class CardsAgainstApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/game/leave', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listRoomsGameRoomsGet operation.
+     * @callback module:api/CardsAgainstApi~listRoomsGameRoomsGetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/RoomListing} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List Rooms
+     * @param {module:api/CardsAgainstApi~listRoomsGameRoomsGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/RoomListing}
+     */
+    listRoomsGameRoomsGet(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = RoomListing;
+      return this.apiClient.callApi(
+        '/game/rooms', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *FastCards.CardsAgainstApi* | [**createNewGameGameNewPost**](docs/CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game
 *FastCards.CardsAgainstApi* | [**joinGameGameJoinPost**](docs/CardsAgainstApi.md#joinGameGameJoinPost) | **POST** /game/join | Join Game
 *FastCards.CardsAgainstApi* | [**leaveGameGameLeavePost**](docs/CardsAgainstApi.md#leaveGameGameLeavePost) | **POST** /game/leave | Leave Game
+*FastCards.CardsAgainstApi* | [**listRoomsGameRoomsGet**](docs/CardsAgainstApi.md#listRoomsGameRoomsGet) | **GET** /game/rooms | List Rooms
 *FastCards.CardsAgainstApi* | [**refreshGameRefreshGet**](docs/CardsAgainstApi.md#refreshGameRefreshGet) | **GET** /game/refresh | Refresh
 *FastCards.CardsAgainstApi* | [**selectWinnerGameSelectwinnerPost**](docs/CardsAgainstApi.md#selectWinnerGameSelectwinnerPost) | **POST** /game/selectwinner | Select Winner
 *FastCards.CardsAgainstApi* | [**startGameGameStartGamePost**](docs/CardsAgainstApi.md#startGameGameStartGamePost) | **POST** /game/start_game | Start Game
@@ -146,6 +147,8 @@ Class | Method | HTTP request | Description
  - [FastCards.HTTPValidationError](docs/HTTPValidationError.md)
  - [FastCards.LoginFailureMessage](docs/LoginFailureMessage.md)
  - [FastCards.PlayerOutsideView](docs/PlayerOutsideView.md)
+ - [FastCards.Room](docs/Room.md)
+ - [FastCards.RoomListing](docs/RoomListing.md)
  - [FastCards.SelectWinningSubmission](docs/SelectWinningSubmission.md)
  - [FastCards.Submission](docs/Submission.md)
  - [FastCards.TokenResponse](docs/TokenResponse.md)

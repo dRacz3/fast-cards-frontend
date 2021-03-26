@@ -20,6 +20,8 @@ import GameStatePlayerView from './model/GameStatePlayerView';
 import HTTPValidationError from './model/HTTPValidationError';
 import LoginFailureMessage from './model/LoginFailureMessage';
 import PlayerOutsideView from './model/PlayerOutsideView';
+import Room from './model/Room';
+import RoomListing from './model/RoomListing';
 import SelectWinningSubmission from './model/SelectWinningSubmission';
 import Submission from './model/Submission';
 import TokenResponse from './model/TokenResponse';
@@ -113,6 +115,18 @@ export {
      * @property {module:model/PlayerOutsideView}
      */
     PlayerOutsideView,
+
+    /**
+     * The Room model constructor.
+     * @property {module:model/Room}
+     */
+    Room,
+
+    /**
+     * The RoomListing model constructor.
+     * @property {module:model/RoomListing}
+     */
+    RoomListing,
 
     /**
      * The SelectWinningSubmission model constructor.

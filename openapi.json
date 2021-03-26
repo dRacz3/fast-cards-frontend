@@ -669,6 +669,32 @@
                     }
                 ]
             }
+        },
+        "/game/rooms": {
+            "get": {
+                "tags": [
+                    "cards-against"
+                ],
+                "summary": "List Rooms",
+                "operationId": "list_rooms_game_rooms_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoomListing"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWTBearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -905,6 +931,40 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Submission"
+                        }
+                    }
+                }
+            },
+            "Room": {
+                "title": "Room",
+                "required": [
+                    "room_name",
+                    "player_count"
+                ],
+                "type": "object",
+                "properties": {
+                    "room_name": {
+                        "title": "Room Name",
+                        "type": "string"
+                    },
+                    "player_count": {
+                        "title": "Player Count",
+                        "type": "integer"
+                    }
+                }
+            },
+            "RoomListing": {
+                "title": "RoomListing",
+                "required": [
+                    "rooms"
+                ],
+                "type": "object",
+                "properties": {
+                    "rooms": {
+                        "title": "Rooms",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Room"
                         }
                     }
                 }
