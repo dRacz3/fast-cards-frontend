@@ -94,12 +94,9 @@ export default {
 
     onNewMessage(message) {
       if (message) {
-        console.log(`-------->>>>>> ${message} -> ${JSON.stringify(message)}`);
         if (message.sender === "SYSTEM") {
-          console.log("Emitting broadcastReceivedFromServer");
           this.$emit("broadcastReceivedFromServer");
         }
-        console.log(`Chatroom got message: ${JSON.stringify(message)}`);
         this.message_log.push(message.message);
       }
     },
