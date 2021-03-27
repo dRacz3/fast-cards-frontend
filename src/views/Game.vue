@@ -78,7 +78,12 @@
         <game-has-finished-view :room_data="room_data"></game-has-finished-view>
       </div>
     </div>
-
+    <div v-if="room_data">
+      <websocket-view
+        :room_data="room_data"
+        @broadcastReceivedFromServer="refresh"
+      ></websocket-view>
+    </div>
     <br />
   </div>
 </template>
@@ -92,6 +97,7 @@ import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittin
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
 import GameFinishedView from "../components/GameComponents/GameFinishedView";
 import { WhiteCard, SelectWinningSubmission } from "../libs/src";
+import WebsocketView from "./WebsocketView";
 
 export default {
   name: "Game",
@@ -100,7 +106,7 @@ export default {
     room_name: null,
     room_data: null,
     submissions: [],
-    refresh_timer: null,
+    // refresh_timer: null,
     available_rooms: [],
     show_advanced_room_options: true,
   }),
@@ -110,15 +116,16 @@ export default {
     "tzar-chosing-winner-view": TzarChosingWinner,
     "game-has-finished-view": GameFinishedView,
     "room-selection": RoomSelection,
+    "websocket-view": WebsocketView,
   },
   mounted() {
-    this.refreshRoomList();
+    // this.refreshRoomList();
   },
   destroyed() {
-    clearInterval(this.refresh_timer);
+    // clearInterval(this.refresh_timer);
   },
   unmounted() {
-    clearInterval(this.refresh_timer);
+    // clearInterval(this.refresh_timer);
   },
   methods: {
     newRoom() {
@@ -142,7 +149,7 @@ export default {
       this.refreshRoomList();
     },
     directJoinRoom(room_name) {
-      console.log(`joining room directly`);
+      // console.log(`joining room directly`);
       this.room_name = room_name;
       this.joinRoom();
     },
@@ -159,7 +166,7 @@ export default {
           } else {
             this.room_data = JSON.parse(response.text);
             pushMessageToSnackbar("Joined room");
-            this.refresh_timer = setInterval(() => this.refresh(), 2000);
+            // this.refresh_timer = setInterval(() => this.refresh(), 2000);
           }
         }
       );
@@ -196,17 +203,19 @@ export default {
       );
     },
     refresh() {
-      cardsAgainstApi.refreshGameRefreshGet(
-        this.room_name,
-        (error, data, response) => {
-          if (error) {
-            console.error(error);
-          } else {
-            // pushMessageToSnackbar("Refresh success");
-            this.room_data = JSON.parse(response.text);
+      if (this.room_name) {
+        cardsAgainstApi.refreshGameRefreshGet(
+          this.room_name,
+          (error, data, response) => {
+            if (error) {
+              console.error(error);
+            } else {
+              // pushMessageToSnackbar("Refresh success");
+              this.room_data = JSON.parse(response.text);
+            }
           }
-        }
-      );
+        );
+      }
     },
     submit(cards) {
       console.log(`Submit called: ${JSON.stringify(cards)}`);
@@ -222,7 +231,7 @@ export default {
             );
           } else {
             this.room_data = JSON.parse(response.text);
-            pushMessageToSnackbar("Cards submitted.");
+            // pushMessageToSnackbar("Cards submitted.");
           }
         }
       );
@@ -230,7 +239,7 @@ export default {
     selectWinner(submission) {
       let selectWinningSubmission = SelectWinningSubmission.constructFromObject(
         { submission: submission }
-      ); // SelectWinningSubmission |
+      );
       cardsAgainstApi.selectWinnerGameSelectwinnerPost(
         this.room_name,
         selectWinningSubmission,
@@ -238,7 +247,7 @@ export default {
           if (error) {
             console.error(error);
           } else {
-            pushMessageToSnackbar("Winner was selected verified!");
+            // pushMessageToSnackbar("Winner was selected!");
             this.room_data = JSON.parse(response.text);
           }
         }
@@ -249,7 +258,7 @@ export default {
         if (error) {
           console.error(error);
         } else {
-          pushMessageToSnackbar("Refreshing avialable rooms...");
+          // pushMessageToSnackbar("Refreshing avialable rooms...");
           this.available_rooms = JSON.parse(response.text).rooms;
         }
       });
