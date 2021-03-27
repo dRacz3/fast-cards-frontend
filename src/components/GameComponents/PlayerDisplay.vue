@@ -4,7 +4,6 @@
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{ displayed_name }}</div>
-
           Points: {{ player_data.points }}
           <!-- Submissions: {{ player_data.submissions }} -->
         </md-card-header-text>
@@ -16,6 +15,10 @@
           /> -->
           <div class="md-subhead" v-if="isTzar">
             TZAR <md-icon>star_rate</md-icon>
+          </div>
+
+          <div v-if="has_submitted_this_round">
+            SUBMITTED <md-icon>done_outline</md-icon>
           </div>
         </md-card-media>
       </md-card-header>
@@ -30,6 +33,9 @@ export default {
   props: {
     player_data: {
       required: true,
+    },
+    has_submitted_this_round: {
+      type: Boolean,
     },
   },
   computed: {

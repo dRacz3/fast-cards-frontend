@@ -1,17 +1,26 @@
 <template>
   <div class="page-container">
-    <h4>Game is in state:{{ this.room_data.state }}</h4>
-    <div>
-      <player-display :player_data="player"></player-display>
+    <h4>Game is in state:{{ room_data.state }}</h4>
+
+    <div v-if="room_data.last_winner">
+      Last winner was: {{ room_data.last_winner.username }}
+      <submission-result-display
+        :submission="room_data.last_winner.submission"
+        :isTzar="false"
+      ></submission-result-display>
     </div>
-    <!-- Other players -->
     <div>
       <ul class="flex-container table-container">
         <div
           v-for="(entry, index) of this.room_data.other_players"
           :key="index"
         >
-          <player-display :player_data="entry"></player-display>
+          <player-display
+            :player_data="entry"
+            :has_submitted_this_round="
+              calculateHasPlayerSubmittedThisRound(entry.username)
+            "
+          ></player-display>
         </div>
       </ul>
     </div>
@@ -77,6 +86,7 @@
 import PlayerDisplay from "./PlayerDisplay";
 import WhiteCardDisplay from "./WhiteCardDisplay";
 import BlackCardDisplay from "./BlackCardDisplay";
+import SubmissionResultDisplay from "./SubmissionResultDisplay.vue";
 
 export default {
   props: {
@@ -96,6 +106,7 @@ export default {
     "player-display": PlayerDisplay,
     "white-card-display": WhiteCardDisplay,
     "black-card-display": BlackCardDisplay,
+    "submission-result-display": SubmissionResultDisplay,
   },
   mounted() {},
   methods: {
@@ -126,6 +137,10 @@ export default {
       this.submitClicked(this.cards_for_submission);
       this.cards_for_submission = [];
     },
+
+    calculateHasPlayerSubmittedThisRound(username) {
+      return Object.keys(this.room_data.player_submissions).includes(username);
+    },
   },
 
   computed: {
@@ -150,7 +165,7 @@ export default {
       return [];
     },
     has_player_submitted_this_round() {
-      return Object.keys(this.room_data.player_submissions).includes(
+      return this.calculateHasPlayerSubmittedThisRound(
         this.room_data.player.username
       );
     },
