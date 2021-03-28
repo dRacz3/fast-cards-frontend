@@ -19,14 +19,14 @@ export default {
   components: {},
   props: {
     card_data: {
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    },
-  },
+    }
+  }
 };
 </script>
 

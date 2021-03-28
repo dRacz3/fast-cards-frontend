@@ -67,8 +67,8 @@ export default {
       duration: 4000,
       position: "center",
       showSnackbar: false,
-      message: "",
-    },
+      message: ""
+    }
   }),
   methods: {
     toggleMenu() {
@@ -93,17 +93,18 @@ export default {
         console.log(`Received event: ${serializedEvent}`);
         return serializedEvent;
       }
-    },
+    }
   },
   mounted() {
     let token = this.$store.state.api_token;
     if (token) {
       console.log("Setting up authentication header");
+      apiclient.defaultHeaders = { "Access-Control-Allow-Origin": "*" };
       apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

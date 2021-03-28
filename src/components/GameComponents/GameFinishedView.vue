@@ -22,11 +22,11 @@ export default {
   data: () => ({}),
   props: {
     room_data: {
-      required: true,
-    },
+      required: true
+    }
   },
   components: {
-    "player-display": PlayerDisplay,
+    "player-display": PlayerDisplay
   },
   methods: {},
   computed: {
@@ -36,7 +36,7 @@ export default {
         return a.points < b.points ? 1 : -1;
       });
       return players;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -12,13 +12,13 @@
 <script>
 export default {
   data: () => ({
-    messages: [],
+    messages: []
   }),
   components: {},
 
   mounted() {
     this.messages = this.$store.state.message_log;
-  },
+  }
 };
 </script>
 

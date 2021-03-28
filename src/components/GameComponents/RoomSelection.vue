@@ -22,16 +22,16 @@
 import RoomCard from "./RoomCard";
 export default {
   data: () => ({
-    search: "",
+    search: ""
   }),
   components: {
-    "room-card": RoomCard,
+    "room-card": RoomCard
   },
   props: {
     rooms: {
       required: true,
-      type: Array,
-    },
+      type: Array
+    }
   },
   methods: {
     onRefreshClicked() {
@@ -39,15 +39,15 @@ export default {
     },
     onJoinRoomClicked(room_name) {
       this.$emit("onJoinRoomClicked", room_name);
-    },
+    }
   },
   computed: {
     filteredRooms() {
-      return this.rooms.filter((room) => {
+      return this.rooms.filter(room => {
         return room.room_name.toLowerCase().includes(this.search.toLowerCase());
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

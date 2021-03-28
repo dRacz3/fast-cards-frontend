@@ -21,14 +21,14 @@ export default {
   props: {
     room_data: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
   methods: {
     onJoinRoomClicked() {
       this.$emit("onJoinRoomClicked", this.room_data.room_name);
-    },
-  },
+    }
+  }
 };
 </script>
 

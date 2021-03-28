@@ -32,11 +32,11 @@ export default {
   components: {},
   props: {
     player_data: {
-      required: true,
+      required: true
     },
     has_submitted_this_round: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   computed: {
     displayed_name() {
@@ -44,8 +44,8 @@ export default {
     },
     isTzar() {
       return this.player_data.current_role === "TZAR";
-    },
-  },
+    }
+  }
 };
 </script>
 

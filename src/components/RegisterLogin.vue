@@ -42,10 +42,10 @@ export default {
     username: null,
     password: null,
     token: null,
-    devmode: false,
+    devmode: false
   }),
   props: {
-    msg: String,
+    msg: String
   },
   methods: {
     register() {
@@ -114,7 +114,7 @@ export default {
 
       this.$store.commit("update_api_token", {
         token: null,
-        username: null,
+        username: null
       });
       this.$store.commit("push_message_to_snackbar", "Logged out");
       apiclient.authentications["JWTBearer"].accessToken = "";
@@ -123,15 +123,16 @@ export default {
     storeSuccessfulLoginData(token, username) {
       this.$store.commit("update_api_token", {
         token: token,
-        username: username,
+        username: username
       });
 
+      apiclient.defaultHeaders = { "Access-Control-Allow-Origin": "*" };
       apiclient.authentications["JWTBearer"].accessToken = token;
       this.$store.commit(
         "push_message_to_snackbar",
         "Logged in as " + this.username
       );
-    },
+    }
   },
   mounted() {
     this.token = this.$store.state.api_token;
@@ -148,8 +149,8 @@ export default {
         this.$store.state.api_token !== null &&
         this.$store.state.api_token !== "null"
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

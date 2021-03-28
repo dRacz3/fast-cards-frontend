@@ -27,23 +27,23 @@ import SubmissionResultDisplay from "./SubmissionResultDisplay.vue";
 export default {
   data: () => ({}),
   components: {
-    "submission-result-display": SubmissionResultDisplay,
+    "submission-result-display": SubmissionResultDisplay
   },
   methods: {
     onWinnerSelected(submission) {
       this.$emit("onWinnerSelected", submission);
-    },
+    }
   },
   props: {
     room_data: {
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     isTzar() {
       return this.room_data.player.current_role === "TZAR";
-    },
-  },
+    }
+  }
 };
 </script>
 

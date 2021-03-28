@@ -13,32 +13,32 @@ import "vue-material/dist/theme/default.css";
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
-const SERVER_ADDRESS = '127.0.0.1:8000'
+export const SERVER_ADDRESS = "localhost:8000";
 
-Vue.use(VueNativeSock, `ws://${SERVER_ADDRESS}/ws/chat/`, {
+Vue.use(VueNativeSock, `ws://${SERVER_ADDRESS}/ws/`, {
   store: store,
   connectManually: true,
-  format : 'json'
+  format: "json"
 });
 
 export const backendSocket = new Vue();
 
-import {UserApi, ApiClient ,CardsAgainstApi } from "./libs/src/index"
+import { UserApi, ApiClient, CardsAgainstApi } from "./libs/src/index";
 
 export const apiclient = new ApiClient();
-apiclient.basePath = `http://${SERVER_ADDRESS}`
+apiclient.basePath = `http://${SERVER_ADDRESS}`;
 export const userApi = new UserApi(apiclient);
 export const cardsAgainstApi = new CardsAgainstApi(apiclient);
 
-export const pushMessageToSnackbar = (message) => {
+export const pushMessageToSnackbar = message => {
   store.commit("push_message_to_snackbar", message);
-}
+};
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App),
   beforeCreate() {
     this.$store.commit("initialiseStore");
-  },
+  }
 }).$mount("#app");

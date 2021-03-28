@@ -108,7 +108,7 @@ export default {
     submissions: [],
     // refresh_timer: null,
     available_rooms: [],
-    show_advanced_room_options: true,
+    show_advanced_room_options: true
   }),
   components: {
     "welcome-view": WelcomeView,
@@ -116,7 +116,7 @@ export default {
     "tzar-chosing-winner-view": TzarChosingWinner,
     "game-has-finished-view": GameFinishedView,
     "room-selection": RoomSelection,
-    "websocket-view": WebsocketView,
+    "websocket-view": WebsocketView
   },
   mounted() {
     // this.refreshRoomList();
@@ -219,7 +219,7 @@ export default {
     },
     submit(cards) {
       console.log(`Submit called: ${JSON.stringify(cards)}`);
-      cards.map((v) => WhiteCard.constructFromObject(v));
+      cards.map(v => WhiteCard.constructFromObject(v));
       cardsAgainstApi.submitCardsGameSubmitPost(
         this.room_name,
         cards,
@@ -262,7 +262,7 @@ export default {
           this.available_rooms = JSON.parse(response.text).rooms;
         }
       });
-    },
+    }
   },
 
   computed: {
@@ -273,7 +273,7 @@ export default {
 
     isCurrentPlayerTzar() {
       return this.player.current_role === "TZAR";
-    },
-  },
+    }
+  }
 };
 </script>
