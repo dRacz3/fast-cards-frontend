@@ -28,11 +28,16 @@ jobs:
     - run: npm run build
     - run: npm test
     
+    - uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist/ # or path/to/artifact
+    
 
-    - name: GitHub Pages
-      # You may pin to the exact commit or the version.
-      # uses: crazy-max/ghaction-github-pages@d3b77e62017a60cdf55ceffc6c263f1f357f4c1b
-      uses: crazy-max/ghaction-github-pages@v2.1.2
+#     - name: GitHub Pages
+#       You may pin to the exact commit or the version.
+#       uses: crazy-max/ghaction-github-pages@d3b77e62017a60cdf55ceffc6c263f1f357f4c1b
+#       uses: crazy-max/ghaction-github-pages@v2.1.2
       with:
         # GitHub repository where assets will be deployed (default current)
         repo: https://github.com/dRacz3/dracz3.github.io.git # optional
