@@ -1,4 +1,4 @@
-![Compile static site with npm](https://github.com/dRacz3/cards-against-humanity-vue-frontend/workflows/Compile%20static%20site%20with%20npm/badge.svg)
+[![Build](https://github.com/dRacz3/fast-cards-frontend/actions/workflows/node.js.yml/badge.svg)](https://github.com/dRacz3/fast-cards-frontend/actions/workflows/node.js.yml)
 # Cards Against Humanity Vue Based frontend
 
 
