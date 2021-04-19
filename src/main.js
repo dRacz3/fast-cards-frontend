@@ -9,15 +9,15 @@ import VueNativeSock from 'vue-native-websocket';
 import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
+import { isProduction } from './getenv';
 
 Vue.use(VueMaterial);
 Vue.config.productionTip = false;
 
 let SERVER_ADDRESS = window.location.hostname;
-var env = process.env.NODE_ENV || 'development';
 
 let WS_ADDRESS;
-if (env !== 'development') {
+if (isProduction()) {
   WS_ADDRESS = `wss://${SERVER_ADDRESS}/ws/chat/`;
   SERVER_ADDRESS = `https://${SERVER_ADDRESS}`;
 } else {

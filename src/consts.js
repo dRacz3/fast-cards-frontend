@@ -1,8 +1,8 @@
-var env = process.env.NODE_ENV || 'development';
+import { isProduction } from './getenv';
 
 export function get_full_ws_address(room, token) {
   let WS_ADDRESS;
-  if (env != 'development') {
+  if (isProduction()) {
     WS_ADDRESS = `wss://${window.location.hostname}/ws`;
   } else {
     const PORT = 8000;
