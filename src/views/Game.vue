@@ -42,6 +42,9 @@
       <h1 style="flex: 1" class="md-title">
         You are currently in room [{{ room_name }}]
       </h1>
+      <md-button @click="refresh" class="md-raised"
+        ><md-icon>refresh</md-icon> Force refresh</md-button
+      >
       <md-button class="md-raised" @click="leaveRoom"
         >Leave <md-icon>exit_to_app</md-icon></md-button
       >
