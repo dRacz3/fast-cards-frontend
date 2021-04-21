@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import BlackCard from './BlackCard';
 import CardsAgainstHumanityPlayer from './CardsAgainstHumanityPlayer';
+import LastWinnerInfo from './LastWinnerInfo';
 import PlayerOutsideView from './PlayerOutsideView';
 import Submission from './Submission';
 
@@ -82,6 +83,9 @@ class GameStatePlayerView {
             if (data.hasOwnProperty('other_players')) {
                 obj['other_players'] = ApiClient.convertToType(data['other_players'], [PlayerOutsideView]);
             }
+            if (data.hasOwnProperty('last_winner')) {
+                obj['last_winner'] = LastWinnerInfo.constructFromObject(data['last_winner']);
+            }
         }
         return obj;
     }
@@ -123,6 +127,11 @@ GameStatePlayerView.prototype['player_submissions'] = undefined;
  * @member {Array.<module:model/PlayerOutsideView>} other_players
  */
 GameStatePlayerView.prototype['other_players'] = undefined;
+
+/**
+ * @member {module:model/LastWinnerInfo} last_winner
+ */
+GameStatePlayerView.prototype['last_winner'] = undefined;
 
 
 

@@ -13,6 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
+import GamePreferences from '../model/GamePreferences';
 import GameStateMachine from '../model/GameStateMachine';
 import GameStatePlayerView from '../model/GameStatePlayerView';
 import HTTPValidationError from '../model/HTTPValidationError';
@@ -50,14 +51,19 @@ export default class CardsAgainstApi {
     /**
      * Create New Game
      * @param {String} roomName 
+     * @param {module:model/GamePreferences} gamePreferences 
      * @param {module:api/CardsAgainstApi~createNewGameGameNewPostCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/GameStateMachine}
      */
-    createNewGameGameNewPost(roomName, callback) {
-      let postBody = null;
+    createNewGameGameNewPost(roomName, gamePreferences, callback) {
+      let postBody = gamePreferences;
       // verify the required parameter 'roomName' is set
       if (roomName === undefined || roomName === null) {
         throw new Error("Missing the required parameter 'roomName' when calling createNewGameGameNewPost");
+      }
+      // verify the required parameter 'gamePreferences' is set
+      if (gamePreferences === undefined || gamePreferences === null) {
+        throw new Error("Missing the required parameter 'gamePreferences' when calling createNewGameGameNewPost");
       }
 
       let pathParams = {
@@ -71,7 +77,7 @@ export default class CardsAgainstApi {
       };
 
       let authNames = ['JWTBearer'];
-      let contentTypes = [];
+      let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = GameStateMachine;
       return this.apiClient.callApi(

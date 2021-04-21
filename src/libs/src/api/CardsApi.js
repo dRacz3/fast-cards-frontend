@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BlackCard from '../model/BlackCard';
+import DeckMetaData from '../model/DeckMetaData';
 import HTTPValidationError from '../model/HTTPValidationError';
 import WhiteCard from '../model/WhiteCard';
 
@@ -113,6 +114,42 @@ export default class CardsApi {
       let returnType = WhiteCard;
       return this.apiClient.callApi(
         '/cards/white', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getDeckListCardsDeckGet operation.
+     * @callback module:api/CardsApi~getDeckListCardsDeckGetCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/DeckMetaData>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get Deck List
+     * @param {module:api/CardsApi~getDeckListCardsDeckGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<module:model/DeckMetaData>}
+     */
+    getDeckListCardsDeckGet(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [DeckMetaData];
+      return this.apiClient.callApi(
+        '/cards/deck', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

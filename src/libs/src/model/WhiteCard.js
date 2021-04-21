@@ -74,9 +74,8 @@ class WhiteCard {
 
 /**
  * @member {Number} card_id
- * @default -1
  */
-WhiteCard.prototype['card_id'] = -1;
+WhiteCard.prototype['card_id'] = undefined;
 
 /**
  * @member {String} text

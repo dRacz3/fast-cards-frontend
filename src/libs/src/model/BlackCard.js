@@ -79,9 +79,8 @@ class BlackCard {
 
 /**
  * @member {Number} card_id
- * @default -1
  */
-BlackCard.prototype['card_id'] = -1;
+BlackCard.prototype['card_id'] = undefined;
 
 /**
  * @member {String} text

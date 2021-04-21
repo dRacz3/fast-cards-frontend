@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import BlackCard from './BlackCard';
 import CardsAgainstHumanityPlayer from './CardsAgainstHumanityPlayer';
+import LastWinnerInfo from './LastWinnerInfo';
 import Submission from './Submission';
 import WhiteCard from './WhiteCard';
 
@@ -69,6 +70,9 @@ class GameStateMachine {
             if (data.hasOwnProperty('state')) {
                 obj['state'] = ApiClient.convertToType(data['state'], 'String');
             }
+            if (data.hasOwnProperty('last_winner')) {
+                obj['last_winner'] = LastWinnerInfo.constructFromObject(data['last_winner']);
+            }
             if (data.hasOwnProperty('round_count')) {
                 obj['round_count'] = ApiClient.convertToType(data['round_count'], 'Number');
             }
@@ -108,6 +112,11 @@ GameStateMachine.prototype['white_cards'] = undefined;
  * @default 'STARTING'
  */
 GameStateMachine.prototype['state'] = 'STARTING';
+
+/**
+ * @member {module:model/LastWinnerInfo} last_winner
+ */
+GameStateMachine.prototype['last_winner'] = undefined;
 
 /**
  * @member {Number} round_count
