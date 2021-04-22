@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cardId** | **Number** |  | [optional] [default to -1]
+**cardId** | **Number** |  | [optional] 
 **text** | **String** |  | 
 **icon** | **String** |  | 
 **deck** | **String** |  | 

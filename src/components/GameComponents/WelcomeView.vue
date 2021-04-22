@@ -17,15 +17,16 @@
     <div v-if="room_data.state === 'STARTING'">
       <!-- <h4>Game is in state:{{ this.room_data.state }}</h4> -->
       <div v-if="this.room_data.other_players.length >= 2">
-        <md-button @click="startGame">Let's begin!</md-button>
+        <md-button @click="startGame" class="md-raised">Let's begin!</md-button>
       </div>
       <div v-else>Waiting for more players to join..</div>
       <!-- You -->
-      <div>
+      <!--<div>
         <player-display :player_data="player"></player-display>
-      </div>
+      </div> -->
       <!-- Other players -->
       <div>
+        Players in the game:
         <ul class="flex-container table-container">
           <div
             v-for="(entry, index) of this.room_data.other_players"

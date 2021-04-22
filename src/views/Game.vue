@@ -16,11 +16,10 @@
           </md-button>
         </md-toolbar>
         <div v-if="show_advanced_room_options">
-          <md-field>
-            <label>You can create a new room, just pick a unique name.</label>
-            <md-input v-model="room_name"></md-input>
-            <md-button class="md-raised" @click="newRoom">Create</md-button>
-          </md-field>
+          <game-preferences
+            :available_decks="dummydecks"
+            @newRoomCreated="newRoomCreated"
+          ></game-preferences>
 
           <!-- <md-button class="md-raised" @click="joinRoom">Join</md-button> -->
           <!-- <md-button class="md-raised" @click="refreshRoomList"
@@ -42,6 +41,9 @@
       <h1 style="flex: 1" class="md-title">
         You are currently in room [{{ room_name }}]
       </h1>
+      <md-button @click="refresh" class="md-raised"
+        ><md-icon>refresh</md-icon> Force refresh</md-button
+      >
       <md-button class="md-raised" @click="leaveRoom"
         >Leave <md-icon>exit_to_app</md-icon></md-button
       >
@@ -96,6 +98,7 @@ import WelcomeView from "../components/GameComponents/WelcomeView";
 import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
 import GameFinishedView from "../components/GameComponents/GameFinishedView";
+import GamePreferencesForm from "../components/GameComponents/GamePreferencesForm";
 import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 import WebsocketView from "./WebsocketView";
 
@@ -108,7 +111,23 @@ export default {
     submissions: [],
     // refresh_timer: null,
     available_rooms: [],
-    show_advanced_room_options: true
+    show_advanced_room_options: true,
+    dummydecks: [
+      {
+        id_name: "hungarian",
+        description: "Hungarian card collection",
+        official: false,
+        name: "hungarian",
+        icon: "hungarian",
+      },
+      {
+        id_name: "2012 Holiday Pack",
+        description: "2012 Holiday Pack",
+        official: true,
+        name: "2012 Holiday Pack",
+        icon: "2012 Holiday Pack",
+      },
+    ],
   }),
   components: {
     "welcome-view": WelcomeView,
@@ -116,7 +135,8 @@ export default {
     "tzar-chosing-winner-view": TzarChosingWinner,
     "game-has-finished-view": GameFinishedView,
     "room-selection": RoomSelection,
-    "websocket-view": WebsocketView
+    "websocket-view": WebsocketView,
+    "game-preferences": GamePreferencesForm,
   },
   mounted() {
     // this.refreshRoomList();
@@ -128,25 +148,9 @@ export default {
     // clearInterval(this.refresh_timer);
   },
   methods: {
-    newRoom() {
-      cardsAgainstApi.createNewGameGameNewPost(
-        this.room_name,
-        (error, data, response) => {
-          if (error) {
-            console.error(error);
-            console.error(response);
-            pushMessageToSnackbar(
-              `Failed to create room.${JSON.parse(response.text).detail}`
-            );
-          } else {
-            this.room_data = JSON.parse(response.text);
-            console.log("Room created");
-            pushMessageToSnackbar("Room was created.");
-            this.joinRoom();
-          }
-        }
-      );
+    newRoomCreated(roomName) {
       this.refreshRoomList();
+      this.directJoinRoom(roomName);
     },
     directJoinRoom(room_name) {
       // console.log(`joining room directly`);
@@ -219,7 +223,7 @@ export default {
     },
     submit(cards) {
       console.log(`Submit called: ${JSON.stringify(cards)}`);
-      cards.map(v => WhiteCard.constructFromObject(v));
+      cards.map((v) => WhiteCard.constructFromObject(v));
       cardsAgainstApi.submitCardsGameSubmitPost(
         this.room_name,
         cards,
@@ -262,7 +266,7 @@ export default {
           this.available_rooms = JSON.parse(response.text).rooms;
         }
       });
-    }
+    },
   },
 
   computed: {
@@ -273,7 +277,7 @@ export default {
 
     isCurrentPlayerTzar() {
       return this.player.current_role === "TZAR";
-    }
-  }
+    },
+  },
 };
 </script>

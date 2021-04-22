@@ -32,11 +32,11 @@
             <md-icon>games</md-icon>
             <span class="md-list-item-text">Game</span>
           </md-list-item>
-          <md-list-item to="/messagelogs">
+          <!-- <md-list-item to="/messagelogs">
             <md-icon>error</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item>
-          <!-- <md-list-item to="/chat">
+           <md-list-item to="/chat">
             <md-icon>mail</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item> -->
@@ -96,6 +96,7 @@ export default {
     }
   },
   mounted() {
+    document.title = "Fast Cards";
     let token = this.$store.state.api_token;
     if (token) {
       console.log("Setting up authentication header");

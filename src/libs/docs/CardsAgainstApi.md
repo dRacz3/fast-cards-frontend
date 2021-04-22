@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## createNewGameGameNewPost
 
-> GameStateMachine createNewGameGameNewPost(roomName)
+> GameStateMachine createNewGameGameNewPost(roomName, gamePreferences)
 
 Create New Game
 
@@ -32,7 +32,8 @@ JWTBearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new FastCards.CardsAgainstApi();
 let roomName = "roomName_example"; // String | 
-apiInstance.createNewGameGameNewPost(roomName, (error, data, response) => {
+let gamePreferences = new FastCards.GamePreferences(); // GamePreferences | 
+apiInstance.createNewGameGameNewPost(roomName, gamePreferences, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -47,6 +48,7 @@ apiInstance.createNewGameGameNewPost(roomName, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **roomName** | **String**|  | 
+ **gamePreferences** | [**GamePreferences**](GamePreferences.md)|  | 
 
 ### Return type
 
@@ -58,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

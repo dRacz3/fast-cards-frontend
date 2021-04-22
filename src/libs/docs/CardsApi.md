@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createBlackCardCardsBlackPut**](CardsApi.md#createBlackCardCardsBlackPut) | **PUT** /cards/black | Create Black Card
 [**createWhiteCardCardsWhitePut**](CardsApi.md#createWhiteCardCardsWhitePut) | **PUT** /cards/white | Create White Card
+[**getDeckListCardsDeckGet**](CardsApi.md#getDeckListCardsDeckGet) | **GET** /cards/deck | Get Deck List
 
 
 
@@ -100,5 +101,48 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## getDeckListCardsDeckGet
+
+> [DeckMetaData] getDeckListCardsDeckGet()
+
+Get Deck List
+
+### Example
+
+```javascript
+import FastCards from 'fast_cards';
+let defaultClient = FastCards.ApiClient.instance;
+// Configure Bearer access token for authorization: JWTBearer
+let JWTBearer = defaultClient.authentications['JWTBearer'];
+JWTBearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new FastCards.CardsApi();
+apiInstance.getDeckListCardsDeckGet((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[DeckMetaData]**](DeckMetaData.md)
+
+### Authorization
+
+[JWTBearer](../README.md#JWTBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 

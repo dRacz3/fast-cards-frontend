@@ -15,9 +15,12 @@
 import ApiClient from './ApiClient';
 import BlackCard from './model/BlackCard';
 import CardsAgainstHumanityPlayer from './model/CardsAgainstHumanityPlayer';
+import DeckMetaData from './model/DeckMetaData';
+import GamePreferences from './model/GamePreferences';
 import GameStateMachine from './model/GameStateMachine';
 import GameStatePlayerView from './model/GameStatePlayerView';
 import HTTPValidationError from './model/HTTPValidationError';
+import LastWinnerInfo from './model/LastWinnerInfo';
 import LoginFailureMessage from './model/LoginFailureMessage';
 import PlayerOutsideView from './model/PlayerOutsideView';
 import Room from './model/Room';
@@ -87,6 +90,18 @@ export {
     CardsAgainstHumanityPlayer,
 
     /**
+     * The DeckMetaData model constructor.
+     * @property {module:model/DeckMetaData}
+     */
+    DeckMetaData,
+
+    /**
+     * The GamePreferences model constructor.
+     * @property {module:model/GamePreferences}
+     */
+    GamePreferences,
+
+    /**
      * The GameStateMachine model constructor.
      * @property {module:model/GameStateMachine}
      */
@@ -103,6 +118,12 @@ export {
      * @property {module:model/HTTPValidationError}
      */
     HTTPValidationError,
+
+    /**
+     * The LastWinnerInfo model constructor.
+     * @property {module:model/LastWinnerInfo}
+     */
+    LastWinnerInfo,
 
     /**
      * The LoginFailureMessage model constructor.

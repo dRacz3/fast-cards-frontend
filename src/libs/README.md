@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
 *FastCards.AuthApi* | [**userLoginAuthLoginPost**](docs/AuthApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
 *FastCards.CardsApi* | [**createBlackCardCardsBlackPut**](docs/CardsApi.md#createBlackCardCardsBlackPut) | **PUT** /cards/black | Create Black Card
 *FastCards.CardsApi* | [**createWhiteCardCardsWhitePut**](docs/CardsApi.md#createWhiteCardCardsWhitePut) | **PUT** /cards/white | Create White Card
+*FastCards.CardsApi* | [**getDeckListCardsDeckGet**](docs/CardsApi.md#getDeckListCardsDeckGet) | **GET** /cards/deck | Get Deck List
 *FastCards.CardsAgainstApi* | [**createNewGameGameNewPost**](docs/CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game
 *FastCards.CardsAgainstApi* | [**joinGameGameJoinPost**](docs/CardsAgainstApi.md#joinGameGameJoinPost) | **POST** /game/join | Join Game
 *FastCards.CardsAgainstApi* | [**leaveGameGameLeavePost**](docs/CardsAgainstApi.md#leaveGameGameLeavePost) | **POST** /game/leave | Leave Game
@@ -142,9 +143,12 @@ Class | Method | HTTP request | Description
 
  - [FastCards.BlackCard](docs/BlackCard.md)
  - [FastCards.CardsAgainstHumanityPlayer](docs/CardsAgainstHumanityPlayer.md)
+ - [FastCards.DeckMetaData](docs/DeckMetaData.md)
+ - [FastCards.GamePreferences](docs/GamePreferences.md)
  - [FastCards.GameStateMachine](docs/GameStateMachine.md)
  - [FastCards.GameStatePlayerView](docs/GameStatePlayerView.md)
  - [FastCards.HTTPValidationError](docs/HTTPValidationError.md)
+ - [FastCards.LastWinnerInfo](docs/LastWinnerInfo.md)
  - [FastCards.LoginFailureMessage](docs/LoginFailureMessage.md)
  - [FastCards.PlayerOutsideView](docs/PlayerOutsideView.md)
  - [FastCards.Room](docs/Room.md)
