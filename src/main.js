@@ -33,12 +33,18 @@ Vue.use(VueNativeSock, WS_ADDRESS, {
 
 export const backendSocket = new Vue();
 
-import { UserApi, ApiClient, CardsAgainstApi } from './libs/src/index';
+import {
+  UserApi,
+  ApiClient,
+  CardsAgainstApi,
+  CardsApi,
+} from './libs/src/index';
 
 export const apiclient = new ApiClient();
 apiclient.basePath = SERVER_ADDRESS;
 export const userApi = new UserApi(apiclient);
 export const cardsAgainstApi = new CardsAgainstApi(apiclient);
+export const cardsApi = new CardsApi(apiclient);
 
 export const pushMessageToSnackbar = (message) => {
   store.commit('push_message_to_snackbar', message);
