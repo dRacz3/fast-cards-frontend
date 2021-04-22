@@ -44,6 +44,7 @@ import { UserSchema, UserLoginSchema } from "../libs/src/index";
 
 import { userApi, apiclient } from "../main";
 import generateName from "../helpers/generateFunnyName";
+
 export default {
   name: "HelloWorld",
   data: () => ({
@@ -68,6 +69,10 @@ export default {
         `Registering with: ${JSON.stringify(userRegistrationSchema)}`
       );
 
+      this.$store.commit(
+        "push_message_to_snackbar",
+        `Registration, please wait. Might take some time. This is running on a dump raspberry`
+      );
       userApi.createUserAuthSignupPost(
         userRegistrationSchema,
         (error, data, response) => {
