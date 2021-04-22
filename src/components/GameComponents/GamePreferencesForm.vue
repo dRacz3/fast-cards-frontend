@@ -1,16 +1,19 @@
 <template>
   <div class="game_preference_form">
     <div>
-      <md-toolbar>
-        <h4 class="md-title" style="flex: 1">Available decks</h4>
-        <h5>
-          selected [{{ selected_decks.length }}/{{ available_decks.length }}]
-        </h5>
-        <md-button @click="displayDecks = !displayDecks">
-          <md-icon v-if="displayDecks">keyboard_arrow_up</md-icon>
-          <md-icon v-else>keyboard_arrow_down</md-icon>
-        </md-button>
-      </md-toolbar>
+      <div @click="displayDecks = !displayDecks">
+        <md-toolbar>
+          <h4 class="md-title" style="flex: 1">Available decks</h4>
+          <h5>
+            selected [{{ selected_decks.length }}/{{ available_decks.length }}]
+          </h5>
+          <md-button>
+            <md-icon v-if="displayDecks">keyboard_arrow_up</md-icon>
+            <md-icon v-else>keyboard_arrow_down</md-icon>
+          </md-button>
+        </md-toolbar>
+      </div>
+
       <div v-if="displayDecks">
         <div v-for="(entry, index) of available_decks" :key="index">
           <deck-display
