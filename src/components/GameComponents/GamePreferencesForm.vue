@@ -66,7 +66,7 @@ import { GamePreferences } from "../../libs/src";
 export default {
   data: () => ({
     selected_decks: [],
-    displayDecks: true,
+    displayDecks: false,
     room_name: null,
     available_decks: [],
     deck_display_settings: "ALL",
