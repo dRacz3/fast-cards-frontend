@@ -15,13 +15,34 @@
       </div>
 
       <div v-if="displayDecks">
-        <div v-for="(entry, index) of available_decks" :key="index">
-          <deck-display
-            :deck_data="entry"
-            :isSelected="false"
-            @deckUnSelected="deckUnSelect"
-            @deckSelected="deckSelect"
-          ></deck-display>
+        <div style="text-align: center">
+          <md-button @click="selectAll" class="md-raised md-accent"
+            >All</md-button
+          >
+          <md-button @click="selectNone" class="md-raised">None</md-button>
+          <md-button @click="selectOnlyOfficial" class="md-raised"
+            >Select only official</md-button
+          >
+          <md-button @click="selectOnlyCustom" class="md-raised">
+            select only custom</md-button
+          >
+          <md-button
+            @click="displayAll"
+            class="md-raised"
+            v-if="deck_display_settings !== 'ALL'"
+            >Show All</md-button
+          >
+        </div>
+        <div class="deck_container">
+          <div v-for="(entry, index) of displayed_decks" :key="index">
+            <deck-display
+              class="deck"
+              :deck_data="entry"
+              :isSelected="false"
+              @deckUnSelected="deckUnSelect"
+              @deckSelected="deckSelect"
+            ></deck-display>
+          </div>
         </div>
       </div>
       <md-field>
@@ -48,6 +69,7 @@ export default {
     displayDecks: true,
     room_name: null,
     available_decks: [],
+    deck_display_settings: "ALL",
   }),
   props: {},
   components: {
@@ -55,6 +77,21 @@ export default {
   },
   created() {
     this.refreshAvailableDecks();
+  },
+  computed: {
+    displayed_decks() {
+      if (this.deck_display_settings === "CUSTOM") {
+        return this.available_decks.filter((item) => {
+          return !item.official;
+        });
+      }
+      if (this.deck_display_settings === "OFFICIAL") {
+        return this.available_decks.filter((item) => {
+          return item.official;
+        });
+      }
+      return this.available_decks;
+    },
   },
   methods: {
     deckSelect(deck) {
@@ -89,6 +126,36 @@ export default {
         }
       );
     },
+    selectAll() {
+      this.available_decks.forEach((item) => {
+        this.deckSelect(item);
+      });
+    },
+    selectNone() {
+      this.available_decks.forEach((item) => {
+        this.deckUnSelect(item);
+      });
+    },
+    selectOnlyOfficial() {
+      this.deck_display_settings = "OFFICIAL";
+      this.selectNone();
+
+      this.available_decks.forEach((item) => {
+        if (item.official) this.deckSelect(item);
+      });
+    },
+    selectOnlyCustom() {
+      this.deck_display_settings = "CUSTOM";
+      this.selectNone();
+
+      this.available_decks.forEach((item) => {
+        if (!item.official) this.deckSelect(item);
+      });
+    },
+    displayAll() {
+      this.deck_display_settings = "ALL";
+    },
+
     refreshAvailableDecks() {
       cardsApi.getDeckListCardsDeckGet((error, data, response) => {
         if (error) {

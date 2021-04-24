@@ -5,8 +5,8 @@
         <md-ripple>
           <md-subheader v-bind:class="{ selected: deck_data.isSelected }">
             {{ deck_data.id_name }}
-            <div v-if="deck_data.official">- OFFICIAL</div>
-            <div v-else>- Custom</div>
+            <div v-if="deck_data.official">- [OFFICIAL]</div>
+            <div v-else>- [Custom]</div>
           </md-subheader>
         </md-ripple>
       </div>
