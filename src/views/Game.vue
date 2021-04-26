@@ -82,6 +82,7 @@
     </div>
     <div v-if="room_data">
       <websocket-view
+        v-show="false"
         :room_data="room_data"
         @broadcastReceivedFromServer="refresh"
       ></websocket-view>
