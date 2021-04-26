@@ -104,9 +104,8 @@ export default {
       this.selected_decks = this.selected_decks.filter((v) => v !== deck);
     },
     newRoom() {
-      let gamePreferences = new GamePreferences({
-        deck_preferences: this.selected_decks,
-      });
+      const gamePreferences = new GamePreferences();
+      gamePreferences.deck_preferences = this.selected_decks;
       cardsAgainstApi.createNewGameGameNewPost(
         this.room_name,
         gamePreferences,
