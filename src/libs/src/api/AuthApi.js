@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import HTTPValidationError from '../model/HTTPValidationError';
+import LoginCheckResponse from '../model/LoginCheckResponse';
 import LoginFailureMessage from '../model/LoginFailureMessage';
 import TokenResponse from '../model/TokenResponse';
 import User from '../model/User';
@@ -75,6 +76,42 @@ export default class AuthApi {
       let returnType = TokenResponse;
       return this.apiClient.callApi(
         '/auth/signup', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the isMyLoginValidAuthIsMyLoginValidGet operation.
+     * @callback module:api/AuthApi~isMyLoginValidAuthIsMyLoginValidGetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/LoginCheckResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Is My Login Valid
+     * @param {module:api/AuthApi~isMyLoginValidAuthIsMyLoginValidGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/LoginCheckResponse}
+     */
+    isMyLoginValidAuthIsMyLoginValidGet(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = LoginCheckResponse;
+      return this.apiClient.callApi(
+        '/auth/is_my_login_valid', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

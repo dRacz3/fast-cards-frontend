@@ -21,6 +21,7 @@ import GameStateMachine from './model/GameStateMachine';
 import GameStatePlayerView from './model/GameStatePlayerView';
 import HTTPValidationError from './model/HTTPValidationError';
 import LastWinnerInfo from './model/LastWinnerInfo';
+import LoginCheckResponse from './model/LoginCheckResponse';
 import LoginFailureMessage from './model/LoginFailureMessage';
 import PlayerOutsideView from './model/PlayerOutsideView';
 import Room from './model/Room';
@@ -124,6 +125,12 @@ export {
      * @property {module:model/LastWinnerInfo}
      */
     LastWinnerInfo,
+
+    /**
+     * The LoginCheckResponse model constructor.
+     * @property {module:model/LoginCheckResponse}
+     */
+    LoginCheckResponse,
 
     /**
      * The LoginFailureMessage model constructor.
