@@ -39,13 +39,14 @@
             </white-card-display>
           </div>
         </ul>
-        <div
-          v-if="
-            cards_for_submission.length == room_data.currently_active_card.pick
-          "
-        >
-          <md-button @click="submitCards">Submit</md-button>
-        </div>
+      </div>
+      <div
+        class="flex-container"
+        v-if="
+          cards_for_submission.length == room_data.currently_active_card.pick
+        "
+      >
+        <md-button @click="submitCards" class="md-raised">Submit</md-button>
       </div>
 
       <br />
@@ -92,21 +93,21 @@ export default {
   props: {
     room_data: {
       type: Object,
-      required: true
+      required: true,
     },
     submitClicked: {
-      required: true
-    }
+      required: true,
+    },
   },
 
   data: () => ({
-    cards_for_submission: []
+    cards_for_submission: [],
   }),
   components: {
     "player-display": PlayerDisplay,
     "white-card-display": WhiteCardDisplay,
     "black-card-display": BlackCardDisplay,
-    "submission-result-display": SubmissionResultDisplay
+    "submission-result-display": SubmissionResultDisplay,
   },
   mounted() {},
   methods: {
@@ -128,7 +129,7 @@ export default {
     on_submitted_white_card_clicked(card) {
       console.log(`Removing card: ${JSON.stringify(card)}`);
       this.cards_for_submission = this.cards_for_submission.filter(
-        v => v !== card
+        (v) => v !== card
       );
     },
 
@@ -140,7 +141,7 @@ export default {
 
     calculateHasPlayerSubmittedThisRound(username) {
       return Object.keys(this.room_data.player_submissions).includes(username);
-    }
+    },
   },
 
   computed: {
@@ -153,11 +154,13 @@ export default {
     },
     cards_to_display() {
       if (this.player) {
-        const submission_text_map = this.cards_for_submission.map(c => c.text);
+        const submission_text_map = this.cards_for_submission.map(
+          (c) => c.text
+        );
         console.log(`Submission map: ${submission_text_map}`);
 
         return this.player.cards_in_hand.filter(
-          e => !submission_text_map.includes(e.text)
+          (e) => !submission_text_map.includes(e.text)
         );
       }
       return [];
@@ -166,8 +169,8 @@ export default {
       return this.calculateHasPlayerSubmittedThisRound(
         this.room_data.player.username
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -176,7 +179,7 @@ export default {
   display: flex;
   align-content: center;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .page-container {
