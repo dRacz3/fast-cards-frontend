@@ -106,18 +106,15 @@ export default {
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
       setInterval(() => {
-        console.log("Checkking in");
-
         authApi.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
           if (error) {
             this.isUserLoggedIn = false;
-            this.$store.commit("update_login_validity", false);
           } else {
             console.debug(data);
             console.debug(response);
             this.isUserLoggedIn = true;
-            this.$store.commit("update_login_validity", true);
           }
+          this.$store.commit("update_login_validity", this.isUserLoggedIn);
         });
       }, 1000);
     }
