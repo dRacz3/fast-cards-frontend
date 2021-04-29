@@ -85,6 +85,7 @@ export default {
           } else {
             this.token = JSON.parse(response.text).access_token;
             this.storeSuccessfulLoginData(this.token, this.username);
+            this.$router.push("/game-overview");
           }
         }
       );
@@ -117,6 +118,7 @@ export default {
           const parsedResponse = JSON.parse(response.text);
           this.token = parsedResponse.access_token;
           this.storeSuccessfulLoginData(this.token, this.username);
+          this.$router.push("/game-overview");
         }
       });
     },
@@ -138,6 +140,8 @@ export default {
         token: token,
         username: username,
       });
+
+      this.$store.commit("update_login_validity", true);
 
       apiclient.authentications["JWTBearer"].accessToken = token;
       this.$store.commit(

@@ -38,6 +38,7 @@ import {
   ApiClient,
   CardsAgainstApi,
   CardsApi,
+  AuthApi,
 } from './libs/src/index';
 
 export const apiclient = new ApiClient();
@@ -45,6 +46,7 @@ apiclient.basePath = SERVER_ADDRESS;
 export const userApi = new UserApi(apiclient);
 export const cardsAgainstApi = new CardsAgainstApi(apiclient);
 export const cardsApi = new CardsApi(apiclient);
+export const authApi = new AuthApi(apiclient);
 
 export const pushMessageToSnackbar = (message) => {
   store.commit('push_message_to_snackbar', message);

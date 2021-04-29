@@ -28,7 +28,7 @@
             <md-icon>account_circle</md-icon>
             <span class="md-list-item-text"> Login </span>
           </md-list-item>
-          <md-list-item to="/game-overview">
+          <md-list-item to="/game-overview" v-if="isUserLoggedIn">
             <md-icon>games</md-icon>
             <span class="md-list-item-text">Game</span>
           </md-list-item>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { apiclient } from "./main";
+import { apiclient, authApi } from "./main";
 
 export default {
   data: () => ({
@@ -67,8 +67,9 @@ export default {
       duration: 4000,
       position: "center",
       showSnackbar: false,
-      message: ""
-    }
+      message: "",
+    },
+    isUserLoggedIn: false,
   }),
   methods: {
     toggleMenu() {
@@ -93,7 +94,7 @@ export default {
         console.log(`Received event: ${serializedEvent}`);
         return serializedEvent;
       }
-    }
+    },
   },
   mounted() {
     document.title = "Fast Cards";
@@ -104,8 +105,23 @@ export default {
       apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
+      setInterval(() => {
+        console.log("Checkking in");
+
+        authApi.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
+          if (error) {
+            this.isUserLoggedIn = false;
+            this.$store.commit("update_login_validity", false);
+          } else {
+            console.debug(data);
+            console.debug(response);
+            this.isUserLoggedIn = true;
+            this.$store.commit("update_login_validity", true);
+          }
+        });
+      }, 1000);
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

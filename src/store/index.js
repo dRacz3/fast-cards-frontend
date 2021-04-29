@@ -1,12 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import { Message, SocketEvent, SocketEventTypes } from "../helpers/message";
+import { Message, SocketEvent, SocketEventTypes } from '../helpers/message';
 
 function sendToListeners(payload, listeners) {
-  listeners.forEach(l => {
+  listeners.forEach((l) => {
     l.callback(payload);
   });
 }
@@ -16,43 +16,46 @@ export default new Vuex.Store({
     developer_mode: true,
     api_token: null,
     logged_in_username: null,
+    isLoginValid: false,
     socket: {
       isConnected: false,
-      message: "",
-      reconnectError: false
+      message: '',
+      reconnectError: false,
     },
 
     message_listeners: [],
     socket_event_listeners: [],
 
     event_callback_list: null,
-    message_log: []
+    message_log: [],
   },
   mutations: {
     update_api_token(state, login_data) {
       state.logged_in_username = login_data.username;
       state.api_token = login_data.token;
       if (login_data.token === null) {
-        localStorage.removeItem("api_token");
-        localStorage.removeItem("logged_in_username");
+        localStorage.removeItem('api_token');
+        localStorage.removeItem('logged_in_username');
       } else {
-        localStorage.setItem("api_token", state.api_token);
-        localStorage.setItem("logged_in_username", state.logged_in_username);
+        localStorage.setItem('api_token', state.api_token);
+        localStorage.setItem('logged_in_username', state.logged_in_username);
       }
     },
     initialiseStore(state) {
-      state.api_token = localStorage.getItem("api_token") || null;
+      state.api_token = localStorage.getItem('api_token') || null;
       state.logged_in_username =
-        localStorage.getItem("logged_in_username") || null;
+        localStorage.getItem('logged_in_username') || null;
     },
     register_event_callback(state, event_callback) {
       state.event_callback_list = event_callback;
     },
-
+    update_login_validity(state, currentValue) {
+      state.isLoginValid = currentValue;
+    },
     register_message_listener(state, listener) {
       if (
         state.message_listeners.filter(
-          l => l.listener_instance == listener.listener_instance
+          (l) => l.listener_instance == listener.listener_instance
         ).length == 0
       ) {
         state.message_listeners.push(listener);
@@ -60,7 +63,7 @@ export default new Vuex.Store({
     },
     remove_message_listener(state, listener_instance) {
       state.message_listeners = state.message_listeners(
-        l => l != listener_instance
+        (l) => l != listener_instance
       );
     },
 
@@ -68,7 +71,7 @@ export default new Vuex.Store({
       console.log(`register_socket_event_listeners - ${listener}`);
       if (
         state.socket_event_listeners.filter(
-          l => l.listener_instance == listener.listener_instance
+          (l) => l.listener_instance == listener.listener_instance
         ).length == 0
       ) {
         state.socket_event_listeners.push(listener);
@@ -76,7 +79,7 @@ export default new Vuex.Store({
     },
     remove_socket_event_listeners(state, listener_instance) {
       state.socket_event_listeners = state.socket_event_listeners(
-        l => l != listener_instance
+        (l) => l != listener_instance
       );
     },
 
@@ -99,7 +102,7 @@ export default new Vuex.Store({
     // eslint-disable-next-line no-unused-vars
     SOCKET_ONCLOSE(state, event) {
       state.socket.isConnected = false;
-      console.log("SOCKET_ONCLOSE");
+      console.log('SOCKET_ONCLOSE');
       sendToListeners(
         new SocketEvent(SocketEventTypes.SOCKET_ONCLOSE, event),
         state.socket_event_listeners
@@ -122,7 +125,7 @@ export default new Vuex.Store({
     },
     SOCKET_RECONNECT_ERROR(state) {
       state.socket.reconnectError = true;
-      console.log("SOCKET_RECONNECT_ERROR ");
+      console.log('SOCKET_RECONNECT_ERROR ');
       sendToListeners(
         new SocketEvent(SocketEventTypes.SOCKET_RECONNECT_ERROR, null),
         state.socket_event_listeners
@@ -132,24 +135,24 @@ export default new Vuex.Store({
     // message is somewhat special, it has it's own handler list.
     SOCKET_ONMESSAGE(state, message) {
       state.socket.message = message;
-      console.log("SOCKET_ONMESSAGE " + JSON.stringify(message));
+      console.log('SOCKET_ONMESSAGE ' + JSON.stringify(message));
       if (state.event_callback_list) {
         state.event_callback_list(message);
       }
-      if ("message" in message) {
-        let relevant_listeners = state.message_listeners.filter(l => {
+      if ('message' in message) {
+        let relevant_listeners = state.message_listeners.filter((l) => {
           return l.topic == message.topic;
         });
 
         let msg = new Message(message.sender, message.topic, message.message);
         sendToListeners(msg, relevant_listeners);
       }
-    }
+    },
   },
   actions: {
     sendMessage: function(context, message) {
       Vue.prototype.$socket.send(JSON.stringify(message));
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });
