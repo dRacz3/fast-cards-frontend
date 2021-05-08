@@ -57,6 +57,9 @@ class GamePreferences {
             if (data.hasOwnProperty('max_round_count')) {
                 obj['max_round_count'] = ApiClient.convertToType(data['max_round_count'], 'Number');
             }
+            if (data.hasOwnProperty('mode')) {
+                obj['mode'] = ApiClient.convertToType(data['mode'], 'String');
+            }
         }
         return obj;
     }
@@ -80,6 +83,12 @@ GamePreferences.prototype['points_needed_for_win'] = 10;
  * @default 15
  */
 GamePreferences.prototype['max_round_count'] = 15;
+
+/**
+ * @member {String} mode
+ * @default 'NORMAL'
+ */
+GamePreferences.prototype['mode'] = 'NORMAL';
 
 
 

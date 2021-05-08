@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**createNewGameGameNewPost**](CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game
 [**joinGameGameJoinPost**](CardsAgainstApi.md#joinGameGameJoinPost) | **POST** /game/join | Join Game
 [**leaveGameGameLeavePost**](CardsAgainstApi.md#leaveGameGameLeavePost) | **POST** /game/leave | Leave Game
+[**listModesGameModesGet**](CardsAgainstApi.md#listModesGameModesGet) | **GET** /game/modes | List Modes
 [**listRoomsGameRoomsGet**](CardsAgainstApi.md#listRoomsGameRoomsGet) | **GET** /game/rooms | List Rooms
 [**refreshGameRefreshGet**](CardsAgainstApi.md#refreshGameRefreshGet) | **GET** /game/refresh | Refresh
 [**selectWinnerGameSelectwinnerPost**](CardsAgainstApi.md#selectWinnerGameSelectwinnerPost) | **POST** /game/selectwinner | Select Winner
@@ -147,6 +148,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 **Object**
+
+### Authorization
+
+[JWTBearer](../README.md#JWTBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## listModesGameModesGet
+
+> [String] listModesGameModesGet()
+
+List Modes
+
+### Example
+
+```javascript
+import FastCards from 'fast_cards';
+let defaultClient = FastCards.ApiClient.instance;
+// Configure Bearer access token for authorization: JWTBearer
+let JWTBearer = defaultClient.authentications['JWTBearer'];
+JWTBearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new FastCards.CardsAgainstApi();
+apiInstance.listModesGameModesGet((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**[String]**
 
 ### Authorization
 

@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
 *FastCards.CardsAgainstApi* | [**createNewGameGameNewPost**](docs/CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game
 *FastCards.CardsAgainstApi* | [**joinGameGameJoinPost**](docs/CardsAgainstApi.md#joinGameGameJoinPost) | **POST** /game/join | Join Game
 *FastCards.CardsAgainstApi* | [**leaveGameGameLeavePost**](docs/CardsAgainstApi.md#leaveGameGameLeavePost) | **POST** /game/leave | Leave Game
+*FastCards.CardsAgainstApi* | [**listModesGameModesGet**](docs/CardsAgainstApi.md#listModesGameModesGet) | **GET** /game/modes | List Modes
 *FastCards.CardsAgainstApi* | [**listRoomsGameRoomsGet**](docs/CardsAgainstApi.md#listRoomsGameRoomsGet) | **GET** /game/rooms | List Rooms
 *FastCards.CardsAgainstApi* | [**refreshGameRefreshGet**](docs/CardsAgainstApi.md#refreshGameRefreshGet) | **GET** /game/refresh | Refresh
 *FastCards.CardsAgainstApi* | [**selectWinnerGameSelectwinnerPost**](docs/CardsAgainstApi.md#selectWinnerGameSelectwinnerPost) | **POST** /game/selectwinner | Select Winner

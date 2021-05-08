@@ -172,6 +172,42 @@ export default class CardsAgainstApi {
     }
 
     /**
+     * Callback function to receive the result of the listModesGameModesGet operation.
+     * @callback module:api/CardsAgainstApi~listModesGameModesGetCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<String>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List Modes
+     * @param {module:api/CardsAgainstApi~listModesGameModesGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<String>}
+     */
+    listModesGameModesGet(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = ['String'];
+      return this.apiClient.callApi(
+        '/game/modes', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the listRoomsGameRoomsGet operation.
      * @callback module:api/CardsAgainstApi~listRoomsGameRoomsGetCallback
      * @param {String} error Error message, if any.

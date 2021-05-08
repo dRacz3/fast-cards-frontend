@@ -70,6 +70,9 @@ class GameStateMachine {
             if (data.hasOwnProperty('state')) {
                 obj['state'] = ApiClient.convertToType(data['state'], 'String');
             }
+            if (data.hasOwnProperty('mode')) {
+                obj['mode'] = ApiClient.convertToType(data['mode'], 'String');
+            }
             if (data.hasOwnProperty('last_winner')) {
                 obj['last_winner'] = LastWinnerInfo.constructFromObject(data['last_winner']);
             }
@@ -112,6 +115,12 @@ GameStateMachine.prototype['white_cards'] = undefined;
  * @default 'STARTING'
  */
 GameStateMachine.prototype['state'] = 'STARTING';
+
+/**
+ * @member {String} mode
+ * @default 'NORMAL'
+ */
+GameStateMachine.prototype['mode'] = 'NORMAL';
 
 /**
  * @member {module:model/LastWinnerInfo} last_winner
