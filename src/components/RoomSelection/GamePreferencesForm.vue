@@ -45,6 +45,18 @@
           </div>
         </div>
       </div>
+      <div class="mode_selct_div">
+        <md-radio
+          v-model="game_mode.selected"
+          :value="game_mode.available.NORMAL"
+          >Normal</md-radio
+        >
+        <md-radio
+          v-model="game_mode.selected"
+          :value="game_mode.available.GOD_IS_DEAD"
+          >God is dead</md-radio
+        >
+      </div>
       <md-field>
         <label>You can create a new room, just pick a unique name.</label>
         <md-input v-model="room_name"></md-input>
@@ -70,6 +82,13 @@ export default {
     room_name: null,
     available_decks: [],
     deck_display_settings: "ALL",
+    game_mode: {
+      selected: "NORMAL",
+      available: {
+        NORMAL: "NORMAL",
+        GOD_IS_DEAD: "GOD_IS_DEAD",
+      },
+    },
   }),
   props: {},
   components: {
@@ -177,5 +196,9 @@ export default {
 .game_preference_form {
   border: rgb(37, 35, 35);
   padding: 30px;
+}
+
+.mode_selct_div {
+  padding: 5px;
 }
 </style>
