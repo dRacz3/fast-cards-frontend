@@ -84,10 +84,10 @@
 </template>
 
 <script>
-import PlayerDisplay from "./PlayerDisplay";
-import WhiteCardDisplay from "./WhiteCardDisplay";
-import BlackCardDisplay from "./BlackCardDisplay";
-import SubmissionResultDisplay from "./SubmissionResultDisplay.vue";
+import PlayerDisplay from "@/components/GameComponents/PlayerDisplay";
+import WhiteCardDisplay from "@/components/GameComponents/WhiteCardDisplay";
+import BlackCardDisplay from "@/components/GameComponents/BlackCardDisplay";
+import SubmissionResultDisplay from "@/components/GameComponents/SubmissionResultDisplay.vue";
 
 export default {
   props: {

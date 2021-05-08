@@ -101,12 +101,12 @@
 <script>
 import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
 
-import RoomSelection from "../components/GameComponents/RoomSelection";
-import WelcomeView from "../components/GameComponents/WelcomeView";
-import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
+import RoomSelection from "../components/RoomSelection/RoomSelection";
+import WelcomeView from "../components/GameViews/WelcomeView";
+import PlayersSubmittingView from "../components/GameViews/PlayersSubmittingView";
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
-import GameFinishedView from "../components/GameComponents/GameFinishedView";
-import GamePreferencesForm from "../components/GameComponents/GamePreferencesForm";
+import GameFinishedView from "../components/GameViews/GameFinishedView";
+import GamePreferencesForm from "../components/RoomSelection/GamePreferencesForm";
 import UserLoginFailureDisplay from "../components/UserLoginFailureDisplay";
 import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 import WebsocketView from "./WebsocketView";

@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import DeckDisplay from "./DeckDisplay";
-import { cardsAgainstApi, pushMessageToSnackbar, cardsApi } from "../../main";
-import { GamePreferences } from "../../libs/src";
+import DeckDisplay from "@/components/GameComponents/DeckDisplay";
+import { cardsAgainstApi, pushMessageToSnackbar, cardsApi } from "@/main";
+import { GamePreferences } from "@/libs/src/index";
 export default {
   data: () => ({
     selected_decks: [],
