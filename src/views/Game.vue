@@ -1,93 +1,100 @@
 <template>
   <div>
-    <div v-if="!room_data">
-      <div>
-        <md-toolbar>
-          <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
-          <div>Create room -></div>
-          <md-button
-            class="md-icon-button"
-            @click="show_advanced_room_options = !show_advanced_room_options"
-          >
-            <md-icon v-if="!show_advanced_room_options"
-              >keyboard_arrow_down</md-icon
+    <div v-if="!isUserLoginValid">
+      <user-login-failure></user-login-failure>
+    </div>
+    <div v-else>
+      <div v-if="!room_data">
+        <div>
+          <md-toolbar>
+            <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
+            <div>Create room -></div>
+            <md-button
+              class="md-icon-button"
+              @click="show_advanced_room_options = !show_advanced_room_options"
             >
-            <md-icon v-else>keyboard_arrow_up</md-icon>
-          </md-button>
-        </md-toolbar>
-        <div v-if="show_advanced_room_options">
-          <game-preferences
-            :available_decks="dummydecks"
-            @newRoomCreated="newRoomCreated"
-          ></game-preferences>
+              <md-icon v-if="!show_advanced_room_options"
+                >keyboard_arrow_down</md-icon
+              >
+              <md-icon v-else>keyboard_arrow_up</md-icon>
+            </md-button>
+          </md-toolbar>
+          <div v-if="show_advanced_room_options">
+            <game-preferences
+              :available_decks="dummydecks"
+              @newRoomCreated="newRoomCreated"
+            ></game-preferences>
 
-          <!-- <md-button class="md-raised" @click="joinRoom">Join</md-button> -->
-          <!-- <md-button class="md-raised" @click="refreshRoomList"
+            <!-- <md-button class="md-raised" @click="joinRoom">Join</md-button> -->
+            <!-- <md-button class="md-raised" @click="refreshRoomList"
             >Refresh rooms</md-button
           > -->
+          </div>
+        </div>
+
+        <div>
+          <md-divider></md-divider>
+          <room-selection
+            @onRefreshClicked="refreshRoomList"
+            @onJoinRoomClicked="directJoinRoom"
+            :rooms="available_rooms"
+          ></room-selection>
         </div>
       </div>
+      <md-toolbar v-if="room_data">
+        <h1 style="flex: 1" class="md-title">
+          You are currently in room [{{ room_name }}]
+        </h1>
+        <md-button @click="refresh" class="md-raised"
+          ><md-icon>refresh</md-icon> Force refresh</md-button
+        >
+        <md-button class="md-raised" @click="leaveRoom"
+          >Leave <md-icon>exit_to_app</md-icon></md-button
+        >
+      </md-toolbar>
+      <!-- Room header -->
+      <div></div>
+      <!-- {{ room_data }} -->
+      <!-- <md-button @click="refresh">Refresh</md-button> -->
 
-      <div>
-        <md-divider></md-divider>
-        <room-selection
-          @onRefreshClicked="refreshRoomList"
-          @onJoinRoomClicked="directJoinRoom"
-          :rooms="available_rooms"
-        ></room-selection>
+      <div v-if="room_data">
+        <!-- Before the game  starts -->
+        <div v-if="room_data.state === 'STARTING'">
+          <welcome-view
+            @startGameClicked="startGame"
+            :room_data="room_data"
+          ></welcome-view>
+        </div>
+
+        <!-- When players are submitting cards -->
+        <div v-else-if="room_data.state === 'PLAYERS_SUBMITTING_CARDS'">
+          <players-submitting-view
+            :room_data="room_data"
+            :submitClicked="submit"
+          ></players-submitting-view>
+        </div>
+        <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
+          <tzar-chosing-winner-view
+            :room_data="room_data"
+            @onWinnerSelected="selectWinner"
+          ></tzar-chosing-winner-view>
+        </div>
+
+        <div v-else-if="room_data.state === 'FINISHED'">
+          <game-has-finished-view
+            :room_data="room_data"
+          ></game-has-finished-view>
+        </div>
       </div>
-    </div>
-    <md-toolbar v-if="room_data">
-      <h1 style="flex: 1" class="md-title">
-        You are currently in room [{{ room_name }}]
-      </h1>
-      <md-button @click="refresh" class="md-raised"
-        ><md-icon>refresh</md-icon> Force refresh</md-button
-      >
-      <md-button class="md-raised" @click="leaveRoom"
-        >Leave <md-icon>exit_to_app</md-icon></md-button
-      >
-    </md-toolbar>
-    <!-- Room header -->
-    <div></div>
-    <!-- {{ room_data }} -->
-    <!-- <md-button @click="refresh">Refresh</md-button> -->
-
-    <div v-if="room_data">
-      <!-- Before the game  starts -->
-      <div v-if="room_data.state === 'STARTING'">
-        <welcome-view
-          @startGameClicked="startGame"
+      <div v-if="room_data">
+        <websocket-view
+          v-show="false"
           :room_data="room_data"
-        ></welcome-view>
+          @broadcastReceivedFromServer="refresh"
+        ></websocket-view>
       </div>
-
-      <!-- When players are submitting cards -->
-      <div v-else-if="room_data.state === 'PLAYERS_SUBMITTING_CARDS'">
-        <players-submitting-view
-          :room_data="room_data"
-          :submitClicked="submit"
-        ></players-submitting-view>
-      </div>
-      <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
-        <tzar-chosing-winner-view
-          :room_data="room_data"
-          @onWinnerSelected="selectWinner"
-        ></tzar-chosing-winner-view>
-      </div>
-
-      <div v-else-if="room_data.state === 'FINISHED'">
-        <game-has-finished-view :room_data="room_data"></game-has-finished-view>
-      </div>
+      <br />
     </div>
-    <div v-if="room_data">
-      <websocket-view
-        v-show="false"
-        :room_data="room_data"
-        @broadcastReceivedFromServer="refresh"
-      ></websocket-view>
-    </div>
-    <br />
   </div>
 </template>
 
@@ -100,6 +107,7 @@ import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittin
 import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
 import GameFinishedView from "../components/GameComponents/GameFinishedView";
 import GamePreferencesForm from "../components/GameComponents/GamePreferencesForm";
+import UserLoginFailureDisplay from "../components/UserLoginFailureDisplay";
 import { WhiteCard, SelectWinningSubmission } from "../libs/src";
 import WebsocketView from "./WebsocketView";
 
@@ -138,6 +146,7 @@ export default {
     "room-selection": RoomSelection,
     "websocket-view": WebsocketView,
     "game-preferences": GamePreferencesForm,
+    "user-login-failure": UserLoginFailureDisplay,
   },
   mounted() {
     // this.refreshRoomList();
@@ -278,6 +287,10 @@ export default {
 
     isCurrentPlayerTzar() {
       return this.player.current_role === "TZAR";
+    },
+
+    isUserLoginValid() {
+      return this.$store.state.isLoginValid;
     },
   },
 };

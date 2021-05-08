@@ -4,13 +4,15 @@
       <div class="md-title">{{ displayedText }}</div>
 
       <div class="md-subhead evenly-spaced">
-        <span>{{ card_data.icon }} </span><span>{{ card_data.deck }}</span>
+        <!--<span>{{ card_data.icon }} </span>-->
+        <span>{{ card_data.deck }}</span>
         <div>
           PICK <span class="dot pick-counter"> {{ card_data.pick }}</span>
         </div>
       </div>
     </md-card>
-  </div></template
+  </div>
+</template
 >
 
 <script>
@@ -19,14 +21,14 @@ export default {
   components: {},
   props: {
     card_data: {
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -65,8 +67,8 @@ export default {
 }
 
 .pick-counter {
-  border-radius: 50px;
+  border-radius: 60px;
   background: #626262ca;
-  padding: 15px;
+  padding: 10px;
 }
 </style>

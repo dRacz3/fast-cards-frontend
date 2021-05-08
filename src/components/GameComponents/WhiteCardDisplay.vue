@@ -4,7 +4,8 @@
       <div class="md-title">{{ displayedText }}</div>
 
       <div class="md-subhead evenly-spaced">
-        <span>{{ card_data.icon }} </span><span>{{ card_data.deck }}</span>
+        <!--<span>{{ card_data.icon }} </span>-->
+        <span>{{ card_data.deck }}</span>
       </div>
     </md-card>
   </div>
@@ -19,21 +20,21 @@ export default {
       if (this.on_clicked_callback) {
         this.on_clicked_callback(this.card_data, true);
       }
-    }
+    },
   },
   props: {
     card_data: {
-      required: true
+      required: true,
     },
     on_clicked_callback: {
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
     displayedText() {
       return this.card_data.text.replace("_", "_____");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -65,9 +66,9 @@ export default {
 
 .evenly-spaced {
   display: flex;
-  min-height: 4em;
-  flex-direction: row;
-  justify-content: space-between;
+  min-height: 3em;
+  flex-direction: column;
+  justify-content: flex-start;
   align-content: center;
 }
 

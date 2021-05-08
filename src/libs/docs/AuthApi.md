@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createUserAuthSignupPost**](AuthApi.md#createUserAuthSignupPost) | **POST** /auth/signup | Create User
+[**isMyLoginValidAuthIsMyLoginValidGet**](AuthApi.md#isMyLoginValidAuthIsMyLoginValidGet) | **GET** /auth/is_my_login_valid | Is My Login Valid
 [**readUserAuthUsersUserIdGet**](AuthApi.md#readUserAuthUsersUserIdGet) | **GET** /auth/users/{user_id} | Read User
 [**readUsersAuthGet**](AuthApi.md#readUsersAuthGet) | **GET** /auth/ | Read Users
 [**userLoginAuthLoginPost**](AuthApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
@@ -51,6 +52,49 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## isMyLoginValidAuthIsMyLoginValidGet
+
+> LoginCheckResponse isMyLoginValidAuthIsMyLoginValidGet()
+
+Is My Login Valid
+
+### Example
+
+```javascript
+import FastCards from 'fast_cards';
+let defaultClient = FastCards.ApiClient.instance;
+// Configure Bearer access token for authorization: JWTBearer
+let JWTBearer = defaultClient.authentications['JWTBearer'];
+JWTBearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new FastCards.AuthApi();
+apiInstance.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**LoginCheckResponse**](LoginCheckResponse.md)
+
+### Authorization
+
+[JWTBearer](../README.md#JWTBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

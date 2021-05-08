@@ -121,6 +121,7 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *FastCards.AuthApi* | [**createUserAuthSignupPost**](docs/AuthApi.md#createUserAuthSignupPost) | **POST** /auth/signup | Create User
+*FastCards.AuthApi* | [**isMyLoginValidAuthIsMyLoginValidGet**](docs/AuthApi.md#isMyLoginValidAuthIsMyLoginValidGet) | **GET** /auth/is_my_login_valid | Is My Login Valid
 *FastCards.AuthApi* | [**readUserAuthUsersUserIdGet**](docs/AuthApi.md#readUserAuthUsersUserIdGet) | **GET** /auth/users/{user_id} | Read User
 *FastCards.AuthApi* | [**readUsersAuthGet**](docs/AuthApi.md#readUsersAuthGet) | **GET** /auth/ | Read Users
 *FastCards.AuthApi* | [**userLoginAuthLoginPost**](docs/AuthApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
@@ -149,6 +150,7 @@ Class | Method | HTTP request | Description
  - [FastCards.GameStatePlayerView](docs/GameStatePlayerView.md)
  - [FastCards.HTTPValidationError](docs/HTTPValidationError.md)
  - [FastCards.LastWinnerInfo](docs/LastWinnerInfo.md)
+ - [FastCards.LoginCheckResponse](docs/LoginCheckResponse.md)
  - [FastCards.LoginFailureMessage](docs/LoginFailureMessage.md)
  - [FastCards.PlayerOutsideView](docs/PlayerOutsideView.md)
  - [FastCards.Room](docs/Room.md)
