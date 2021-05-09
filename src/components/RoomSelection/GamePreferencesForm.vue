@@ -125,6 +125,8 @@ export default {
     newRoom() {
       const gamePreferences = new GamePreferences();
       gamePreferences.deck_preferences = this.selected_decks;
+      gamePreferences.mode = this.game_mode.selected;
+
       cardsAgainstApi.createNewGameGameNewPost(
         this.room_name,
         gamePreferences,
