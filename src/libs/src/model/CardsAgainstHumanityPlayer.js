@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import SelectWinningSubmission from './SelectWinningSubmission';
 import Submission from './Submission';
 import WhiteCard from './WhiteCard';
 
@@ -68,6 +69,9 @@ class CardsAgainstHumanityPlayer {
             if (data.hasOwnProperty('submissions')) {
                 obj['submissions'] = ApiClient.convertToType(data['submissions'], [Submission]);
             }
+            if (data.hasOwnProperty('votes')) {
+                obj['votes'] = ApiClient.convertToType(data['votes'], [SelectWinningSubmission]);
+            }
         }
         return obj;
     }
@@ -101,6 +105,11 @@ CardsAgainstHumanityPlayer.prototype['current_role'] = 'PLAYER';
  * @member {Array.<module:model/Submission>} submissions
  */
 CardsAgainstHumanityPlayer.prototype['submissions'] = undefined;
+
+/**
+ * @member {Array.<module:model/SelectWinningSubmission>} votes
+ */
+CardsAgainstHumanityPlayer.prototype['votes'] = undefined;
 
 
 
