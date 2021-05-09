@@ -1,11 +1,12 @@
 <template>
   <div>
     <div v-if="isPlayerAllowedToVote">
-      <h1>You have to choose a winner!</h1>
+      <h1>You have to vote for a winner!</h1>
     </div>
     <div v-else>
-      <h1>Tzar is choosing winner...</h1>
+      <h1>A winner is being chosen... Please wait</h1>
     </div>
+    <div v-if="has_voted">You have already submitted your vote!</div>
 
     <div>
       <div v-for="(entry, index) of room_data.player_submissions" :key="index">
@@ -17,9 +18,7 @@
       </div>
     </div>
 
-    <div>
-      <!-- {{ JSON.stringify(room_data.player_submissions, null, 4) }} -->
-    </div>
+    <div></div>
   </div>
 </template>
 
@@ -27,12 +26,16 @@
 import SubmissionResultDisplay from "./SubmissionResultDisplay.vue";
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    // TODO This is a workaround. Should be deducted from game state
+    has_voted: false,
+  }),
   components: {
     "submission-result-display": SubmissionResultDisplay,
   },
   methods: {
     onWinnerSelected(submission) {
+      this.has_voted = true;
       this.$emit("onWinnerSelected", submission);
     },
   },
@@ -44,6 +47,9 @@ export default {
   computed: {
     isPlayerAllowedToVote() {
       if (this.room_data.mode == "GOD_IS_DEAD") {
+        if (this.has_voted) {
+          return false;
+        }
         return true;
       }
       return this.room_data.player.current_role === "TZAR";
