@@ -2,12 +2,18 @@
   <div class="page-container">
     <h4>Game is in state:{{ room_data.state }}</h4>
 
-    <div v-if="room_data.last_winner">
-      Last winner was: {{ room_data.last_winner.username }}
-      <submission-result-display
-        :submission="room_data.last_winner.submission"
-        :isTzar="false"
-      ></submission-result-display>
+    <div v-if="room_data.last_winners">
+      <div v-if="room_data.last_winners.length > 1">
+        <h3>It was a draw! The winners are:</h3>
+      </div>
+      <div v-else><h3>The winner is:</h3></div>
+      <div v-for="(entry, index) of room_data.last_winners" :key="index">
+        <h4>{{ entry.username }}, who has submitted:</h4>
+        <submission-result-display
+          :submission="entry.submission"
+          :isPlayerAllowedToVote="false"
+        ></submission-result-display>
+      </div>
     </div>
     <div>
       <ul class="flex-container table-container">
