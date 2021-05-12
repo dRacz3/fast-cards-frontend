@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <h4>Game is in state:{{ room_data.state }}</h4>
+    <!-- <h4>Game is in state:{{ room_data.state }}</h4> -->
 
     <div v-if="room_data.last_winners">
       <div v-if="room_data.last_winners.length > 1">

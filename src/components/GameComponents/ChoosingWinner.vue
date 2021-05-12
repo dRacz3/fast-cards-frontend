@@ -14,6 +14,7 @@
           :submission="entry"
           :isPlayerAllowedToVote="isPlayerAllowedToVote"
           @onWinnerSelected="onWinnerSelected"
+          :votees="voteCounts(entry)"
         ></submission-result-display>
       </div>
     </div>
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+// var hash = require("object-hash");
 import SubmissionResultDisplay from "./SubmissionResultDisplay.vue";
 
 export default {
@@ -38,12 +40,48 @@ export default {
       this.has_voted = true;
       this.$emit("onWinnerSelected", submission);
     },
+
+    compare_submissions(lhs, rhs) {
+      const lhs_ids = lhs.white_cards.map((c) => c.card_id);
+      const rhs_ids = rhs.white_cards.map((c) => c.card_id);
+
+      const array2Sorted = rhs_ids.slice().sort();
+      return (
+        lhs_ids.length === rhs_ids.length &&
+        lhs_ids
+          .slice()
+          .sort()
+          .every(function (value, index) {
+            return value === array2Sorted[index];
+          })
+      );
+    },
+
+    voteCounts(submission) {
+      console.log(submission);
+      let players_who_voted = this.room_data.other_players
+        .filter((p) => p.votes)
+        .filter((p) => p.votes.length > 0)
+        .filter((p) =>
+          this.compare_submissions(p.votes[0].submission, submission)
+        )
+        .reduce((acc, currentValue) => {
+          return [...acc, currentValue.username];
+        }, []);
+      console.log(players_who_voted);
+      return players_who_voted;
+    },
   },
   props: {
     room_data: {
       required: true,
     },
   },
+  mounted() {
+    console.log("Mounted");
+  },
+
+  beforeUpdate() {},
   computed: {
     isPlayerAllowedToVote() {
       if (this.room_data.mode == "GOD_IS_DEAD") {

@@ -6,12 +6,21 @@
           <div class="md-title">{{ renderedResult }}</div>
           <!-- <div class="md-subhead">It also have a ripple</div> -->
         </md-card-header>
+
         <md-card-actions v-if="isPlayerAllowedToVote">
           <!-- <md-button>Action</md-button> -->
           <md-button class="md-raised" @click="onWinnerSelected">
             <md-icon>coronavirus</md-icon> I like this
           </md-button>
         </md-card-actions>
+        <div v-if="votees">
+          <md-toolbar v-bind:class="votees">
+            <h3 style="flex: 1">Votes [{{ votees.length }}]</h3>
+            <div v-for="(entry, index) of votees" :key="index">
+              <md-chip>{{ entry }}</md-chip>
+            </div>
+          </md-toolbar>
+        </div>
       </md-ripple>
     </md-card>
   </div>
@@ -32,6 +41,10 @@ export default {
     isPlayerAllowedToVote: {
       required: true,
       type: Boolean,
+    },
+    votees: {
+      required: false,
+      type: Array,
     },
   },
   methods: {
@@ -78,5 +91,10 @@ export default {
 <style scoped>
 .md-card {
   margin: 10px;
+}
+.votees {
+  display: flex;
+  flex-direction: row;
+  background: pink;
 }
 </style>
