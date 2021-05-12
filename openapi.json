@@ -1149,6 +1149,13 @@
                         "items": {
                             "$ref": "#/components/schemas/Submission"
                         }
+                    },
+                    "votes": {
+                        "title": "Votes",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SelectWinningSubmission"
+                        }
                     }
                 }
             },

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import SelectWinningSubmission from './SelectWinningSubmission';
 import Submission from './Submission';
 
 /**
@@ -62,6 +63,9 @@ class PlayerOutsideView {
             if (data.hasOwnProperty('submissions')) {
                 obj['submissions'] = ApiClient.convertToType(data['submissions'], [Submission]);
             }
+            if (data.hasOwnProperty('votes')) {
+                obj['votes'] = ApiClient.convertToType(data['votes'], [SelectWinningSubmission]);
+            }
         }
         return obj;
     }
@@ -90,6 +94,11 @@ PlayerOutsideView.prototype['current_role'] = 'PLAYER';
  * @member {Array.<module:model/Submission>} submissions
  */
 PlayerOutsideView.prototype['submissions'] = undefined;
+
+/**
+ * @member {Array.<module:model/SelectWinningSubmission>} votes
+ */
+PlayerOutsideView.prototype['votes'] = undefined;
 
 
 
