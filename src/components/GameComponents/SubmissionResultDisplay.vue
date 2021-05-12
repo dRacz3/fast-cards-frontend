@@ -9,17 +9,12 @@
 
         <md-card-actions v-if="isPlayerAllowedToVote">
           <!-- <md-button>Action</md-button> -->
-          <md-button class="md-raised" @click="onWinnerSelected">
+          <md-button class="md-raised votebutton" @click="onWinnerSelected">
             <md-icon>coronavirus</md-icon> I like this
           </md-button>
         </md-card-actions>
         <div v-if="votees">
-          <md-toolbar v-bind:class="votees">
-            <h3 style="flex: 1">Votes [{{ votees.length }}]</h3>
-            <div v-for="(entry, index) of votees" :key="index">
-              <md-chip>{{ entry }}</md-chip>
-            </div>
-          </md-toolbar>
+          <md-chips v-model="votees" md-static></md-chips>
         </div>
       </md-ripple>
     </md-card>
@@ -91,10 +86,5 @@ export default {
 <style scoped>
 .md-card {
   margin: 10px;
-}
-.votees {
-  display: flex;
-  flex-direction: row;
-  background: pink;
 }
 </style>
