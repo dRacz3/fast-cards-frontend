@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **points** | **Number** |  | [optional] [default to 0]
 **currentRole** | **String** |  | [optional] [default to &#39;PLAYER&#39;]
 **submissions** | [**[Submission]**](Submission.md) |  | [optional] 
+**votes** | [**[SelectWinningSubmission]**](SelectWinningSubmission.md) |  | [optional] 
 
 

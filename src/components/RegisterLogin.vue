@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import { UserSchema, UserLoginSchema } from "../libs/src/index";
+import { UserSchema, UserLoginSchema } from "@/libs/src/index";
 
-import { userApi, apiclient } from "../main";
-import generateName from "../helpers/generateFunnyName";
+import { userApi, apiclient } from "@/main";
+import generateName from "@/helpers/generateFunnyName";
 
 export default {
   name: "HelloWorld",

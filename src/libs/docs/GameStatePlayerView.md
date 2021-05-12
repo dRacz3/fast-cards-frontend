@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **currentlyActiveCard** | [**BlackCard**](BlackCard.md) |  | [optional] 
 **playerSubmissions** | [**{String: Submission}**](Submission.md) |  | [optional] 
 **otherPlayers** | [**[PlayerOutsideView]**](PlayerOutsideView.md) |  | 
-**lastWinner** | [**LastWinnerInfo**](LastWinnerInfo.md) |  | [optional] 
+**lastWinners** | [**[LastWinnerInfo]**](LastWinnerInfo.md) |  | [optional] 
+**mode** | **String** |  | [optional] [default to &#39;NORMAL&#39;]
 
 

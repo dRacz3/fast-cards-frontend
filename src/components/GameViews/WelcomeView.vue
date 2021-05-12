@@ -43,31 +43,31 @@
 </template>
 
 <script>
-import PlayerDisplay from "./PlayerDisplay";
+import PlayerDisplay from "@/components/GameComponents/PlayerDisplay";
 
 export default {
   props: {
     room_data: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data: () => ({}),
   components: {
-    "player-display": PlayerDisplay
+    "player-display": PlayerDisplay,
   },
   mounted() {},
   methods: {
     startGame() {
       this.$emit("startGameClicked");
-    }
+    },
   },
 
   computed: {
     player() {
       return this.room_data.player;
-    }
-  }
+    },
+  },
 };
 </script>

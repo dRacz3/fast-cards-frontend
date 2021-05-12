@@ -74,10 +74,10 @@
           ></players-submitting-view>
         </div>
         <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
-          <tzar-chosing-winner-view
+          <choosing-winner-view
             :room_data="room_data"
             @onWinnerSelected="selectWinner"
-          ></tzar-chosing-winner-view>
+          ></choosing-winner-view>
         </div>
 
         <div v-else-if="room_data.state === 'FINISHED'">
@@ -101,14 +101,14 @@
 <script>
 import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
 
-import RoomSelection from "../components/GameComponents/RoomSelection";
-import WelcomeView from "../components/GameComponents/WelcomeView";
-import PlayersSubmittingView from "../components/GameComponents/PlayersSubmittingView";
-import TzarChosingWinner from "../components/GameComponents/TzarChosingWinner";
-import GameFinishedView from "../components/GameComponents/GameFinishedView";
-import GamePreferencesForm from "../components/GameComponents/GamePreferencesForm";
-import UserLoginFailureDisplay from "../components/UserLoginFailureDisplay";
-import { WhiteCard, SelectWinningSubmission } from "../libs/src";
+import RoomSelection from "@/components/RoomSelection/RoomSelection";
+import WelcomeView from "@/components/GameViews/WelcomeView";
+import PlayersSubmittingView from "@/components/GameViews/PlayersSubmittingView";
+import ChoosingWinner from "@/components/GameComponents/ChoosingWinner";
+import GameFinishedView from "@/components/GameViews/GameFinishedView";
+import GamePreferencesForm from "@/components/RoomSelection/GamePreferencesForm";
+import UserLoginFailureDisplay from "@/components/UserLoginFailureDisplay";
+import { WhiteCard, SelectWinningSubmission } from "@/libs/src";
 import WebsocketView from "./WebsocketView";
 
 export default {
@@ -141,7 +141,7 @@ export default {
   components: {
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
-    "tzar-chosing-winner-view": TzarChosingWinner,
+    "choosing-winner-view": ChoosingWinner,
     "game-has-finished-view": GameFinishedView,
     "room-selection": RoomSelection,
     "websocket-view": WebsocketView,

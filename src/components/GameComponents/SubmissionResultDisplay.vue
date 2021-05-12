@@ -6,12 +6,16 @@
           <div class="md-title">{{ renderedResult }}</div>
           <!-- <div class="md-subhead">It also have a ripple</div> -->
         </md-card-header>
-        <md-card-actions v-if="isTzar">
+
+        <md-card-actions v-if="isPlayerAllowedToVote">
           <!-- <md-button>Action</md-button> -->
-          <md-button class="md-raised" @click="onWinnerSelected">
+          <md-button class="md-raised votebutton" @click="onWinnerSelected">
             <md-icon>coronavirus</md-icon> I like this
           </md-button>
         </md-card-actions>
+        <div v-if="votees">
+          <md-chips v-model="votees" md-static></md-chips>
+        </div>
       </md-ripple>
     </md-card>
   </div>
@@ -29,10 +33,14 @@ export default {
     //   type: Array,
     //   required: true,
     // },
-    isTzar: {
+    isPlayerAllowedToVote: {
       required: true,
-      type: Boolean
-    }
+      type: Boolean,
+    },
+    votees: {
+      required: false,
+      type: Array,
+    },
   },
   methods: {
     onWinnerSelected() {
@@ -44,7 +52,7 @@ export default {
         replacement +
         str.substring(index + 1, str.length)
       );
-    }
+    },
   },
   computed: {
     renderedResult() {
@@ -57,7 +65,7 @@ export default {
         return str + " [" + white_cards[0].text + "]";
       }
 
-      let replacements = white_cards.map(e => e.text);
+      let replacements = white_cards.map((e) => e.text);
 
       let count = 0;
       while (str.indexOf("_") != -1) {
@@ -70,8 +78,8 @@ export default {
         count = count + 1;
       }
       return str;
-    }
-  }
+    },
+  },
 };
 </script>
 
