@@ -151,7 +151,7 @@ export default {
     },
 
     populateLoginWithRandomStuff() {
-      this.username = generateName().replace(" ", "_");
+      this.username = generateName().replace(/ /g, "_");
       this.password = this.username + "123";
     },
   },
@@ -160,7 +160,7 @@ export default {
     this.devmode = this.$store.state.developer_mode;
     const logged_in_username = this.$store.state.logged_in_username;
 
-    this.username = logged_in_username || generateName().replace(" ", "_");
+    this.username = logged_in_username || generateName().replace(/ /g, "_");
     this.password = this.username + "123";
   },
 
