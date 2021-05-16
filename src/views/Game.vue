@@ -12,7 +12,7 @@
     </div>
 
     <div v-else>
-      <div v-if="!room_data">
+      <div v-if="!isUserInGameRoom">
         <div>
           <md-toolbar>
             <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
@@ -43,7 +43,7 @@
           ></room-selection>
         </div>
       </div>
-      <md-toolbar v-if="room_data">
+      <md-toolbar v-if="isUserInGameRoom">
         <h1 style="flex: 1" class="md-title">
           You are currently in room [{{ room_name }}]
         </h1>
@@ -56,10 +56,8 @@
       </md-toolbar>
       <!-- Room header -->
       <div></div>
-      <!-- {{ room_data }} -->
-      <!-- <md-button @click="refresh">Refresh</md-button> -->
 
-      <div v-if="room_data">
+      <div v-if="isUserInGameRoom">
         <!-- Before the game  starts -->
         <div v-if="current_displayed_state === 'STARTING'">
           <transition name="fade">
@@ -94,7 +92,7 @@
           ></game-has-finished-view>
         </div>
       </div>
-      <div v-if="room_data">
+      <div v-if="isUserInGameRoom">
         <websocket-view
           v-show="false"
           :room_data="room_data"
@@ -135,6 +133,7 @@ export default {
       active: false,
       content: "content unset",
     },
+    advance_timeout: null,
   }),
   components: {
     "welcome-view": WelcomeView,
@@ -169,17 +168,20 @@ export default {
     },
 
     updateGameState(room_data) {
-      this.room_data = room_data;
-
       const prevState = this.current_displayed_state;
+      if (room_data.state) {
+        if (prevState !== room_data.state) {
+          if (this.isUserInGameRoom) {
+            const stateText = gameStateTextNicer.get(room_data.state);
+            this.displayTemporaryDialog(`${stateText} `, 1500);
 
-      if (prevState !== this.room_data.state) {
-        const asdf = gameStateTextNicer.get(this.room_data.state);
-        this.displayTemporaryDialog(`${asdf} `, 1500);
-
-        setTimeout(() => {
-          this.current_displayed_state = this.room_data.state;
-        }, 1000);
+            this.advance_timeout = setTimeout(() => {
+              this.current_displayed_state = room_data.state;
+            }, 1000);
+          } else {
+            this.room_data = null;
+          }
+        }
       }
     },
 
@@ -213,17 +215,25 @@ export default {
 
     leaveRoom() {
       this.refreshRoomList();
+      clearTimeout(this.advance_timeout);
       cardsAgainstApi.leaveGameGameLeavePost(
         this.room_name,
         (error, data, response) => {
           this.room_data = null;
           this.room_name = null;
+          this.current_displayed_state = null;
           pushMessageToSnackbar("Left room");
           if (error) {
             console.error(error);
-            pushMessageToSnackbar(
-              `Failed to leave room.${JSON.parse(response.text).detail}`
-            );
+            let message = error;
+            if (response.text) {
+              try {
+                message += ",  " + response.text;
+              } catch (error) {
+                message += ".";
+              }
+            }
+            pushMessageToSnackbar(`Failed to leave room.${message}`);
           }
         }
       );
@@ -307,7 +317,6 @@ export default {
     player() {
       return this.room_data.player;
     },
-    //! Display only cards that are not submitted
 
     isCurrentPlayerTzar() {
       return this.player.current_role === "TZAR";
@@ -315,6 +324,10 @@ export default {
 
     isUserLoginValid() {
       return this.$store.state.isLoginValid;
+    },
+
+    isUserInGameRoom() {
+      return this.room_name && this.room_data;
     },
   },
 };
