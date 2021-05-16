@@ -70,6 +70,7 @@ export default {
       message: "",
     },
     isUserLoggedIn: false,
+    login_check_interval: null,
   }),
   methods: {
     toggleMenu() {
@@ -96,6 +97,10 @@ export default {
       }
     },
   },
+
+  beforeDestroy() {
+    clearInterval(this.login_check_interval);
+  },
   mounted() {
     document.title = "Fast Cards";
     let token = this.$store.state.api_token;
@@ -105,7 +110,7 @@ export default {
       apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
-      setInterval(() => {
+      this.login_check_interval = setInterval(() => {
         authApi.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
           if (error) {
             this.isUserLoggedIn = false;
