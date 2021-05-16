@@ -6,5 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **roomName** | **String** |  | 
 **playerCount** | **Number** |  | 
+**state** | **String** |  | 
 
 

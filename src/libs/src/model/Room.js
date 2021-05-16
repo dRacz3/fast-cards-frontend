@@ -24,10 +24,11 @@ class Room {
      * @alias module:model/Room
      * @param roomName {String} 
      * @param playerCount {Number} 
+     * @param state {String} 
      */
-    constructor(roomName, playerCount) { 
+    constructor(roomName, playerCount, state) { 
         
-        Room.initialize(this, roomName, playerCount);
+        Room.initialize(this, roomName, playerCount, state);
     }
 
     /**
@@ -35,9 +36,10 @@ class Room {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, roomName, playerCount) { 
+    static initialize(obj, roomName, playerCount, state) { 
         obj['room_name'] = roomName;
         obj['player_count'] = playerCount;
+        obj['state'] = state;
     }
 
     /**
@@ -57,6 +59,9 @@ class Room {
             if (data.hasOwnProperty('player_count')) {
                 obj['player_count'] = ApiClient.convertToType(data['player_count'], 'Number');
             }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
         }
         return obj;
     }
@@ -73,6 +78,11 @@ Room.prototype['room_name'] = undefined;
  * @member {Number} player_count
  */
 Room.prototype['player_count'] = undefined;
+
+/**
+ * @member {String} state
+ */
+Room.prototype['state'] = undefined;
 
 
 
