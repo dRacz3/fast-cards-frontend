@@ -23,9 +23,7 @@
         <player-display :player_data="entry"></player-display>
       </div>
     </div>
-    <div>
-      <!-- {{ room_data.other_players }} -->
-    </div>
+    <div></div>
   </div>
 </template>
 
