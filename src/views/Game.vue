@@ -258,7 +258,6 @@ export default {
       }
     },
     submit(cards) {
-      console.log(`Submit called: ${JSON.stringify(cards)}`);
       cards.map((v) => WhiteCard.constructFromObject(v));
       cardsAgainstApi.submitCardsGameSubmitPost(
         this.room_name,
@@ -266,9 +265,7 @@ export default {
         (error, data, response) => {
           if (error) {
             console.error(error);
-            pushMessageToSnackbar(
-              `Failed to Submit cards :.${JSON.parse(response.text).detail}`
-            );
+            pushMessageToSnackbar(`Failed to Submit cards :.${error}`);
           } else {
             this.room_data = JSON.parse(response.text);
             this.updateGameState(this.room_data);

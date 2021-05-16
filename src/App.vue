@@ -1,5 +1,8 @@
 <template>
   <div class="page-container">
+    <div v-if="updateExists">
+      <md-button @click="refreshApp">Update app</md-button>
+    </div>
     <md-app>
       <md-app-toolbar class="md-primary" md-elevation="0">
         <md-button
@@ -26,7 +29,7 @@
         <md-list>
           <md-list-item to="/">
             <md-icon>account_circle</md-icon>
-            <span class="md-list-item-text"> Login </span>
+            <span class="md-list-item-text"> Account </span>
           </md-list-item>
           <md-list-item to="/game-overview" v-if="isUserLoggedIn">
             <md-icon>games</md-icon>
@@ -59,6 +62,7 @@
 
 <script>
 import { apiclient, authApi } from "./main";
+import update from "./mixins/update";
 
 export default {
   data: () => ({
@@ -72,6 +76,8 @@ export default {
     isUserLoggedIn: false,
     login_check_interval: null,
   }),
+  // file deepcode ignore VueMissingCleanup: As it is needed for prod update
+  mixins: [update],
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
@@ -88,11 +94,9 @@ export default {
 
     format_event(event) {
       if (typeof event != "string" && "message" in event) {
-        console.log(`New message received: ${event.message}`);
         return event.message;
       } else {
         const serializedEvent = JSON.stringify(event);
-        console.log(`Received event: ${serializedEvent}`);
         return serializedEvent;
       }
     },
