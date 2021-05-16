@@ -1,7 +1,9 @@
 <template>
   <div class="page-container">
     <div v-if="updateExists">
-      <md-button @click="refreshApp">Update app</md-button>
+      A new version is available, please update or suffer the consequences.
+      (Like bugs, and stuff not working properly or at all.)
+      <md-button @click="refreshApp">Update</md-button>
     </div>
     <md-app>
       <md-app-toolbar class="md-primary" md-elevation="0">
