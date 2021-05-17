@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createBlackCardCardsBlackPut**](CardsApi.md#createBlackCardCardsBlackPut) | **PUT** /cards/black | Create Black Card
+[**createDeckCardsDeckPut**](CardsApi.md#createDeckCardsDeckPut) | **PUT** /cards/deck | Create Deck
 [**createWhiteCardCardsWhitePut**](CardsApi.md#createWhiteCardCardsWhitePut) | **PUT** /cards/white | Create White Card
 [**getDeckListCardsDeckGet**](CardsApi.md#getDeckListCardsDeckGet) | **GET** /cards/deck | Get Deck List
 
@@ -46,6 +47,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BlackCard**](BlackCard.md)
+
+### Authorization
+
+[JWTBearer](../README.md#JWTBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## createDeckCardsDeckPut
+
+> DeckMetaData createDeckCardsDeckPut(deckMetaData)
+
+Create Deck
+
+### Example
+
+```javascript
+import FastCards from 'fast_cards';
+let defaultClient = FastCards.ApiClient.instance;
+// Configure Bearer access token for authorization: JWTBearer
+let JWTBearer = defaultClient.authentications['JWTBearer'];
+JWTBearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new FastCards.CardsApi();
+let deckMetaData = new FastCards.DeckMetaData(); // DeckMetaData | 
+apiInstance.createDeckCardsDeckPut(deckMetaData, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deckMetaData** | [**DeckMetaData**](DeckMetaData.md)|  | 
+
+### Return type
+
+[**DeckMetaData**](DeckMetaData.md)
 
 ### Authorization
 

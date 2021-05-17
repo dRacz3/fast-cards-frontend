@@ -28,7 +28,7 @@ export default {
     message_log: [],
     message_listener: null,
     socket_event_listener: null,
-    is_connected: false
+    is_connected: false,
   }),
   components: {},
   props: {},
@@ -91,8 +91,8 @@ export default {
         default:
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
