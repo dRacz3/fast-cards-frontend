@@ -305,6 +305,7 @@ export default {
       );
     },
     refreshRoomList() {
+      // TODO: room list refresh should be done via websocket events instead of polling.
       this.room_refresh_in_progress = true;
       cardsAgainstApi.listRoomsGameRoomsGet((error, data, response) => {
         this.room_refresh_in_progress = false;
