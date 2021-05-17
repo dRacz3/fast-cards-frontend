@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { backendSocket, SERVER_ADDRESS } from "../main";
+import { backendSocket } from "../main";
 import { get_full_ws_address } from "../consts";
 import { MessageListener, SocketEventTypes } from "../helpers/message";
 
@@ -43,11 +43,11 @@ export default {
     message_log: [],
     message_listener: null,
     socket_event_listener: null,
-    is_connected: false
+    is_connected: false,
   }),
   components: {},
   props: {
-    room_data: { required: true, type: Object }
+    room_data: { required: true, type: Object },
   },
   mounted() {
     this.connect_to_socket();
@@ -63,17 +63,13 @@ export default {
         return this.room_data.room_name;
       }
       return "";
-    }
+    },
   },
 
   methods: {
     connect_to_socket() {
       let api_token = this.$store.state.api_token;
-      this.socket_url = get_full_ws_address(
-        this.room_name,
-        api_token,
-        SERVER_ADDRESS
-      );
+      this.socket_url = get_full_ws_address(this.room_name, api_token);
 
       console.log(`Attempting to connect WS to url ${this.socket_url}`);
       backendSocket.$connect(this.socket_url);
@@ -107,7 +103,7 @@ export default {
 
     sendMessage() {
       this.$store.dispatch("sendMessage", {
-        message: this.text_input
+        message: this.text_input,
       });
     },
 
@@ -131,8 +127,8 @@ export default {
           console.log("Fallback to default");
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
