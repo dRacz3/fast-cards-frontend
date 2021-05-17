@@ -127,6 +127,7 @@ export default {
     current_displayed_state: null,
     submissions: [],
     refresh_timer: null,
+    room_refresh_in_progress: false,
     available_rooms: [],
     show_advanced_room_options: true,
     dialog: {
@@ -148,7 +149,9 @@ export default {
   mounted() {
     this.refreshRoomList();
     this.refresh_timer = setInterval(() => {
-      this.refreshRoomList();
+      if (!this.room_refresh_in_progress) {
+        this.refreshRoomList();
+      }
     }, 1000);
   },
   destroyed() {},
@@ -302,7 +305,9 @@ export default {
       );
     },
     refreshRoomList() {
+      this.room_refresh_in_progress = true;
       cardsAgainstApi.listRoomsGameRoomsGet((error, data, response) => {
+        this.room_refresh_in_progress = false;
         if (error) {
           console.error(error);
         } else {

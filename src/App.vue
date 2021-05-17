@@ -77,6 +77,7 @@ export default {
     },
     isUserLoggedIn: false,
     login_check_interval: null,
+    login_check_in_progress: false,
   }),
   // file deepcode ignore VueMissingCleanup: As it is needed for prod update
   mixins: [update],
@@ -117,16 +118,23 @@ export default {
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
       this.login_check_interval = setInterval(() => {
-        authApi.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
-          if (error) {
-            this.isUserLoggedIn = false;
-          } else {
-            console.debug(data);
-            console.debug(response);
-            this.isUserLoggedIn = true;
-          }
-          this.$store.commit("update_login_validity", this.isUserLoggedIn);
-        });
+        // Don't spam with requests if there is one alredy ongoing.
+        if (!this.login_check_in_progress) {
+          this.login_check_in_progress = true;
+          authApi.isMyLoginValidAuthIsMyLoginValidGet(
+            (error, data, response) => {
+              this.login_check_in_progress = false;
+              if (error) {
+                this.isUserLoggedIn = false;
+              } else {
+                console.debug(data);
+                console.debug(response);
+                this.isUserLoggedIn = true;
+              }
+              this.$store.commit("update_login_validity", this.isUserLoggedIn);
+            }
+          );
+        }
       }, 1000);
     }
   },
