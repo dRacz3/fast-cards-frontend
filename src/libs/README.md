@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
 *FastCards.AuthApi* | [**readUsersAuthGet**](docs/AuthApi.md#readUsersAuthGet) | **GET** /auth/ | Read Users
 *FastCards.AuthApi* | [**userLoginAuthLoginPost**](docs/AuthApi.md#userLoginAuthLoginPost) | **POST** /auth/login | User Login
 *FastCards.CardsApi* | [**createBlackCardCardsBlackPut**](docs/CardsApi.md#createBlackCardCardsBlackPut) | **PUT** /cards/black | Create Black Card
+*FastCards.CardsApi* | [**createDeckCardsDeckPut**](docs/CardsApi.md#createDeckCardsDeckPut) | **PUT** /cards/deck | Create Deck
 *FastCards.CardsApi* | [**createWhiteCardCardsWhitePut**](docs/CardsApi.md#createWhiteCardCardsWhitePut) | **PUT** /cards/white | Create White Card
 *FastCards.CardsApi* | [**getDeckListCardsDeckGet**](docs/CardsApi.md#getDeckListCardsDeckGet) | **GET** /cards/deck | Get Deck List
 *FastCards.CardsAgainstApi* | [**createNewGameGameNewPost**](docs/CardsAgainstApi.md#createNewGameGameNewPost) | **POST** /game/new | Create New Game

@@ -79,6 +79,47 @@ export default class CardsApi {
     }
 
     /**
+     * Callback function to receive the result of the createDeckCardsDeckPut operation.
+     * @callback module:api/CardsApi~createDeckCardsDeckPutCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DeckMetaData} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create Deck
+     * @param {module:model/DeckMetaData} deckMetaData 
+     * @param {module:api/CardsApi~createDeckCardsDeckPutCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/DeckMetaData}
+     */
+    createDeckCardsDeckPut(deckMetaData, callback) {
+      let postBody = deckMetaData;
+      // verify the required parameter 'deckMetaData' is set
+      if (deckMetaData === undefined || deckMetaData === null) {
+        throw new Error("Missing the required parameter 'deckMetaData' when calling createDeckCardsDeckPut");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = DeckMetaData;
+      return this.apiClient.callApi(
+        '/cards/deck', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the createWhiteCardCardsWhitePut operation.
      * @callback module:api/CardsApi~createWhiteCardCardsWhitePutCallback
      * @param {String} error Error message, if any.
