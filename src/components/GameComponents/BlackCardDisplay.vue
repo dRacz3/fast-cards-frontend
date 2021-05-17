@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     displayedText() {
-      return this.card_data.text.replace("_", "_____");
+      return this.card_data.text.replaceAll("_", "_____");
     },
   },
 };

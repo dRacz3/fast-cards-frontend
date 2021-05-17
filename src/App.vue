@@ -37,11 +37,11 @@
             <md-icon>games</md-icon>
             <span class="md-list-item-text">Game</span>
           </md-list-item>
-          <!-- <md-list-item to="/messagelogs">
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text"> Test View</span>
+          <md-list-item to="/cards">
+            <md-icon>credit_card</md-icon>
+            <span class="md-list-item-text"> Cards</span>
           </md-list-item>
-           <md-list-item to="/chat">
+          <!-- <md-list-item to="/chat">
             <md-icon>mail</md-icon>
             <span class="md-list-item-text"> Test View</span>
           </md-list-item> -->
