@@ -1,5 +1,15 @@
 <template>
   <div class="game_preference_form">
+    <md-dialog :md-active.sync="dialog.active">
+      <md-dialog-title> {{ dialog.header }}</md-dialog-title>
+      <md-dialog-content> {{ dialog.content }} </md-dialog-content>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="dialog.active = false"
+          >Okay</md-button
+        >
+      </md-dialog-actions>
+    </md-dialog>
+
     <div>
       <div @click="displayDecks = !displayDecks">
         <md-toolbar>
@@ -49,12 +59,20 @@
         <md-radio
           v-model="game_mode.selected"
           :value="game_mode.available.NORMAL"
-          >Normal</md-radio
+          >Normal
+          <md-tooltip md-direction="top"
+            >Normal mode. Every round a randomly chosen Tzar will select a
+            winner!</md-tooltip
+          ></md-radio
         >
         <md-radio
           v-model="game_mode.selected"
           :value="game_mode.available.GOD_IS_DEAD"
-          >God is dead</md-radio
+          >God is dead
+          <md-tooltip md-direction="top"
+            >In this game mode there is no elected Tzar, everyone can and should
+            vote. Submission with most votes earns the point!</md-tooltip
+          ></md-radio
         >
       </div>
       <md-field>
@@ -89,6 +107,11 @@ export default {
         GOD_IS_DEAD: "GOD_IS_DEAD",
       },
     },
+    dialog: {
+      active: false,
+      content: "default",
+      header: "header",
+    },
   }),
   props: {},
   components: {
@@ -113,6 +136,12 @@ export default {
     },
   },
   methods: {
+    displayAlert({ header, content }) {
+      console.log(`got: ${header} + ${content}`);
+      this.dialog.content = content;
+      this.dialog.header = header;
+      this.dialog.active = true;
+    },
     deckSelect(deck) {
       deck.isSelected = true;
       this.selected_decks.push(deck);
@@ -132,11 +161,19 @@ export default {
         gamePreferences,
         (error, data, response) => {
           if (error) {
-            console.error(error);
-            console.error(response);
-            pushMessageToSnackbar(
-              `Failed to create room.${JSON.parse(response.text).detail}`
-            );
+            let errorContent = error;
+            if (response.text) {
+              try {
+                errorContent += `,\n${JSON.parse(response.text).detail}`;
+              } catch (error) {
+                errorContent += `,\n${response.text}`;
+              }
+            }
+
+            this.displayAlert({
+              header: "Failed to create room",
+              content: errorContent,
+            });
           } else {
             this.room_data = JSON.parse(response.text);
             console.log("Room created");

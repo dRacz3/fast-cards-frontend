@@ -118,9 +118,6 @@ export default {
   mounted() {},
   methods: {
     on_white_card_clicked(card) {
-      console.log(
-        `Pick: ${this.room_data.currently_active_card.pick} >= ${this.cards_for_submission.length}`
-      );
       if (
         this.room_data.currently_active_card.pick <=
         this.cards_for_submission.length
@@ -128,19 +125,17 @@ export default {
         console.error("Trying to submit too many cards, remove a few.");
         return;
       }
-      console.log(`clicked: ${JSON.stringify(card)}`);
+
       this.cards_for_submission.push(card);
     },
 
     on_submitted_white_card_clicked(card) {
-      console.log(`Removing card: ${JSON.stringify(card)}`);
       this.cards_for_submission = this.cards_for_submission.filter(
         (v) => v !== card
       );
     },
 
     submitCards() {
-      console.log("Submitting from view");
       this.submitClicked(this.cards_for_submission);
       this.cards_for_submission = [];
     },

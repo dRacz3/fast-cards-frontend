@@ -58,7 +58,6 @@ export default {
     },
 
     voteCounts(submission) {
-      console.log(submission);
       let players_who_voted = this.room_data.other_players
         .filter((p) => p.votes)
         .filter((p) => p.votes.length > 0)
@@ -68,7 +67,7 @@ export default {
         .reduce((acc, currentValue) => {
           return [...acc, currentValue.username];
         }, []);
-      console.log(players_who_voted);
+
       return players_who_voted;
     },
   },
@@ -77,9 +76,7 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    console.log("Mounted");
-  },
+  mounted() {},
 
   beforeUpdate() {},
   computed: {

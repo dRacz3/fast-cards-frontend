@@ -14,7 +14,14 @@
           <md-input v-model="password"></md-input>
         </md-field>
 
-        <md-card-actions>
+        <div v-if="login_info">
+          {{ login_info }}
+        </div>
+        <div v-if="login_started">
+          <md-progress-bar md-mode="indeterminate"></md-progress-bar>
+        </div>
+
+        <md-card-actions v-else>
           <md-button
             class="md-accent md-raised"
             @click="populateLoginWithRandomStuff()"
@@ -32,6 +39,7 @@
 
     <div v-else>
       <h1>You are logged in. Do you want to log out?</h1>
+      <div v-if="login_info">{{ login_info }}</div>
       <md-button class="md-accent" @click="logout()">
         <md-icon>exit_to_app</md-icon>Log out</md-button
       >
@@ -52,12 +60,15 @@ export default {
     password: null,
     token: null,
     devmode: false,
+    login_started: false,
+    login_info: null,
   }),
   props: {
     msg: String,
   },
   methods: {
     register() {
+      this.login_started = true;
       apiclient.defaultHeaders = {};
       let userRegistrationSchema = new UserSchema(
         this.username,
@@ -65,27 +76,27 @@ export default {
         this.password
       );
 
-      console.log(
-        `Registering with: ${JSON.stringify(userRegistrationSchema)}`
-      );
+      this.login_info = `Registration in progress...`;
 
       this.$store.commit(
         "push_message_to_snackbar",
-        `Registration, please wait. Might take some time. This is running on a dump raspberry`
+        `Registration, please wait. Might take some time. This is running on a dumb raspberry`
       );
       userApi.createUserAuthSignupPost(
         userRegistrationSchema,
         (error, data, response) => {
+          this.login_started = false;
           if (error) {
-            console.error(error);
-            this.$store.commit(
-              "push_message_to_snackbar",
-              `Registration failed with ${error} error is : ${response.text}`
-            );
+            this.login_info = `Registration failure: ${error}`;
           } else {
             this.token = JSON.parse(response.text).access_token;
             this.storeSuccessfulLoginData(this.token, this.username);
-            this.$router.push("/game-overview");
+            this.login_info =
+              "Logged in, redirecting you to the game lobby soon";
+
+            setTimeout(() => {
+              this.$router.push("/game-overview");
+            }, 1000);
           }
         }
       );
@@ -106,23 +117,26 @@ export default {
       return cookieValue;
     },
     login() {
+      this.login_info = `Logging in...`;
       let logindata = new UserLoginSchema(this.username, this.password);
+      this.login_started = true;
       userApi.userLoginAuthLoginPost(logindata, (error, data, response) => {
+        this.login_started = false;
         if (error) {
-          console.error(error);
-          this.$store.commit(
-            "push_message_to_snackbar",
-            "Login failed with " + error + " error is : " + response.text
-          );
+          this.login_info = `Login failure: ${error}`;
         } else {
           const parsedResponse = JSON.parse(response.text);
           this.token = parsedResponse.access_token;
           this.storeSuccessfulLoginData(this.token, this.username);
-          this.$router.push("/game-overview");
+          this.login_info = "Logged in, redirecting you to the game lobby soon";
+          setTimeout(() => {
+            this.$router.push("/game-overview");
+          }, 3000);
         }
       });
     },
     logout() {
+      this.login_started = false;
       this.username = null;
       this.password = null;
       this.token = null;
@@ -136,6 +150,7 @@ export default {
     },
 
     storeSuccessfulLoginData(token, username) {
+      this.login_failure_msg = null;
       this.$store.commit("update_api_token", {
         token: token,
         username: username,
@@ -151,7 +166,7 @@ export default {
     },
 
     populateLoginWithRandomStuff() {
-      this.username = generateName().replace(" ", "_");
+      this.username = generateName().replace(/ /g, "_");
       this.password = this.username + "123";
     },
   },
@@ -160,7 +175,7 @@ export default {
     this.devmode = this.$store.state.developer_mode;
     const logged_in_username = this.$store.state.logged_in_username;
 
-    this.username = logged_in_username || generateName().replace(" ", "_");
+    this.username = logged_in_username || generateName().replace(/ /g, "_");
     this.password = this.username + "123";
   },
 

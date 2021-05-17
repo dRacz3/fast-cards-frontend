@@ -1,5 +1,10 @@
 <template>
   <div class="page-container">
+    <div v-if="updateExists">
+      A new version is available, please update or suffer the consequences.
+      (Like bugs, and stuff not working properly or at all.)
+      <md-button @click="refreshApp">Update </md-button>
+    </div>
     <md-app>
       <md-app-toolbar class="md-primary" md-elevation="0">
         <md-button
@@ -26,7 +31,7 @@
         <md-list>
           <md-list-item to="/">
             <md-icon>account_circle</md-icon>
-            <span class="md-list-item-text"> Login </span>
+            <span class="md-list-item-text"> Account </span>
           </md-list-item>
           <md-list-item to="/game-overview" v-if="isUserLoggedIn">
             <md-icon>games</md-icon>
@@ -59,6 +64,7 @@
 
 <script>
 import { apiclient, authApi } from "./main";
+import update from "./mixins/update";
 
 export default {
   data: () => ({
@@ -70,7 +76,11 @@ export default {
       message: "",
     },
     isUserLoggedIn: false,
+    login_check_interval: null,
+    login_check_in_progress: false,
   }),
+  // file deepcode ignore VueMissingCleanup: As it is needed for prod update
+  mixins: [update],
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
@@ -87,14 +97,16 @@ export default {
 
     format_event(event) {
       if (typeof event != "string" && "message" in event) {
-        console.log(`New message received: ${event.message}`);
         return event.message;
       } else {
         const serializedEvent = JSON.stringify(event);
-        console.log(`Received event: ${serializedEvent}`);
         return serializedEvent;
       }
     },
+  },
+
+  beforeDestroy() {
+    clearInterval(this.login_check_interval);
   },
   mounted() {
     document.title = "Fast Cards";
@@ -105,17 +117,24 @@ export default {
       apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
-      setInterval(() => {
-        authApi.isMyLoginValidAuthIsMyLoginValidGet((error, data, response) => {
-          if (error) {
-            this.isUserLoggedIn = false;
-          } else {
-            console.debug(data);
-            console.debug(response);
-            this.isUserLoggedIn = true;
-          }
-          this.$store.commit("update_login_validity", this.isUserLoggedIn);
-        });
+      this.login_check_interval = setInterval(() => {
+        // Don't spam with requests if there is one alredy ongoing.
+        if (!this.login_check_in_progress) {
+          this.login_check_in_progress = true;
+          authApi.isMyLoginValidAuthIsMyLoginValidGet(
+            (error, data, response) => {
+              this.login_check_in_progress = false;
+              if (error) {
+                this.isUserLoggedIn = false;
+              } else {
+                console.debug(data);
+                console.debug(response);
+                this.isUserLoggedIn = true;
+              }
+              this.$store.commit("update_login_validity", this.isUserLoggedIn);
+            }
+          );
+        }
       }, 1000);
     }
   },

@@ -28,11 +28,6 @@ export default {
 
   props: {
     submission: { required: true },
-    // black_card: { required: true },
-    // white_card_list: {
-    //   type: Array,
-    //   required: true,
-    // },
     isPlayerAllowedToVote: {
       required: true,
       type: Boolean,
@@ -56,7 +51,6 @@ export default {
   },
   computed: {
     renderedResult() {
-      console.log(this.submission);
       const black_card = this.submission.black_card;
       const white_cards = this.submission.white_cards;
 

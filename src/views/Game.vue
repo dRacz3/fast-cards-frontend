@@ -1,10 +1,18 @@
 <template>
   <div>
+    <div>
+      <md-dialog :md-active.sync="dialog.active">
+        <md-dialog-title>Proceeding to the next stage</md-dialog-title>
+        <md-dialog-content>{{ dialog.content }}</md-dialog-content>
+        <md-progress-bar md-mode="indeterminate"></md-progress-bar>
+      </md-dialog>
+    </div>
     <div v-if="!isUserLoginValid">
       <user-login-failure></user-login-failure>
     </div>
+
     <div v-else>
-      <div v-if="!room_data">
+      <div v-if="!isUserInGameRoom">
         <div>
           <md-toolbar>
             <h1 class="md-title" style="flex: 1">Welcome to the lobby</h1>
@@ -21,14 +29,8 @@
           </md-toolbar>
           <div v-if="show_advanced_room_options">
             <game-preferences
-              :available_decks="dummydecks"
               @newRoomCreated="newRoomCreated"
             ></game-preferences>
-
-            <!-- <md-button class="md-raised" @click="joinRoom">Join</md-button> -->
-            <!-- <md-button class="md-raised" @click="refreshRoomList"
-            >Refresh rooms</md-button
-          > -->
           </div>
         </div>
 
@@ -41,7 +43,7 @@
           ></room-selection>
         </div>
       </div>
-      <md-toolbar v-if="room_data">
+      <md-toolbar v-if="isUserInGameRoom">
         <h1 style="flex: 1" class="md-title">
           You are currently in room [{{ room_name }}]
         </h1>
@@ -54,39 +56,43 @@
       </md-toolbar>
       <!-- Room header -->
       <div></div>
-      <!-- {{ room_data }} -->
-      <!-- <md-button @click="refresh">Refresh</md-button> -->
 
-      <div v-if="room_data">
+      <div v-if="isUserInGameRoom">
         <!-- Before the game  starts -->
-        <div v-if="room_data.state === 'STARTING'">
-          <welcome-view
-            @startGameClicked="startGame"
-            :room_data="room_data"
-          ></welcome-view>
+        <div v-if="current_displayed_state === 'STARTING'">
+          <transition name="fade">
+            <welcome-view
+              @startGameClicked="startGame"
+              :room_data="room_data"
+            ></welcome-view>
+          </transition>
         </div>
 
         <!-- When players are submitting cards -->
-        <div v-else-if="room_data.state === 'PLAYERS_SUBMITTING_CARDS'">
-          <players-submitting-view
-            :room_data="room_data"
-            :submitClicked="submit"
-          ></players-submitting-view>
+        <div v-else-if="current_displayed_state === 'PLAYERS_SUBMITTING_CARDS'">
+          <transition name="fade">
+            <players-submitting-view
+              :room_data="room_data"
+              :submitClicked="submit"
+            ></players-submitting-view>
+          </transition>
         </div>
-        <div v-else-if="room_data.state === 'TZAR_CHOOSING_WINNER'">
-          <choosing-winner-view
-            :room_data="room_data"
-            @onWinnerSelected="selectWinner"
-          ></choosing-winner-view>
+        <div v-else-if="current_displayed_state === 'TZAR_CHOOSING_WINNER'">
+          <transition name="fade">
+            <choosing-winner-view
+              :room_data="room_data"
+              @onWinnerSelected="selectWinner"
+            ></choosing-winner-view>
+          </transition>
         </div>
 
-        <div v-else-if="room_data.state === 'FINISHED'">
+        <div v-else-if="current_displayed_state === 'FINISHED'">
           <game-has-finished-view
             :room_data="room_data"
           ></game-has-finished-view>
         </div>
       </div>
-      <div v-if="room_data">
+      <div v-if="isUserInGameRoom">
         <websocket-view
           v-show="false"
           :room_data="room_data"
@@ -100,6 +106,7 @@
 
 <script>
 import { cardsAgainstApi, pushMessageToSnackbar } from "../main";
+import { gameStateTextNicer } from "@/helpers/nicerTexts";
 
 import RoomSelection from "@/components/RoomSelection/RoomSelection";
 import WelcomeView from "@/components/GameViews/WelcomeView";
@@ -117,26 +124,17 @@ export default {
     room_name_input: null,
     room_name: null,
     room_data: null,
+    current_displayed_state: null,
     submissions: [],
-    // refresh_timer: null,
+    refresh_timer: null,
+    room_refresh_in_progress: false,
     available_rooms: [],
     show_advanced_room_options: true,
-    dummydecks: [
-      {
-        id_name: "hungarian",
-        description: "Hungarian card collection",
-        official: false,
-        name: "hungarian",
-        icon: "hungarian",
-      },
-      {
-        id_name: "2012 Holiday Pack",
-        description: "2012 Holiday Pack",
-        official: true,
-        name: "2012 Holiday Pack",
-        icon: "2012 Holiday Pack",
-      },
-    ],
+    dialog: {
+      active: false,
+      content: "content unset",
+    },
+    advance_timeout: null,
   }),
   components: {
     "welcome-view": WelcomeView,
@@ -149,21 +147,53 @@ export default {
     "user-login-failure": UserLoginFailureDisplay,
   },
   mounted() {
-    // this.refreshRoomList();
+    this.refreshRoomList();
+    this.refresh_timer = setInterval(() => {
+      if (!this.room_refresh_in_progress) {
+        this.refreshRoomList();
+      }
+    }, 1000);
   },
-  destroyed() {
-    // clearInterval(this.refresh_timer);
-  },
-  unmounted() {
-    // clearInterval(this.refresh_timer);
+  destroyed() {},
+  unmounted() {},
+  beforeDestroy() {
+    clearInterval(this.refresh_timer);
   },
   methods: {
+    displayTemporaryDialog(message, time) {
+      this.dialog.content = message;
+      this.dialog.active = true;
+
+      setTimeout(() => {
+        this.dialog.active = false;
+        this.dialog.content = "";
+      }, time);
+    },
+
+    updateGameState(room_data) {
+      const prevState = this.current_displayed_state;
+      if (room_data.state) {
+        if (prevState !== room_data.state) {
+          if (this.isUserInGameRoom) {
+            const stateText = gameStateTextNicer.get(room_data.state);
+            this.displayTemporaryDialog(`${stateText} `, 1500);
+
+            this.advance_timeout = setTimeout(() => {
+              this.current_displayed_state = room_data.state;
+            }, 1000);
+          } else {
+            this.room_data = null;
+          }
+        }
+      }
+    },
+
     newRoomCreated(roomName) {
       this.refreshRoomList();
       this.directJoinRoom(roomName);
     },
+
     directJoinRoom(room_name) {
-      // console.log(`joining room directly`);
       this.room_name = room_name;
       this.joinRoom();
     },
@@ -179,8 +209,8 @@ export default {
             );
           } else {
             this.room_data = JSON.parse(response.text);
+            this.updateGameState(this.room_data);
             pushMessageToSnackbar("Joined room");
-            // this.refresh_timer = setInterval(() => this.refresh(), 2000);
           }
         }
       );
@@ -188,17 +218,25 @@ export default {
 
     leaveRoom() {
       this.refreshRoomList();
+      clearTimeout(this.advance_timeout);
       cardsAgainstApi.leaveGameGameLeavePost(
         this.room_name,
         (error, data, response) => {
           this.room_data = null;
           this.room_name = null;
+          this.current_displayed_state = null;
           pushMessageToSnackbar("Left room");
           if (error) {
             console.error(error);
-            pushMessageToSnackbar(
-              `Failed to leave room.${JSON.parse(response.text).detail}`
-            );
+            let message = error;
+            if (response.text) {
+              try {
+                message += ",  " + response.text;
+              } catch (error) {
+                message += ".";
+              }
+            }
+            pushMessageToSnackbar(`Failed to leave room.${message}`);
           }
         }
       );
@@ -212,6 +250,7 @@ export default {
           } else {
             pushMessageToSnackbar("Game has started");
             this.room_data = JSON.parse(response.text);
+            this.updateGameState(this.room_data);
           }
         }
       );
@@ -224,15 +263,14 @@ export default {
             if (error) {
               console.error(error);
             } else {
-              // pushMessageToSnackbar("Refresh success");
               this.room_data = JSON.parse(response.text);
+              this.updateGameState(this.room_data);
             }
           }
         );
       }
     },
     submit(cards) {
-      console.log(`Submit called: ${JSON.stringify(cards)}`);
       cards.map((v) => WhiteCard.constructFromObject(v));
       cardsAgainstApi.submitCardsGameSubmitPost(
         this.room_name,
@@ -240,12 +278,10 @@ export default {
         (error, data, response) => {
           if (error) {
             console.error(error);
-            pushMessageToSnackbar(
-              `Failed to Submit cards :.${JSON.parse(response.text).detail}`
-            );
+            pushMessageToSnackbar(`Failed to Submit cards :.${error}`);
           } else {
             this.room_data = JSON.parse(response.text);
-            // pushMessageToSnackbar("Cards submitted.");
+            this.updateGameState(this.room_data);
           }
         }
       );
@@ -263,12 +299,16 @@ export default {
           } else {
             // pushMessageToSnackbar("Winner was selected!");
             this.room_data = JSON.parse(response.text);
+            this.updateGameState(this.room_data);
           }
         }
       );
     },
     refreshRoomList() {
+      // TODO: room list refresh should be done via websocket events instead of polling.
+      this.room_refresh_in_progress = true;
       cardsAgainstApi.listRoomsGameRoomsGet((error, data, response) => {
+        this.room_refresh_in_progress = false;
         if (error) {
           console.error(error);
         } else {
@@ -283,7 +323,6 @@ export default {
     player() {
       return this.room_data.player;
     },
-    //! Display only cards that are not submitted
 
     isCurrentPlayerTzar() {
       return this.player.current_role === "TZAR";
@@ -292,6 +331,23 @@ export default {
     isUserLoginValid() {
       return this.$store.state.isLoginValid;
     },
+
+    isUserInGameRoom() {
+      return this.room_name && this.room_data;
+    },
   },
 };
 </script>
+
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.9s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
