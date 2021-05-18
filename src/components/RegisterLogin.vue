@@ -62,6 +62,7 @@ export default {
     devmode: false,
     login_started: false,
     login_info: null,
+    login_timer: null
   }),
   props: {
     msg: String,
@@ -94,7 +95,7 @@ export default {
             this.login_info =
               "Logged in, redirecting you to the game lobby soon";
 
-            setTimeout(() => {
+            this.login_timer = setTimeout(() => {
               this.$router.push("/game-overview");
             }, 1000);
           }
@@ -129,9 +130,9 @@ export default {
           this.token = parsedResponse.access_token;
           this.storeSuccessfulLoginData(this.token, this.username);
           this.login_info = "Logged in, redirecting you to the game lobby soon";
-          setTimeout(() => {
+          this.login_timer = setTimeout(() => {
             this.$router.push("/game-overview");
-          }, 3000);
+          }, 1000);
         }
       });
     },

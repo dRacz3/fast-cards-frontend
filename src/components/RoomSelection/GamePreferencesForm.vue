@@ -143,8 +143,11 @@ export default {
       this.dialog.active = true;
     },
     deckSelect(deck) {
-      deck.isSelected = true;
-      this.selected_decks.push(deck);
+      if (deck)
+      {
+        deck.isSelected = true;
+        this.selected_decks.push(deck);
+      }
     },
 
     deckUnSelect(deck) {
