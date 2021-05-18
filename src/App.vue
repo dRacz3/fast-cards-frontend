@@ -37,9 +37,9 @@
             <md-icon>games</md-icon>
             <span class="md-list-item-text">Game</span>
           </md-list-item>
-          <md-list-item to="/cards">
-            <md-icon>credit_card</md-icon>
-            <span class="md-list-item-text"> Cards</span>
+          <md-list-item to="/cards" v-if="isUserLoggedIn">
+            <md-icon>note_add</md-icon>
+            <span class="md-list-item-text"> Add new cards</span>
           </md-list-item>
           <!-- <md-list-item to="/chat">
             <md-icon>mail</md-icon>
@@ -110,32 +110,31 @@ export default {
   },
   mounted() {
     document.title = "Fast Cards";
+
+    this.login_check_interval = setInterval(() => {
+      // Don't spam with requests if there is one alredy ongoing.
+      if (!this.login_check_in_progress) {
+        this.login_check_in_progress = true;
+        authApi.isMyLoginValidAuthIsMyLoginValidGet((
+          error /* data, response*/
+        ) => {
+          this.login_check_in_progress = false;
+          if (error) {
+            this.isUserLoggedIn = false;
+          } else {
+            this.isUserLoggedIn = true;
+          }
+          this.$store.commit("update_login_validity", this.isUserLoggedIn);
+        });
+      }
+    }, 1000);
+
     let token = this.$store.state.api_token;
     if (token) {
-      console.log("Setting up authentication header");
       apiclient.defaultHeaders = { "Access-Control-Allow-Origin": "*" };
       apiclient.authentications["JWTBearer"].accessToken = token;
 
       this.$store.commit("register_event_callback", this.snakcbar_event);
-      this.login_check_interval = setInterval(() => {
-        // Don't spam with requests if there is one alredy ongoing.
-        if (!this.login_check_in_progress) {
-          this.login_check_in_progress = true;
-          authApi.isMyLoginValidAuthIsMyLoginValidGet(
-            (error, data, response) => {
-              this.login_check_in_progress = false;
-              if (error) {
-                this.isUserLoggedIn = false;
-              } else {
-                console.debug(data);
-                console.debug(response);
-                this.isUserLoggedIn = true;
-              }
-              this.$store.commit("update_login_validity", this.isUserLoggedIn);
-            }
-          );
-        }
-      }, 1000);
     }
   },
 };
