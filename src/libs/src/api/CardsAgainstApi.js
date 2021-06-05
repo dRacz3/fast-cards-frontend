@@ -41,6 +41,48 @@ export default class CardsAgainstApi {
 
 
     /**
+     * Callback function to receive the result of the advanceFromVotingGameAdvanceVotingGet operation.
+     * @callback module:api/CardsAgainstApi~advanceFromVotingGameAdvanceVotingGetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/GameStatePlayerView} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Advance From Voting
+     * @param {String} roomName 
+     * @param {module:api/CardsAgainstApi~advanceFromVotingGameAdvanceVotingGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/GameStatePlayerView}
+     */
+    advanceFromVotingGameAdvanceVotingGet(roomName, callback) {
+      let postBody = null;
+      // verify the required parameter 'roomName' is set
+      if (roomName === undefined || roomName === null) {
+        throw new Error("Missing the required parameter 'roomName' when calling advanceFromVotingGameAdvanceVotingGet");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'room_name': roomName
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['JWTBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = GameStatePlayerView;
+      return this.apiClient.callApi(
+        '/game/advance_voting', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the createNewGameGameNewPost operation.
      * @callback module:api/CardsAgainstApi~createNewGameGameNewPostCallback
      * @param {String} error Error message, if any.
