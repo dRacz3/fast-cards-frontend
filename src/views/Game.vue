@@ -85,7 +85,16 @@
             ></choosing-winner-view>
           </transition>
         </div>
-
+        <div
+          v-else-if="current_displayed_state === 'PLAYERS_INSPECTING_RESULT'"
+        >
+          <transition name="fade">
+            <player-insecpt-votes-view
+              :room_data="room_data"
+              @advanceClicked="advanceClicked"
+            ></player-insecpt-votes-view>
+          </transition>
+        </div>
         <div v-else-if="current_displayed_state === 'FINISHED'">
           <game-has-finished-view
             :room_data="room_data"
@@ -112,6 +121,7 @@ import RoomSelection from "@/components/RoomSelection/RoomSelection";
 import WelcomeView from "@/components/GameViews/WelcomeView";
 import PlayersSubmittingView from "@/components/GameViews/PlayersSubmittingView";
 import ChoosingWinner from "@/components/GameComponents/ChoosingWinner";
+import PlayerInspectingVotes from "@/components/GameComponents/PlayerInspectingVotes";
 import GameFinishedView from "@/components/GameViews/GameFinishedView";
 import GamePreferencesForm from "@/components/RoomSelection/GamePreferencesForm";
 import UserLoginFailureDisplay from "@/components/UserLoginFailureDisplay";
@@ -140,6 +150,7 @@ export default {
     "welcome-view": WelcomeView,
     "players-submitting-view": PlayersSubmittingView,
     "choosing-winner-view": ChoosingWinner,
+    "player-insecpt-votes-view": PlayerInspectingVotes,
     "game-has-finished-view": GameFinishedView,
     "room-selection": RoomSelection,
     "websocket-view": WebsocketView,
@@ -301,6 +312,18 @@ export default {
             this.room_data = JSON.parse(response.text);
             this.updateGameState(this.room_data);
           }
+        }
+      );
+    },
+
+    advanceClicked() {
+      cardsAgainstApi.advanceFromVotingGameAdvanceVotingGet(
+        this.room_name,
+        (error /*data, response*/) => {
+          if (error) {
+            console.error(error);
+          }
+          this.refresh();
         }
       );
     },
