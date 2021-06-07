@@ -1,6 +1,9 @@
 <template>
   <div class="disable_selection">
     <md-card class="player_card" md-with-hover>
+      <md-tooltip md-direction="left">{{
+        this.player_data.username
+      }}</md-tooltip>
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{ displayed_name }}</div>
@@ -32,11 +35,11 @@ export default {
   components: {},
   props: {
     player_data: {
-      required: true
+      required: true,
     },
     has_submitted_this_round: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   computed: {
     displayed_name() {
@@ -44,8 +47,8 @@ export default {
     },
     isTzar() {
       return this.player_data.current_role === "TZAR";
-    }
-  }
+    },
+  },
 };
 </script>
 

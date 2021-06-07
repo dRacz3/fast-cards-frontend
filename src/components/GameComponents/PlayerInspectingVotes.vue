@@ -49,6 +49,14 @@ export default {
     },
 
     voteCounts(submission) {
+      if (this.room_data.mode === "NORMAL") {
+        return this.room_data.other_players.reduce((acc, currentPlayer) => {
+          if (currentPlayer.current_role === "TZAR") {
+            return [`The Tzar :${currentPlayer.username}`];
+          }
+          return acc;
+        }, []);
+      }
       let players_who_voted = this.room_data.other_players
         .filter((p) => p.votes)
         .filter((p) => p.votes.length > 0)
